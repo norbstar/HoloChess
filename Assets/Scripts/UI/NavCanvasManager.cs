@@ -7,6 +7,7 @@ namespace UI
 {
     [RequireComponent(typeof(CanvasGroupAlphaMutator))]
     [RequireComponent(typeof(PositionMutator))]
+    [RequireComponent(typeof(Animator))]
     public class NavCanvasManager : CachedObject<SceneNavigator>
     {
         [Header("Config")]
@@ -20,6 +21,7 @@ namespace UI
 
         private CanvasGroupAlphaMutator alphaMutator;
         private PositionMutator positionMutator;
+        private Animator animator;
         private State state;
 
         protected override void Awake()
@@ -34,6 +36,7 @@ namespace UI
         {
             alphaMutator = GetComponent<CanvasGroupAlphaMutator>() as CanvasGroupAlphaMutator;
             positionMutator = GetComponent<PositionMutator>() as PositionMutator;
+            animator = GetComponent<Animator>() as Animator;
         }
 
         void OnEnable()
@@ -56,12 +59,14 @@ namespace UI
         {
             if (state == State.Shown)
             {
-                positionMutator.MoveTo(new Vector3(0f, -425f, 0f));
+                // positionMutator.MoveTo(new Vector3(0f, -425f, 0f));
+                animator.SetTrigger("Hide");
                 state = State.Hidden;
             }
             else
             {
-                positionMutator.MoveTo(new Vector3(0f, 0f, 0f));
+                // positionMutator.MoveTo(new Vector3(0f, 0f, 0f));
+                animator.SetTrigger("Show");
                 state = State.Shown;
             }
         }
