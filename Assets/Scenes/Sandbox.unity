@@ -404,7 +404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901777d40dd0f174d9d545d9f7f1bf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mutator: {fileID: 0}
 --- !u!65 &639474166
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -479,9 +478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f78e33cd1c8184e945c5087492a935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 639474163}
-  timespan: 1.5
-  renderer: {fileID: 0}
 --- !u!114 &639474170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,6 +624,8 @@ MonoBehaviour:
       m_Action: Input
       m_Flags: 0
     m_Flags: 0
+  animator: {fileID: 0}
+  state: 0
 --- !u!225 &839432885
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -636,7 +634,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839432879}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -950,8 +948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eee7146e66e074189184cf9d07baa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1362848966}
-  speed: 3
 --- !u!114 &1362848972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,8 +960,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f273f36470b2b41831e03301af9703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {x: -3, y: 0.5, z: 0}
-  mutator: {fileID: 0}
 --- !u!1 &1554860372
 GameObject:
   m_ObjectHideFlags: 0

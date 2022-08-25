@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace UI
 {
     [RequireComponent(typeof(Animator))]
-    public class NavCanvasManager : CachedObject<SceneNavigator>
+    public class NavCanvasUIManager : CachedObject<SceneNavigator>
     {
         [Header("Config")]
         [SerializeField] InputAction inputAction;
