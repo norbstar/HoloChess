@@ -2,13 +2,15 @@ using System.Collections;
 
 using UnityEngine;
 
+using NaughtyAttributes;
+
 namespace Mutator
 {
     public class PositionMutator : MonoBehaviour
     {
         [Header("Config")]
         [SerializeField] GameObject target;
-        public GameObject Target { get { return target; } }
+        [Label("Speed (XPS)")]
         [SerializeField] float speed = 1f;
         public float Speed { get { return speed; } }
 
@@ -34,19 +36,20 @@ namespace Mutator
             float startTime = Time.time;
             float fractionComplete = 0f;
             Vector3 originalPosition = target.transform.position;
-            Debug.Log($"Original Position : {originalPosition}");
+            Vector3 vector = (position - originalPosition).normalized;
+            float distance = 0f;
 
             while (fractionComplete < 1f)
             {
-                float distance = (Time.time - startTime) * speed;
-                // Debug.Log($"Distance : {distance}");
+                distance += Time.deltaTime * speed;
                 fractionComplete = distance / Vector3.Distance(originalPosition, position);
-                // Debug.Log($"FC : {fractionComplete}");
-                var vector = (position - target.transform.position).normalized;
-                // Debug.Log($"Vector : {vector}");
-                target.transform.position += vector * speed * Time.deltaTime;
-                Debug.Log($"Position : {target.transform.position}");
-                EventReceived?.Invoke(this, fractionComplete);
+
+                if (fractionComplete <= 1f)
+                {
+                    target.transform.position = originalPosition + (vector * distance);
+                    EventReceived?.Invoke(this, fractionComplete);
+                }
+
                 yield return null;
             }
 

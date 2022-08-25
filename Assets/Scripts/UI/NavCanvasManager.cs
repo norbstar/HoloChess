@@ -12,14 +12,22 @@ namespace UI
         [Header("Config")]
         [SerializeField] InputAction inputAction;
 
+        public enum State
+        {
+            Shown,
+            Hidden
+        }
+
         private CanvasGroupAlphaMutator alphaMutator;
         private PositionMutator positionMutator;
-        private bool panelShown;
+        private State state;
 
         protected override void Awake()
         {
             base.Awake();
             ResolveDependencies();
+
+            state = State.Hidden;
         }
 
         private void ResolveDependencies()
@@ -46,20 +54,18 @@ namespace UI
 
         private void OnEscape(InputAction.CallbackContext context)
         {
-            if (panelShown)
+            if (state == State.Shown)
             {
-                alphaMutator.FadeOut();
-                // positionMutator.MoveTo(new Vector3(0f, -425f, 0f));
+                positionMutator.MoveTo(new Vector3(0f, -425f, 0f));
+                state = State.Hidden;
             }
             else
             {
-                alphaMutator.FadeIn();
-                // positionMutator.MoveTo(new Vector3(0f, 0f, 0f));
+                positionMutator.MoveTo(new Vector3(0f, 0f, 0f));
+                state = State.Shown;
             }
-
-            panelShown = !panelShown;
         }
 
-        private void OnPositionChange(PositionMutator mutator, float fractionComplete) { }
+        private void OnPositionChange(PositionMutator mutator, float fractionComplete) => alphaMutator.SyncTo((state == State.Shown) ? fractionComplete : 1f - fractionComplete);
    }
 }
