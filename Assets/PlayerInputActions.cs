@@ -55,7 +55,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Keyboard"",
+                    ""name"": ""Custom"",
                     ""type"": ""Button"",
                     ""id"": ""847601d9-d58f-4d4b-ad63-1ec25fa17d78"",
                     ""expectedControlType"": ""Button"",
@@ -292,7 +292,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""Custom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -883,7 +883,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_Keyboard = m_Player.FindAction("Keyboard", throwIfNotFound: true);
+        m_Player_Custom = m_Player.FindAction("Custom", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -958,7 +958,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_Keyboard;
+    private readonly InputAction m_Player_Custom;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -966,7 +966,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
-        public InputAction @Keyboard => m_Wrapper.m_Player_Keyboard;
+        public InputAction @Custom => m_Wrapper.m_Player_Custom;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -985,9 +985,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Keyboard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKeyboard;
-                @Keyboard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKeyboard;
-                @Keyboard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKeyboard;
+                @Custom.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCustom;
+                @Custom.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCustom;
+                @Custom.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCustom;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1001,9 +1001,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @Keyboard.started += instance.OnKeyboard;
-                @Keyboard.performed += instance.OnKeyboard;
-                @Keyboard.canceled += instance.OnKeyboard;
+                @Custom.started += instance.OnCustom;
+                @Custom.performed += instance.OnCustom;
+                @Custom.canceled += instance.OnCustom;
             }
         }
     }
@@ -1163,7 +1163,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnKeyboard(InputAction.CallbackContext context);
+        void OnCustom(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

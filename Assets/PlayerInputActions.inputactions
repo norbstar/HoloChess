@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Keyboard",
+                    "name": "Custom",
                     "type": "Button",
                     "id": "847601d9-d58f-4d4b-ad63-1ec25fa17d78",
                     "expectedControlType": "Button",
@@ -270,7 +270,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Keyboard",
+                    "action": "Custom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
