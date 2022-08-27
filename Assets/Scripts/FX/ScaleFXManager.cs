@@ -17,7 +17,7 @@ namespace FX
 
             scaleFX.StartAsync(new FX.ScaleFX.Config
             {
-                target = gameObject,
+                // target = gameObject,
                 fromScale = fromScale,
                 toScale = toScale
             });
@@ -29,7 +29,7 @@ namespace FX
 
             scaleFX.StartAsync(new FX.ScaleFX.Config
             {
-                target = gameObject,
+                // target = gameObject,
                 fromScale = fromScale,
                 toScale = toScale
             });

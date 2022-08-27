@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 1383247278286205774}
   - component: {fileID: 1383247278286205760}
   - component: {fileID: 1383247278286205761}
-  - component: {fileID: 1383247278286205763}
   - component: {fileID: 1383247278286205765}
   - component: {fileID: 1383247278286205762}
   m_Layer: 5
@@ -346,18 +345,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1383247278286205763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1383247278286205775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c436f6f8d2986469f290ae23f49c09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1383247278286205765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeline: 0.25
+  synchronize: 1
 --- !u!114 &1383247278286205762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7971698, g: 0.9218545, b: 1, a: 1}
+  m_Color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -723,7 +711,7 @@ RectTransform:
   m_GameObject: {fileID: 1383247279661892249}
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 35, y: 35, z: 1}
   m_Children:
   - {fileID: 1383247277709399041}
   - {fileID: 1383247279379343887}
@@ -733,7 +721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.4, y: -6.1}
+  m_AnchoredPosition: {x: -16.4, y: -6.100006}
   m_SizeDelta: {x: 16, y: 5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1383247279661892252
@@ -788,7 +776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1383247279379343886}
   toggle: {fileID: 7139689411593491258}
-  eventHandler: {fileID: 1383247278286205763}
+  eventHandler: {fileID: 0}
   onHoverClip: {fileID: 8300000, guid: 5918e1159f1004249a91f32a9648c402, type: 3}
   enableHaptics: 1
 --- !u!1 &1952502258351204608
