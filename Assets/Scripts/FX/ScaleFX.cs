@@ -8,11 +8,12 @@ namespace FX
     public class ScaleFX : AsyncTrigger
     {
         [SerializeField] float timeline = 1f;
-        public float Timespan { get { return timeline; } }
+        public float Timeline { get { return timeline; } }
 
         [Serializable]
         public class Config
         {
+            public GameObject target;
             public Vector3 fromScale;
             public Vector3 toScale;
         }
@@ -22,15 +23,13 @@ namespace FX
         protected override IEnumerator Co_Routine(object obj)
         {
             config = (Config) obj;
-            Debug.Log($"Timeline : {timeline}");
+
             float startTime = Time.time;
             float fractionComplete = 0f;
             Vector3 originalScale = transform.localScale;
             
-            var start = Time.time;
             while (fractionComplete < 1f)
             {
-                Debug.Log($"FC : {fractionComplete}");
                 fractionComplete =  Mathf.Clamp((Time.time - startTime) / timeline, 0f, 1f);
                 
                 transform.localScale = new Vector3
@@ -42,8 +41,6 @@ namespace FX
 
                 yield return null;
             }
-            var end = Time.time;
-            Debug.Log($"{end - start}");
         }
     }
 }

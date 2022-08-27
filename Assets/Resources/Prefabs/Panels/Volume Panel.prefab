@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4762bdca5d9194ca65cfcdbaa535eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeline: 1
+  timeline: 0.25
 --- !u!114 &1383247278286205762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,7 +789,7 @@ MonoBehaviour:
   slider: {fileID: 1383247279379343886}
   toggle: {fileID: 7139689411593491258}
   eventHandler: {fileID: 1383247278286205763}
-  onHoverClip: {fileID: 8300000, guid: d47d1fa76bae6e04ebd17fbd58ce8e3a, type: 3}
+  onHoverClip: {fileID: 8300000, guid: 5918e1159f1004249a91f32a9648c402, type: 3}
   enableHaptics: 1
 --- !u!1 &1952502258351204608
 GameObject:

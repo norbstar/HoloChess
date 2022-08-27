@@ -72,19 +72,6 @@ namespace UI
             eventHandler.EventReceived -= OnPointerEvent;
         }
 
-        public void ResetButtons()
-        {
-            var transform = button.transform;
-            transform.localScale = originalScale;
-
-            var manager = transform.gameObject.GetComponent<ButtonUI>() as ButtonUI;
-
-            if (manager.Header != null)
-            {
-                manager.HeaderColor = manager.DefaultHeaderColor;
-            }
-        }
-
         private XRUIInputModule GetXRInputModule() => EventSystem.current.currentInputModule as XRUIInputModule;
 
         private bool TryGetXRRayInteractor(int pointerID, out XRRayInteractor rayInteractor)

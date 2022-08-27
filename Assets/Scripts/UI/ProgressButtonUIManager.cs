@@ -13,11 +13,12 @@ namespace UI
     [RequireComponent(typeof(ColorGradient))]
     public class ProgressButtonUIManager : ButtonUIManager
     {
-        [Header("Components")]
+        [Header("Progress Components")]
         [SerializeField] Image progress;
 
-        [Header("Config")]
-        [SerializeField] float progressTimeline = 0.5f;
+        [Header("Progress Config")]
+        [SerializeField] float progressTimeline = 1f;
+        public float ProgressTimeline { get { return progressTimeline; } }
 
         private Coroutine coroutine;
         private ColorGradient colorGradient;

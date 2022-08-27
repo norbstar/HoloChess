@@ -31,8 +31,8 @@ public class SliderPanelUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        originalScale = transform.localScale;
-
+        originalScale = slider.handleRect.transform.localScale;
+        
         slider.onValueChanged.AddListener(delegate {
             OnValueChanged(slider.value);
         });
@@ -99,7 +99,7 @@ public class SliderPanelUIManager : MonoBehaviour
             rayInteractor?.SendHapticImpulse(0.25f, 0.1f);
         }
 
-        manager.ScaleUp(originalScale, originalScale* 1.1f);
+        manager.ScaleUp(originalScale, originalScale * 1.1f);
 
         if (onHoverClip != null)
         {
