@@ -11,7 +11,7 @@ namespace FX
 
         private void ResolveDependencies() => scaleFX = GetComponent<FX.ScaleFX>() as FX.ScaleFX;
 
-        public void ScaleUp(float fromScale, float toScale)
+        public void ScaleUp(Vector3 fromScale, Vector3 toScale)
         {
             scaleFX.StopAsync();
 
@@ -22,7 +22,7 @@ namespace FX
             });
         }
 
-        public void ScaleDown(float fromScale, float toScale)
+        public void ScaleDown(Vector3 fromScale, Vector3 toScale)
         {
             scaleFX.StopAsync();
 

@@ -7,54 +7,43 @@ namespace FX
 {
     public class ScaleFX : AsyncTrigger
     {
-        [SerializeField] float timespan = 1.0f;
+        [SerializeField] float timeline = 1f;
+        public float Timespan { get { return timeline; } }
 
         [Serializable]
         public class Config
         {
-            public float fromScale = 1.0f;
-            public float toScale = 1.0f;
+            public Vector3 fromScale;
+            public Vector3 toScale;
         }
 
-        protected Vector3 originalScale;
-
         private Config config;
-
-        void Awake() => ResolveDependencies();
-
-        private void ResolveDependencies() => originalScale = transform.localScale;
 
         protected override IEnumerator Co_Routine(object obj)
         {
             config = (Config) obj;
-
-            var tmp = Mathf.Abs(config.fromScale - config.toScale);
-            var step = tmp / timespan;
-            var journey = Mathf.Abs(originalScale.x - config.toScale);
-
-            float startTransformTime = Time.time;
-            bool complete = false;
-
-            if (journey > 0f)
+            Debug.Log($"Timeline : {timeline}");
+            float startTime = Time.time;
+            float fractionComplete = 0f;
+            Vector3 originalScale = transform.localScale;
+            
+            var start = Time.time;
+            while (fractionComplete < 1f)
             {
-                var adjustedDuration = step * journey;
-
-                while (!complete)
+                Debug.Log($"FC : {fractionComplete}");
+                fractionComplete =  Mathf.Clamp((Time.time - startTime) / timeline, 0f, 1f);
+                
+                transform.localScale = new Vector3
                 {
-                    float fractionComplete =  Mathf.Clamp((Time.time - startTransformTime) / adjustedDuration, 0f, 1f);
-                    SetScale(Mathf.Lerp(originalScale.x, config.toScale, (float) fractionComplete));
+                    x = Mathf.Lerp(originalScale.x, config.toScale.x, (float) fractionComplete),
+                    y = Mathf.Lerp(originalScale.y, config.toScale.y, (float) fractionComplete),
+                    z = Mathf.Lerp(originalScale.z, config.toScale.z, (float) fractionComplete)
+                };
 
-                    if (fractionComplete >= 1f)
-                    {
-                        complete = true;
-                    }
-
-                    yield return null;
-                }
+                yield return null;
             }
+            var end = Time.time;
+            Debug.Log($"{end - start}");
         }
-
-        // private void SetScale(float scale) => transform.localScale = new Vector3(originalScale.x * scale, originalScale.y * scale, originalScale.z * scale);
-        private void SetScale(float scale) => transform.localScale = new Vector3(scale, scale, scale);
     }
 }

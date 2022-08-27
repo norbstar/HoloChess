@@ -157,7 +157,7 @@ namespace UI
             }
 
             var scaleFXManager = manager.ScaleFXManager;
-            scaleFXManager.ScaleUp(originalScale.z, originalScale.z * 1.1f);
+            scaleFXManager.ScaleUp(originalScale, originalScale* 1.1f);
             
             if (onHoverClip != null)
             {
@@ -232,7 +232,7 @@ namespace UI
             }
 
             var scaleFXManager = manager.ScaleFXManager;
-            scaleFXManager.ScaleDown(originalScale.z * 1.1f, originalScale.z);
+            scaleFXManager.ScaleDown(originalScale * 1.1f, originalScale);
 
             yield return null;
         }

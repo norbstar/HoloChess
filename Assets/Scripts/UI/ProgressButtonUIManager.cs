@@ -10,22 +10,28 @@ using UnityButton = UnityEngine.UI.Button;
 
 namespace UI
 {
+    [RequireComponent(typeof(ColorGradient))]
     public class ProgressButtonUIManager : ButtonUIManager
     {
         [Header("Components")]
         [SerializeField] Image progress;
 
         [Header("Config")]
-        [SerializeField] float delaySec = 0.5f;
+        [SerializeField] float progressTimeline = 0.5f;
 
         private Coroutine coroutine;
+        private ColorGradient colorGradient;
         private float fractionComplete;
 
         public override void Awake()
         {
             base.Awake();
+
+            ResolveDependencies();
             progress.fillAmount = 0f;
         }
+
+        private void ResolveDependencies() => colorGradient = GetComponent<ColorGradient>() as ColorGradient;
 
         protected override void OnPointerDown(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
@@ -68,14 +74,15 @@ namespace UI
         {
             bool complete = false;           
             float startTime = Time.time;            
-            float endTime = startTime + delaySec;
+            float endTime = startTime + progressTimeline;
 
             while (!complete)
             {
-                fractionComplete = (Time.time - startTime) / delaySec;
+                fractionComplete = (Time.time - startTime) / progressTimeline;
                 complete = (fractionComplete >= 1f);
                 
                 progress.fillAmount = fractionComplete;
+                progress.color = colorGradient.Value(fractionComplete);
 
                 yield return null;
             }
