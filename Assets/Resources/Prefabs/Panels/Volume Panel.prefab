@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 1383247278286205761}
   - component: {fileID: 1383247278286205765}
   - component: {fileID: 1383247278286205762}
+  - component: {fileID: 6173200737864791451}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -369,6 +370,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5335dc2c4d714a341b2ffc5711861435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6173200737864791451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383247278286205775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb472d903074724eb95fda253794b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1383247278697331638
@@ -761,7 +774,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 100
+  m_PixelsPerUnitMultiplier: 200
 --- !u!114 &1383247279661892255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -776,7 +789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1383247279379343886}
   toggle: {fileID: 7139689411593491258}
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 6173200737864791451}
   onHoverClip: {fileID: 8300000, guid: 5918e1159f1004249a91f32a9648c402, type: 3}
   enableHaptics: 1
 --- !u!1 &1952502258351204608
@@ -804,7 +817,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952502258351204608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 6857065065402274948}
