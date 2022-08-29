@@ -1,5 +1,3 @@
-using UnityButton = UnityEngine.UI.Button;
-
 namespace UI
 {
     public class ShortcutPanelUIManager : ButtonGroupPanelUIManager
@@ -13,7 +11,7 @@ namespace UI
         }
 
         public delegate void OnClickEvent(Identity identity);
-        public static event OnClickEvent EventReceived;
+        public event OnClickEvent ClickEventReceived;
 
         public override void OnClickButton(ButtonContainer container)
         {
@@ -23,19 +21,19 @@ namespace UI
 
             if (name.Equals("Game Button"))
             {
-                EventReceived?.Invoke(Identity.Game);
+                ClickEventReceived?.Invoke(Identity.Game);
             }
             else if (name.Equals("Settings Button"))
             {
-                EventReceived?.Invoke(Identity.Settings);
+                ClickEventReceived?.Invoke(Identity.Settings);
             }
             else if (name.Equals("About Button"))
             {
-                EventReceived?.Invoke(Identity.About);
+                ClickEventReceived?.Invoke(Identity.About);
             }
             else if (name.Equals("Exit Button"))
             {
-                EventReceived?.Invoke(Identity.Exit);
+                ClickEventReceived?.Invoke(Identity.Exit);
             }
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] PlayerInputActions inputActions;
+    [Header("Config")]
     [SerializeField] float moveSpeed = 10f;
 
     private new Rigidbody rigidbody;
@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     private InputAction fire;
     private InputAction keyboard;
     private InputAction click;
-
     private Vector2 moveDirection;
+    private PlayerInputActions inputActions;
 
     void Awake() => inputActions = new PlayerInputActions();
 
