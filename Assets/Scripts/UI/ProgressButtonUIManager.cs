@@ -69,13 +69,15 @@ namespace UI
             progress.fillAmount = 0f;
         }
 
-        public override void OnClickButton(UnityButton button) => progress.fillAmount = 0f;
+        public override void OnClickButton(UnityButton button) { }
 
         private IEnumerator ManageProgressCoroutine()
         {
             bool complete = false;           
             float startTime = Time.time;            
             float endTime = startTime + progressTimeline;
+
+            progress.fillAmount = 0f;
 
             while (!complete)
             {

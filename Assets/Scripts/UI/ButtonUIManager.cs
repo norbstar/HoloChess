@@ -39,7 +39,7 @@ namespace UI
             OnClick
         }
 
-        public delegate void OnButtonEvent(GameObject gameObject, Event @event);
+        public delegate void OnButtonEvent(ButtonUIManager manager, Event @event);
         public event OnButtonEvent EventReceived;
 
         public UnityButton Button { get { return button; } }
@@ -238,7 +238,19 @@ namespace UI
             }
         }
 
-        protected void PostEvent(Event @event) => EventReceived?.Invoke(gameObject, @event);
+        public void Reset()
+        {
+            transform.localScale = originalScale;
+
+            var buttonUI = transform.gameObject.GetComponent<ButtonUI>() as ButtonUI;
+
+            if (buttonUI.Header != null)
+            {
+                buttonUI.HeaderColor = buttonUI.DefaultHeaderColor;
+            }
+        }
+
+        protected void PostEvent(Event @event) => EventReceived?.Invoke(this, @event);
 
         protected void NotifyReceivers(string text)
         {

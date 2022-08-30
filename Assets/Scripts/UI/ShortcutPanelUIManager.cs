@@ -13,11 +13,9 @@ namespace UI
         public delegate void OnClickEvent(Identity identity);
         public event OnClickEvent ClickEventReceived;
 
-        public override void OnClickButton(ButtonAccessor container)
+        protected override void OnButtonEvent(ButtonUIManager manager, ButtonUIManager.Event @event)
         {
-            base.OnClickButton(container);
-
-            var name = container.manager.Button.name;
+            var name = manager.Button.name;
 
             if (name.Equals("Game Button"))
             {
