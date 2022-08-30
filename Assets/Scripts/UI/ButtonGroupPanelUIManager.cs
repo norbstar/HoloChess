@@ -2,7 +2,6 @@ using System.Linq;
 using System.Collections.Generic;
 
 using UnityEngine;
-using UnityButton = UnityEngine.UI.Button;
 
 namespace UI
 {
@@ -11,17 +10,13 @@ namespace UI
         [Header("Components")]
         [SerializeField] protected GameObject group;
 
-        protected override List<ButtonContainer> ResolveButtons()
+        protected override List<ButtonAccessor> ResolveAccessors()
         {
-            List<ButtonContainer> containers = new List<ButtonContainer>();
+            List<ButtonAccessor> containers = new List<ButtonAccessor>();
 
-            foreach (UnityButton button in group.GetComponentsInChildren<UnityButton>().ToList())
+            foreach (ButtonUIManager manager in group.GetComponentsInChildren<ButtonUIManager>().ToList())
             {
-                containers.Add(new ButtonContainer
-                {
-                    button = button,
-                    originalScale = button.transform.localScale
-                });
+                containers.Add(new ButtonAccessor(manager));
             }
 
             return containers;

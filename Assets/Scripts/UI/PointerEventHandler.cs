@@ -13,7 +13,7 @@ namespace UI
             Exit
         }
 
-        public delegate void OnPointerEvent(GameObject gameObject, Event evt, PointerEventData pointerEventData);
+        public delegate void OnPointerEvent(GameObject gameObject, Event @event, PointerEventData pointerEventData);
         public event OnPointerEvent EventReceived;
 
         public void OnPointerEnter(PointerEventData eventData) => EventReceived?.Invoke(gameObject, Event.Enter, eventData);

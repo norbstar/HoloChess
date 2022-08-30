@@ -66,9 +66,9 @@ namespace UI
             return (rayInteractor != null);
         }
 
-        private void OnPointerEvent(GameObject gameObject, PointerEventHandler.Event evt, PointerEventData eventData)
+        private void OnPointerEvent(GameObject gameObject, PointerEventHandler.Event @event, PointerEventData eventData)
         {
-            switch (evt)
+            switch (@event)
             {
                 case PointerEventHandler.Event.Enter:
                     OnPointerEnter(eventData);

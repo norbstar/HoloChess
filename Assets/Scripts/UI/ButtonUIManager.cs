@@ -39,8 +39,10 @@ namespace UI
             OnClick
         }
 
-        public delegate void OnButtonEvent(GameObject gameObject, Event evt);
+        public delegate void OnButtonEvent(GameObject gameObject, Event @event);
         public event OnButtonEvent EventReceived;
+
+        public UnityButton Button { get { return button; } }
 
         private UnityButton button;
         private Coroutine postAnnotationCoroutine;
@@ -88,9 +90,9 @@ namespace UI
             return (rayInteractor != null);
         }
 
-        private void OnPointerEvent(GameObject gameObject, PointerEventHandler.Event evt, PointerEventData eventData)
+        private void OnPointerEvent(GameObject gameObject, PointerEventHandler.Event @event, PointerEventData eventData)
         {
-            switch (evt)
+            switch (@event)
             {
                 case PointerEventHandler.Event.Enter:
                     OnPointerEnter(gameObject, eventData);
@@ -236,7 +238,7 @@ namespace UI
             }
         }
 
-        protected void PostEvent(Event evt) => EventReceived?.Invoke(gameObject, evt);
+        protected void PostEvent(Event @event) => EventReceived?.Invoke(gameObject, @event);
 
         protected void NotifyReceivers(string text)
         {

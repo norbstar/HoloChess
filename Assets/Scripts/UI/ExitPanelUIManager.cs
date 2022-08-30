@@ -16,7 +16,7 @@ namespace UI
             manager.EventReceived -= OnButtonEvent;
         }
 
-        private void OnButtonEvent(GameObject gameObject, ButtonUIManager.Event evt)
+        private void OnButtonEvent(GameObject gameObject, ButtonUIManager.Event @event)
         {
 
         }

@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
-using UnityButton = UnityEngine.UI.Button;
-
 namespace UI
 {
     public abstract class BaseButtonGroupPanelUIManager : MonoBehaviour
@@ -38,55 +36,61 @@ namespace UI
             OnClick
         }
 
-        public delegate void OnButtonEvent(GameObject gameObject, Event evt);
+        public delegate void OnButtonEvent(GameObject gameObject, Event @event);
         public event OnButtonEvent EventReceived;
 
-        public class ButtonContainer
+        public class ButtonAccessor
         {
-            public UnityButton button;
+            public ButtonUIManager manager;
             public Vector3 originalScale;
+
+            public ButtonAccessor(ButtonUIManager manager)
+            {
+                this.manager = manager;
+                originalScale = manager.Button.transform.localScale;
+            }
         }
 
-        protected List<ButtonContainer> buttonsContainers;
+        protected List<ButtonAccessor> accessors;
         private Coroutine postAnnotationCoroutine;
 
         void Awake()
         {
-            buttonsContainers = ResolveButtons();
+            accessors = ResolveAccessors();
 
-            foreach (ButtonContainer container in buttonsContainers)
+            foreach (ButtonAccessor container in accessors)
             {
-                container.button.onClick.AddListener(delegate {
+                container.manager.Button.onClick.AddListener(delegate {
                     OnClickButton(container);
                 });
             }
         }
 
-        protected abstract List<ButtonContainer> ResolveButtons();
+        protected abstract List<ButtonAccessor> ResolveAccessors();
 
         void OnEnable()
         {
-            foreach (ButtonContainer container in buttonsContainers)
+            foreach (ButtonAccessor container in accessors)
             {
-                var eventHandler = container.button.GetComponent<PointerEventHandler>() as PointerEventHandler;
+                var eventHandler = container.manager.Button.GetComponent<PointerEventHandler>() as PointerEventHandler;
                 eventHandler.EventReceived += OnPointerEvent;
             }
         }
 
         void OnDisable()
         {
-            foreach (ButtonContainer container in buttonsContainers)
+            foreach (ButtonAccessor container in accessors)
             {
-                var eventHandler = container.button.GetComponent<PointerEventHandler>() as PointerEventHandler;
+                var eventHandler = container.manager.Button.GetComponent<PointerEventHandler>() as PointerEventHandler;
                 eventHandler.EventReceived -= OnPointerEvent;
             }
         }
 
         public void ResetButtons()
         {
-            foreach (ButtonContainer container in buttonsContainers)
+            foreach (ButtonAccessor container in accessors)
             {
-                var transform = container.button.transform;
+                var transform = container.manager.Button.transform;
                 transform.localScale = container.originalScale;
 
                 var manager = transform.gameObject.GetComponent<ButtonUI>() as ButtonUI;
@@ -114,9 +118,9 @@ namespace UI
             return (rayInteractor != null);
         }
 
-        private void OnPointerEvent(GameObject gameObject, PointerEventHandler.Event evt, PointerEventData eventData)
+        private void OnPointerEvent(GameObject gameObject, PointerEventHandler.Event @event, PointerEventData eventData)
         {
-            switch (evt)
+            switch (@event)
             {
                 case PointerEventHandler.Event.Enter:
                     OnPointerEnter(gameObject, eventData);
@@ -169,7 +173,7 @@ namespace UI
                 rayInteractor?.SendHapticImpulse(0.25f, 0.1f);
             }
 
-            var container = buttonsContainers.First(bc => GameObject.ReferenceEquals(bc.button.gameObject, gameObject));
+            var container = accessors.First(bc => GameObject.ReferenceEquals(bc.manager.Button.gameObject, gameObject));
 
             var scaleFXManager = buttonUI.ScaleFXManager;
             scaleFXManager.ScaleUp(container.originalScale, container.originalScale* 1.1f);
@@ -246,7 +250,7 @@ namespace UI
                 buttonUI.HeaderColor = buttonUI.DefaultHeaderColor;
             }
 
-            var container = buttonsContainers.First(bc => GameObject.ReferenceEquals(bc.button.gameObject, gameObject));
+            var container = accessors.First(bc => GameObject.ReferenceEquals(bc.manager.Button.gameObject, gameObject));
 
             var scaleFXManager = buttonUI.ScaleFXManager;
             scaleFXManager.ScaleDown(container.originalScale * 1.1f, container.originalScale);
@@ -262,7 +266,7 @@ namespace UI
             NotifyReceivers(manager.Annotation.Text);
         }
 
-        protected void PostEvent(Event evt) => EventReceived?.Invoke(gameObject, evt);
+        protected void PostEvent(Event @event) => EventReceived?.Invoke(gameObject, @event);
 
         protected void NotifyReceivers(string text)
         {
@@ -272,7 +276,7 @@ namespace UI
             }
         }
 
-        public virtual void OnClickButton(ButtonContainer container)
+        public virtual void OnClickButton(ButtonAccessor container)
         {
             if (onSelectClip != null)
             {
