@@ -36,7 +36,7 @@ namespace UI
             OnPointerDown,
             OnPointerUp,
             OnPointerExit,
-            OnClick
+            OnSelect
         }
 
         public delegate void OnButtonEvent(ButtonUIManager manager, Event @event);
@@ -268,7 +268,7 @@ namespace UI
             }
 
             NotifyReceivers(string.Empty);
-            PostEvent(Event.OnClick);
+            PostEvent(Event.OnSelect);
 
             if (deselectOnSelect)
             {

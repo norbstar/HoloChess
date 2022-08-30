@@ -10,16 +10,16 @@ namespace UI
         [Header("Components")]
         [SerializeField] protected GameObject group;
 
-        protected override List<ButtonAccessor> ResolveAccessors()
+        protected override List<ButtonUIManager> ResolveInstances()
         {
-            List<ButtonAccessor> containers = new List<ButtonAccessor>();
+            List<ButtonUIManager> instances = new List<ButtonUIManager>();
 
             foreach (ButtonUIManager manager in group.GetComponentsInChildren<ButtonUIManager>().ToList())
             {
-                containers.Add(new ButtonAccessor(manager));
+                instances.Add(manager);
             }
 
-            return containers;
+            return instances;
         }
     }
 }

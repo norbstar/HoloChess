@@ -96,7 +96,7 @@ namespace UI
             }
 
             NotifyReceivers(string.Empty);
-            PostEvent(Event.OnClick);
+            PostEvent(Event.OnSelect);
 
             if (deselectOnSelect)
             {

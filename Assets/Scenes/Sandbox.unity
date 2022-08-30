@@ -6819,6 +6819,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Exit Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 8213795932318976545, guid: 4468022c2d80918488f788c9fe8cf99f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4468022c2d80918488f788c9fe8cf99f, type: 3}
 --- !u!224 &4459916789969129525 stripped
@@ -6835,23 +6839,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 720505859, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720505860, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720505860, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720505860, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 159
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720505860, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3491556632252046490, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6903,7 +6907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3491556632667892129, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3491556633076729673, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
       propertyPath: textReceivers.Array.data[0]

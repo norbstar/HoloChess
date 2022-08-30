@@ -434,10 +434,10 @@ GameObject:
   - component: {fileID: 7112088608314690923}
   - component: {fileID: 7112088608314690932}
   - component: {fileID: 7112088608314690933}
+  - component: {fileID: 261813549441229064}
   - component: {fileID: 7112088608314690935}
   - component: {fileID: 1297526219925712926}
   - component: {fileID: 7112088608314690920}
-  - component: {fileID: 261813549441229064}
   m_Layer: 5
   m_Name: Exit Button
   m_TagString: Untagged
@@ -575,6 +575,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5335dc2c4d714a341b2ffc5711861435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &261813549441229064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7112088608314690929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb472d903074724eb95fda253794b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7112088608314690935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,18 +666,6 @@ MonoBehaviour:
   textReceivers: []
   progress: {fileID: 7112088607977142703}
   progressTimeline: 1
---- !u!114 &261813549441229064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7112088608314690929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cb472d903074724eb95fda253794b4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8213795932123897014
 GameObject:
   m_ObjectHideFlags: 0

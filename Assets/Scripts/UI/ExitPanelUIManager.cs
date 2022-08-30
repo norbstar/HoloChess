@@ -16,6 +16,11 @@ namespace UI
             manager.EventReceived -= OnButtonEvent;
         }
 
-        private void OnButtonEvent(ButtonUIManager manager, ButtonUIManager.Event @event) { }
+        private void OnButtonEvent(ButtonUIManager manager, ButtonUIManager.Event @event)
+        {
+            if (@event != ButtonUIManager.Event.OnSelect) return;
+            
+            Application.Quit();
+        }
     }
 }

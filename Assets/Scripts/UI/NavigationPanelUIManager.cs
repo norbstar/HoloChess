@@ -11,11 +11,11 @@ namespace UI
 
         private void ResolveDependencies() => manager = GetComponent<ShortcutPanelUIManager>() as ShortcutPanelUIManager;
         
-        void OnEnable() => manager.ClickEventReceived += OnClickEvent;
+        void OnEnable() => manager.ClickEventReceived += OnSelectEvent;
 
-        void OnDisable() => manager.ClickEventReceived -= OnClickEvent;
+        void OnDisable() => manager.ClickEventReceived -= OnSelectEvent;
 
-        private void OnClickEvent(ShortcutPanelUIManager.Identity identity)
+        private void OnSelectEvent(ShortcutPanelUIManager.Identity identity)
         {
             switch (identity)
             {

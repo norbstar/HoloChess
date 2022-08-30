@@ -10,11 +10,13 @@ namespace UI
             Exit
         }
 
-        public delegate void OnClickEvent(Identity identity);
-        public event OnClickEvent ClickEventReceived;
+        public delegate void OnSelectEvent(Identity identity);
+        public event OnSelectEvent ClickEventReceived;
 
         protected override void OnButtonEvent(ButtonUIManager manager, ButtonUIManager.Event @event)
         {
+            if (@event != ButtonUIManager.Event.OnSelect) return;
+
             var name = manager.Button.name;
 
             if (name.Equals("Game Button"))

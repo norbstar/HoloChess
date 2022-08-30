@@ -6,37 +6,25 @@ namespace UI
 {
     public abstract class BaseButtonGroupPanelUIManager : MonoBehaviour
     {
-        public class ButtonAccessor
-        {
-            public ButtonUIManager manager;
-            public Vector3 originalScale;
+        protected List<ButtonUIManager> instances;
 
-            public ButtonAccessor(ButtonUIManager manager)
-            {
-                this.manager = manager;
-                originalScale = manager.Button.transform.localScale;
-            }
-        }
+        void Awake() => instances = ResolveInstances();
 
-        protected List<ButtonAccessor> accessors;
-
-        void Awake() => accessors = ResolveAccessors();
-
-        protected abstract List<ButtonAccessor> ResolveAccessors();
+        protected abstract List<ButtonUIManager> ResolveInstances();
 
         void OnEnable()
         {
-            foreach (ButtonAccessor container in accessors)
+            foreach (var instance in instances)
             {
-                container.manager.EventReceived += OnButtonEvent;
+                instance.EventReceived += OnButtonEvent;
             }
         }
 
         void OnDisable()
         {
-            foreach (ButtonAccessor container in accessors)
+            foreach (var instance in instances)
             {
-                container.manager.EventReceived -= OnButtonEvent;
+                instance.EventReceived -= OnButtonEvent;
             }
         }
 
@@ -44,9 +32,9 @@ namespace UI
 
         public void Reset()
         {
-            foreach (ButtonAccessor container in accessors)
+            foreach (var instance in instances)
             {
-                container.manager.Reset();
+                instance.Reset();
             }
         }
     }
