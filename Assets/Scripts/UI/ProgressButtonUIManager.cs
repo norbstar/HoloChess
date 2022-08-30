@@ -93,7 +93,13 @@ namespace UI
                 AudioSource.PlayClipAtPoint(onSelectClip, Vector3.zero, 1.0f);
             }
 
+            NotifyReceivers(string.Empty);
             PostEvent(Event.OnClick);
+
+            if (deselectOnSelect)
+            {
+                StartCoroutine(DeselectCoroutine(deselectionDelay));
+            }
         }
     }
 }
