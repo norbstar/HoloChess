@@ -1363,9 +1363,9 @@ RectTransform:
   m_Father: {fileID: 3491556632994664352}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 123, y: -15}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3491556632667892137
@@ -2172,7 +2172,6 @@ GameObject:
   - component: {fileID: 3491556633076729678}
   - component: {fileID: 3491556633076729685}
   - component: {fileID: 3491556633076729674}
-  - component: {fileID: 3491556633076729673}
   - component: {fileID: 2920743835108683221}
   m_Layer: 5
   m_Name: Navigation Panel
@@ -2240,27 +2239,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 100
---- !u!114 &3491556633076729673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3491556633076729679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25548f3592417f840be4110cfdb0ea1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHoverClip: {fileID: 8300000, guid: 5918e1159f1004249a91f32a9648c402, type: 3}
-  onSelectClip: {fileID: 8300000, guid: c84c529e4ccb7144ea9af253580dff35, type: 3}
-  enableHaptics: 1
-  deselectOnSelect: 1
-  deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers:
-  - {fileID: 0}
-  group: {fileID: 3491556632994664353}
 --- !u!114 &2920743835108683221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2273,6 +2251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac13661c123920941a20f863ebe7ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  group: {fileID: 3491556632994664353}
 --- !u!1 &3491556633143114717
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,26 +2,15 @@ using UnityEngine;
 
 namespace UI
 {
-    [RequireComponent(typeof(ShortcutPanelUIManager))]
-    public class NavigationPanelUIManager : MonoBehaviour
+    public class NavigationPanelUIManager : ShortcutPanelUIManager
     {
-        private ShortcutPanelUIManager manager;
-
-        void Awake() => ResolveDependencies();
-
-        private void ResolveDependencies() => manager = GetComponent<ShortcutPanelUIManager>() as ShortcutPanelUIManager;
-        
-        void OnEnable() => manager.ClickEventReceived += OnSelectEvent;
-
-        void OnDisable() => manager.ClickEventReceived -= OnSelectEvent;
-
-        private void OnSelectEvent(ShortcutPanelUIManager.Identity identity)
+        protected override void OnSelectEvent(ButtonUIManager manager)
         {
-            switch (identity)
+            var name = manager.Button.name;
+
+            if (name.Equals("Exit Button"))
             {
-                case ShortcutPanelUIManager.Identity.Exit:
-                    Application.Quit();
-                    break;
+                Application.Quit();
             }
         }
     }
