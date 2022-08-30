@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace UI
 {
     [RequireComponent(typeof(Animator))]
-    public class NavCanvasUIManager : CachedObject<SceneNavigator>
+    public class NavCanvasUIManager : MonoBehaviour
     {
         [Header("Config")]
         [SerializeField] InputAction inputAction;
@@ -18,9 +18,8 @@ namespace UI
         private Animator animator;
         private State state;
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
             ResolveDependencies();
 
             state = State.Hidden;

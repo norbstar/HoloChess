@@ -1399,6 +1399,17 @@
                     "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3385fe5-adae-4361-aeb6-e8ac199e5075",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
