@@ -1,6 +1,6 @@
 using UnityEngine;
 
-using UI;
+using UI.Panels;
 
 [RequireComponent(typeof(AudioSource))]
 public class AudioSourceModifier : MonoBehaviour

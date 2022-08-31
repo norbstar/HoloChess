@@ -1,4 +1,4 @@
-namespace UI
+namespace UI.Panels
 {
     public abstract class ShortcutPanelUIManager : ButtonGroupPanelUIManager
     {

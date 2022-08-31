@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace UI
+namespace UI.Panels
 {
     public abstract class BaseButtonGroupPanelUIManager : MonoBehaviour
     {

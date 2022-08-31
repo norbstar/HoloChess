@@ -2,7 +2,7 @@ using UnityEngine;
 
 using TMPro;
 
-namespace UI
+namespace UI.Panels
 {
     [RequireComponent(typeof(TextReceiver))]
     [RequireComponent(typeof(CanvasGroup))]

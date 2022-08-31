@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,19 +9,35 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 using UnityButton = UnityEngine.UI.Button;
 
+// using NaughtyAttributes;
+
 namespace UI
 {
     [RequireComponent(typeof(UnityButton))]
     [RequireComponent(typeof(PointerEventHandler))]
     public class ButtonUIManager : MonoBehaviour
     {
+        // [Serializable]
+        // public class Haptics
+        // {
+        //     public bool enableHaptics = false;
+        //     public float hapticsAmplitude = 0.15f;
+        //     public float hapticsDuration = 0.1f;
+        // }
+
         [Header("Audio")]
         [SerializeField] protected AudioClip onHoverClip;
         [SerializeField] protected AudioClip onSelectClip;
         
-        [Header("Config")]
+        [Header("Haptics")]
         [SerializeField] bool enableHaptics = false;
         public bool EnableHaptics { get { return enableHaptics; } }
+        [SerializeField] float hapticsAmplitude = 0.15f;
+        public float HapticsAmplitude { get { return hapticsAmplitude; } }
+        [SerializeField] float hapticsDuration = 0.1f;
+        public float HapticsDuration { get { return hapticsDuration; } }
+        
+        [Header("Config")]
         [SerializeField] protected bool deselectOnSelect = true;
         [SerializeField] protected float deselectionDelay = 0.25f;
         public float DeselectionDelay { get { return deselectionDelay; } }
@@ -30,6 +47,9 @@ namespace UI
         [Header("Notifications")]
         [SerializeField] List<TextReceiver> textReceivers;
         
+        // [Label("Haptic feedback")]
+        // [SerializeField] Haptics haptics;
+
         public enum Event
         {
             OnPointerEnter,
@@ -58,6 +78,7 @@ namespace UI
             originalScale = transform.localScale;
 
             button.onClick.AddListener(delegate {
+                // Debug.Log($"{Time.time} OnClick {button.name}");
                 OnClickButton(button);
             });
         }
@@ -142,7 +163,7 @@ namespace UI
 
             if (enableHaptics)
             {
-                rayInteractor?.SendHapticImpulse(0.25f, 0.1f);
+                rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
 
             var scaleFXManager = manager.ScaleFXManager;
@@ -256,7 +277,7 @@ namespace UI
         {
             foreach (TextReceiver receiver in textReceivers)
             {
-                receiver.OnText(text);
+                receiver?.OnText(text);
             }
         }
 

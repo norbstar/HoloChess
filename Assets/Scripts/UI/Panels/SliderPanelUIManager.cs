@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 using FX;
 
-namespace UI
+namespace UI.Panels
 {
     public class SliderPanelUIManager : MonoBehaviour
     {
