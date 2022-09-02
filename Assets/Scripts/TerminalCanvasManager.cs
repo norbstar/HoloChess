@@ -17,14 +17,24 @@ public class TerminalCanvasManager : MonoBehaviour
     [Header("Config")]
     [SerializeField] float refreshInterval = 0.25f;
 
+    private List<HandController> controllers;
     private IDictionary<string, string> elements = new Dictionary<string, string>();
     private bool refresh;
 
-    void Awake() => textUI.text = string.Empty;
+    void Awake()
+    {
+        controllers = new List<HandController>();
+        textUI.text = string.Empty;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (TryGet.TryGetControllers(out List<HandController> controllers))
+        {
+            this.controllers = controllers;
+        }
+
         Debug.Log($"Config.RefreshInterval:{refreshInterval} secs");
         StartCoroutine(MonitorLogs());
     }
@@ -32,13 +42,21 @@ public class TerminalCanvasManager : MonoBehaviour
     void OnEnable()
     {
         Application.logMessageReceived += Log;
-        HandController.ActuationEventReceived += OnActuation;
+
+        foreach (HandController controller in controllers)
+        {
+            controller.AcutationEventReceived += OnActuationEvent;
+        }
     }
 
     void OnDisable()
     {
         Application.logMessageReceived -= Log;
-        HandController.ActuationEventReceived -= OnActuation;
+        
+        foreach (HandController controller in controllers)
+        {
+            controller.AcutationEventReceived -= OnActuationEvent;
+        }
     }
 
     private void Log(string logString, string stackTrace, LogType type)
@@ -117,13 +135,13 @@ public class TerminalCanvasManager : MonoBehaviour
         }
     }
 
-    public void OnActuation(Actuation actuation, InputDeviceCharacteristics characteristics)
+    public void OnActuationEvent(Actuation actuation, InputDeviceCharacteristics characteristics)
     {
-        if ((int) characteristics == (int) HandController.LeftHand)
+        if ((int) characteristics == (int) HandController.LeftHandCharacteristics)
         {
             Debug.Log($"OnActuation Left Hand: {actuation}");
         }
-        else if ((int) characteristics == (int) HandController.RightHand)
+        else if ((int) characteristics == (int) HandController.RightHandCharacteristics)
         {
             Debug.Log($"OnActuation Right Hand : {actuation}");
         }

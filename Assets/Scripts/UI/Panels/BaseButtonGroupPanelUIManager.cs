@@ -8,7 +8,7 @@ namespace UI.Panels
     {
         protected List<ButtonUIManager> instances;
 
-        void Awake() => instances = ResolveInstances();
+        public virtual void Awake() => instances = ResolveInstances();
 
         protected abstract List<ButtonUIManager> ResolveInstances();
 

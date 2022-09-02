@@ -7,26 +7,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class TryGet
 {
-    public static bool TryGetInteractable(GameObject trigger, out IInteractable interactable)
-    {
-        if (trigger.TryGetComponent<IInteractable>(out IInteractable interactableManager))
-        {
-            interactable = interactableManager;
-            return true;
-        }
-
-        var component = trigger.GetComponentInParent<IInteractable>();
-
-        if (component != null)
-        {
-            interactable = component;
-            return true;
-        }
-
-        interactable = default(IInteractable);
-        return false;
-    }
-
     public static bool TryGetControllers(out List<HandController> controllers)
     {
         controllers = (GameObject.FindObjectsOfType(typeof(HandController)) as HandController[]).ToList<HandController>();
@@ -54,7 +34,7 @@ public class TryGet
         {
             foreach (HandController thisController in controllers)
             {
-                if (((int) characteristics == (int) HandController.LeftHand) || ((int) characteristics == (int) HandController.RightHand))
+                if (((int) characteristics == (int) HandController.LeftHandCharacteristics) || ((int) characteristics == (int) HandController.RightHandCharacteristics))
                 {
                     controller = thisController;
                     return true;
@@ -72,16 +52,16 @@ public class TryGet
 
         if (TryGetControllers(out List<HandController> controllers))
         {
-            var device = controller.InputDevice;
+            var characteristics = controller.Characteristics;
 
-            if ((int) device.characteristics == (int) HandController.LeftHand)
+            if ((int) characteristics == (int) HandController.LeftHandCharacteristics)
             {
-                var rightController = (HandController) controllers.FirstOrDefault(hc => (int) hc.InputDevice.characteristics == (int) HandController.RightHand);
+                var rightController = (HandController) controllers.FirstOrDefault(hc => (int) hc.Characteristics == (int) HandController.RightHandCharacteristics);
                 opposingController = (rightController != null) ? rightController : null;
             }
-            else if ((int) device.characteristics == (int) HandController.RightHand)
+            else if ((int) characteristics == (int) HandController.RightHandCharacteristics)
             {
-                var leftController = (HandController) controllers.FirstOrDefault(hc => (int) hc.InputDevice.characteristics == (int) HandController.LeftHand);
+                var leftController = (HandController) controllers.FirstOrDefault(hc => (int) hc.Characteristics == (int) HandController.LeftHandCharacteristics);
                 opposingController = (leftController != null) ? leftController : null;
             }
         }

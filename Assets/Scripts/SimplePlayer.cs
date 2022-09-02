@@ -22,5 +22,6 @@ public class SimplePlayer : MonoBehaviour
     // Update is called once per frame
     void Update() => moveDirection = inputAction.ReadValue<Vector2>();
 
+    // Frame-rate independent call for physics calculations
     void FixedUpdate() => rigidbody.velocity = new Vector3(moveDirection.x * moveSpeed, 0f, moveDirection.y * moveSpeed);
 }

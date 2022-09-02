@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Frame-rate independent call for physics calculations
     void FixedUpdate() => rigidbody.velocity = new Vector3(moveDirection.x * moveSpeed, 0f, moveDirection.y * moveSpeed);
 
     private void Callback_OnFirePerformed(InputAction.CallbackContext context) => Debug.Log("Callback_OnFirePerformed");

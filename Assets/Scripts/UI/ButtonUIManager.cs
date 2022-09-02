@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -78,7 +77,7 @@ namespace UI
             originalScale = transform.localScale;
 
             button.onClick.AddListener(delegate {
-                // Debug.Log($"{Time.time} OnClick {button.name}");
+                Debug.Log($"{Time.time} OnClick {button.name}");
                 OnClickButton(button);
             });
         }

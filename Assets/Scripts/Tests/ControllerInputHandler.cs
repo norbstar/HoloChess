@@ -40,17 +40,9 @@ namespace Tests
         }
 #endif
 
-        private void Callback_OnMenuPerformed(InputAction.CallbackContext context)
-        {
-            // Debug.Log("Callback_OnMenuPerformed");
-            PostEvents();
-        }
+        private void Callback_OnMenuPerformed(InputAction.CallbackContext context) => PostEvents();
 
-        private void OnMenuTriggered()
-        {
-            // Debug.Log("OnMenuTriggered");
-            PostEvents();
-        }
+        private void OnMenuTriggered() => PostEvents();
 
         private void PostEvents() => @event.Invoke();
     }
