@@ -1413,7 +1413,7 @@ GameObject:
   - component: {fileID: 1099397897}
   - component: {fileID: 1099397898}
   m_Layer: 0
-  m_Name: Source
+  m_Name: Red Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2388,7 +2388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1373173158}
   m_Layer: 0
-  m_Name: Source Base
+  m_Name: Red Source Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2540,7 +2540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1556219697}
   m_Layer: 0
-  m_Name: Source Base
+  m_Name: Blue Source Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2639,7 +2639,7 @@ GameObject:
   - component: {fileID: 1760814706}
   - component: {fileID: 1760814705}
   m_Layer: 0
-  m_Name: Source
+  m_Name: Blue Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3280,6 +3280,7 @@ GameObject:
   - component: {fileID: 2138755966}
   - component: {fileID: 2138755967}
   - component: {fileID: 2138755968}
+  - component: {fileID: 2138755969}
   m_Layer: 0
   m_Name: Raycast Projector
   m_TagString: Untagged
@@ -3322,7 +3323,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138755964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c7dc0ea08edbf94fa0a596a7dccdfe8, type: 3}
   m_Name: 
@@ -3337,7 +3338,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138755964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c7dc0ea08edbf94fa0a596a7dccdfe8, type: 3}
   m_Name: 
@@ -3345,3 +3346,22 @@ MonoBehaviour:
   pointerPrefab: {fileID: 7433576646663723534, guid: a54698b8e50a957499600a67a61bf1ec, type: 3}
   pointerScale: {x: 0.25, y: 0.25, z: 0.001}
   notifier: {fileID: 1760814705}
+--- !u!114 &2138755969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138755964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e4f3a0d1e317b46b74348c68de4807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectors:
+  - pointerPrefab: {fileID: 4917813849459877834, guid: ecea058c54f2617489b360e36ee25d93, type: 3}
+    pointerScale: {x: 0.25, y: 0.25, z: 0.001}
+    notifier: {fileID: 1099397898}
+  - pointerPrefab: {fileID: 7433576646663723534, guid: a54698b8e50a957499600a67a61bf1ec, type: 3}
+    pointerScale: {x: 0.25, y: 0.25, z: 0.001}
+    notifier: {fileID: 1760814705}

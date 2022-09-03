@@ -59,9 +59,9 @@ public class HandController : GizmoManager
 
     void OnDisable() => raycastNotifier.EventReceived -= OnRaycastEvent;
 
-    private void OnRaycastEvent(GameObject source, Vector3 point)
+    private void OnRaycastEvent(GameObject origin, GameObject source, Vector3 point)
     {
-        Debug.Log($"Hand Controller Source : {source.name} Point : {point}");
+        // Debug.Log($"Hand Controller Origin : {origin.name} Source : {source.name} Point : {point}");
         RaycastEventReceived?.Invoke(this, source, point);
     }
 }
