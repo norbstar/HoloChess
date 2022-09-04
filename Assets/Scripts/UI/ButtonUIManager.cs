@@ -8,22 +8,12 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 using UnityButton = UnityEngine.UI.Button;
 
-// using NaughtyAttributes;
-
 namespace UI
 {
     [RequireComponent(typeof(UnityButton))]
     [RequireComponent(typeof(PointerEventHandler))]
     public class ButtonUIManager : MonoBehaviour
     {
-        // [Serializable]
-        // public class Haptics
-        // {
-        //     public bool enableHaptics = false;
-        //     public float hapticsAmplitude = 0.15f;
-        //     public float hapticsDuration = 0.1f;
-        // }
-
         [Header("Audio")]
         [SerializeField] protected AudioClip onHoverClip;
         [SerializeField] protected AudioClip onSelectClip;
@@ -46,9 +36,6 @@ namespace UI
         [Header("Notifications")]
         [SerializeField] List<TextReceiver> textReceivers;
         
-        // [Label("Haptic feedback")]
-        // [SerializeField] Haptics haptics;
-
         public enum Event
         {
             OnPointerEnter,
@@ -77,7 +64,7 @@ namespace UI
             originalScale = transform.localScale;
 
             button.onClick.AddListener(delegate {
-                Debug.Log($"{Time.time} OnClick {button.name}");
+                // Debug.Log($"{Time.time} OnClick {button.name}");
                 OnClickButton(button);
             });
         }

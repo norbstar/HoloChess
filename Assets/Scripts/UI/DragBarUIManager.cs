@@ -7,11 +7,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 using UI.Panels;
+using FX;
 
 namespace UI
 {
     [RequireComponent(typeof(PointerEventHandler))]
     [RequireComponent(typeof(RootResolver))]
+    [RequireComponent(typeof(ScaleFXManager))]
     public class DragBarUIManager : MonoBehaviour
     {
         [Header("Audio")]
@@ -43,16 +45,20 @@ namespace UI
 
         private PointerEventHandler eventHandler;
         private RootResolver rootResolver;
+        private ScaleFXManager scaleFXManager;
         private GameObject root;
         private bool isPointerEntered, isPointerDown;
         public bool IsPointerDown { get { return isPointerDown; } }
         private GameObject interactor;
         private Image image;
+        private Vector3 originalScale;
         private Color originalColor;
 
         void Awake()
         {
             ResolveDependencies();
+
+            originalScale = transform.localScale;
             originalColor = image.color;
             root = rootResolver.Root;
         }
@@ -62,6 +68,7 @@ namespace UI
             image = GetComponent<Image>() as Image;
             eventHandler = GetComponent<PointerEventHandler>() as PointerEventHandler;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
+            scaleFXManager = GetComponent<ScaleFXManager>() as ScaleFXManager;
         }
 
         void OnEnable() => eventHandler.EventReceived += OnPointerEvent;
@@ -133,6 +140,8 @@ namespace UI
                     rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
                 }
 
+                scaleFXManager.ScaleUp(originalScale, originalScale* 1.1f);
+
                 if (onHoverClip != null)
                 {
                     AudioSource.PlayClipAtPoint(onHoverClip, Vector3.zero, 1.0f);
@@ -176,7 +185,7 @@ namespace UI
                 rayInteractor = interactor;
             }
 
-            image.color = (isPointerEntered) ? hoverColor : originalColor;
+            image.color = hoverColor;
             root.GetComponent<NavigationPanelUIManager>().ButtonGroupManager.Enable();
 
             this.interactor = null;
@@ -190,6 +199,8 @@ namespace UI
 
         private void OnPointerExit(GameObject gameObject, PointerEventData eventData)
         {
+            if (isPointerDown) return;
+
             XRRayInteractor rayInteractor = null;
             
             if (TryGetXRRayInteractor(eventData.pointerId, out var interactor))
@@ -197,11 +208,7 @@ namespace UI
                 rayInteractor = interactor;
             }
 
-            if (!isPointerDown)
-            {
-                image.color = originalColor;
-            }
-
+            image.color = originalColor;
             isPointerEntered = false;
 
             OnPointerExit(eventData, eventData.pointerEnter, rayInteractor);
@@ -212,6 +219,7 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
+            scaleFXManager.ScaleDown(originalScale * 1.1f, originalScale);
             yield return null;
         }
 
