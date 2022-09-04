@@ -9,7 +9,8 @@ namespace UI.Panels
         public DragBarUIManager DragBar { get { return dragBar; } }
         [SerializeField] ButtonGroupUIManager buttonGroupManager;
         public ButtonGroupUIManager ButtonGroupManager { get { return buttonGroupManager; } }
-        
+
+        private AudioSourceModifier audioSourceModifier;
         private RootResolver rootResolver;
 
         public override void Awake()
@@ -18,13 +19,21 @@ namespace UI.Panels
             ResolveDependencies();
         }
 
-        private void ResolveDependencies() => rootResolver = GetComponent<RootResolver>() as RootResolver;
+        private void ResolveDependencies()
+        {
+            audioSourceModifier = FindObjectOfType<AudioSourceModifier>();
+            rootResolver = GetComponent<RootResolver>() as RootResolver;
+        }
 
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
 
-            if (name.Equals("Exit Button"))
+            if (name.Equals("Volume Toggle Button"))
+            {
+                audioSourceModifier.Volume = (((ToggleButtonUIManager) manager).IsOn) ? 1f : 0f;
+            }
+            else if (name.Equals("Exit Button"))
             {
                 Application.Quit();
             }

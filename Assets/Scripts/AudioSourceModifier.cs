@@ -14,7 +14,10 @@ public class AudioSourceModifier : MonoBehaviour
     {
         ResolveDependencies();
 
-        source.Value = audioSource.volume;
+        if (source != null)
+        {
+            source.Value = audioSource.volume;
+        }
     }
 
     private void ResolveDependencies() => audioSource = GetComponent<AudioSource>() as AudioSource;
@@ -22,6 +25,8 @@ public class AudioSourceModifier : MonoBehaviour
     void OnEnable() => SliderPanelUIManager.EventReceived += OnSliderEvent;
 
     void OnDisable() => SliderPanelUIManager.EventReceived -= OnSliderEvent;
+
+    public float Volume { get { return audioSource.volume; } set { audioSource.volume = value; } }
 
     private void OnSliderEvent(float value) => audioSource.volume = value;
 }

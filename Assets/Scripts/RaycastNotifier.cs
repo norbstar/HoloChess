@@ -35,12 +35,9 @@ public class RaycastNotifier : MonoBehaviour
         Debug.DrawRay(origin, direction, Color.green);
         
         bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, mixedLayerMask);
-        // Debug.Log($"Notifier {gameObject.name} : Has Hit : {hasHit}");
 
-        if (hasHit)
-        {
-            // Debug.Log($"Notifier {gameObject.name} : Target : {hit.collider.gameObject.name} Point : {hit.point} Origin : {ray.origin} Direction : {ray.direction} Distance : {hit.distance}");
-            EventReceived?.Invoke(gameObject, hit);//hit.transform.gameObject, hit.point);
-        }
+        if (!hasHit) return;
+
+        EventReceived?.Invoke(gameObject, hit);//hit.transform.gameObject, hit.point);
     }
 }

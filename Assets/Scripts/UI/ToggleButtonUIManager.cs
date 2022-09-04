@@ -31,10 +31,10 @@ namespace UI
 
         public override void OnClickButton(UnityButton button)
         {
-            base.OnClickButton(button);
-
             bar.color = (isOn) ? offColor : onColor;
             isOn = !isOn;
+
+            base.OnClickButton(button);
         }
     }
 }
