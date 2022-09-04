@@ -5,6 +5,10 @@ namespace UI
 {
     public class PointerEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
+        [Header("Config")]
+        [SerializeField] bool enableCallbacks = true;
+        public bool EnableCallbacks { get { return enableCallbacks; } set { enableCallbacks = value; } }
+
         public enum Event
         {
             Enter,
@@ -16,12 +20,28 @@ namespace UI
         public delegate void OnPointerEvent(GameObject gameObject, Event @event, PointerEventData pointerEventData);
         public event OnPointerEvent EventReceived;
 
-        public void OnPointerEnter(PointerEventData eventData) => EventReceived?.Invoke(gameObject, Event.Enter, eventData);
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (!enableCallbacks) return;
+            EventReceived?.Invoke(gameObject, Event.Enter, eventData);
+        }
 
-        public void OnPointerDown(PointerEventData eventData) => EventReceived?.Invoke(gameObject, Event.Down, eventData);
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (!enableCallbacks) return;
+            EventReceived?.Invoke(gameObject, Event.Down, eventData);
+        }
 
-        public void OnPointerUp(PointerEventData eventData) => EventReceived?.Invoke(gameObject, Event.Up, eventData);
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (!enableCallbacks) return;
+            EventReceived?.Invoke(gameObject, Event.Up, eventData);
+        }
 
-        public void OnPointerExit(PointerEventData eventData) => EventReceived?.Invoke(gameObject, Event.Exit, eventData);
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (!enableCallbacks) return;
+            EventReceived?.Invoke(gameObject, Event.Exit, eventData);
+        }
     }
 }

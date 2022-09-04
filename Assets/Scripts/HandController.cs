@@ -27,7 +27,7 @@ public class HandController : GizmoManager
     [SerializeField] Hand hand;
 
     private ActionBasedController controller;
-    private RaycastNotifier raycastNotifier;
+    private RaycastNotifier notifier;
     private InputDeviceCharacteristics characteristics;
 
     void Awake()
@@ -49,18 +49,33 @@ public class HandController : GizmoManager
     private void ResolveDependencies()
     {
         controller = GetComponent<ActionBasedController>() as ActionBasedController;
-        raycastNotifier = GetComponent<RaycastNotifier>() as RaycastNotifier;
+        notifier = Notifier;
     }
 
     public InputDeviceCharacteristics Characteristics { get { return characteristics; } }
     public Hand WhichHand{ get { return hand; } }
-
-    void OnEnable() => raycastNotifier.EventReceived += OnRaycastEvent;
-
-    void OnDisable() => raycastNotifier.EventReceived -= OnRaycastEvent;
-
-    private void OnRaycastEvent(GameObject origin, GameObject source, Vector3 point)
+    public RaycastNotifier Notifier
     {
+        get
+        {
+            if (notifier == null)
+            {
+                notifier = GetComponent<RaycastNotifier>() as RaycastNotifier;
+            }
+
+            return notifier;
+        }
+    }
+
+    void OnEnable() => notifier.EventReceived += OnRaycastEvent;
+
+    void OnDisable() => notifier.EventReceived -= OnRaycastEvent;
+
+    private void OnRaycastEvent(GameObject origin, RaycastHit hit)
+    {
+        GameObject source = hit.transform.gameObject;
+        Vector3 point = hit.point;
+        
         // Debug.Log($"Hand Controller Origin : {origin.name} Source : {source.name} Point : {point}");
         RaycastEventReceived?.Invoke(this, source, point);
     }

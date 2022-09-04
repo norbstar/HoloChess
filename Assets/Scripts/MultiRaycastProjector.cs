@@ -7,11 +7,17 @@ using UnityEngine;
 public class MultiRaycastProjector : MonoBehaviour
 {
     [Serializable]
+    public class Pointer
+    {
+        public GameObject prefab;
+        public Vector3 scale;
+    }
+
+    [Serializable]
     public class Projector
     {
-        [Header("Prefab")]
-        public GameObject pointerPrefab;
-        public Vector3 pointerScale;
+        [Header("Pointer")]
+        public Pointer pointer;
 
         [Header("Notifier")]
         public RaycastNotifier notifier;
@@ -49,8 +55,8 @@ public class MultiRaycastProjector : MonoBehaviour
         }
     }
 
-    // Frame-rate independent call for physics calculations
-    void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
         if (projectors.Count == 0) return;
         
@@ -63,8 +69,11 @@ public class MultiRaycastProjector : MonoBehaviour
         }
     }
 
-    private void OnRaycastEvent(GameObject origin, GameObject source, Vector3 point)
+    private void OnRaycastEvent(GameObject origin, RaycastHit hit)
     {
+        GameObject source = hit.transform.gameObject;
+        Vector3 point = hit.point;
+
         Projector projector = projectors.FirstOrDefault(p => GameObject.ReferenceEquals(origin, p.notifier.gameObject));
 
         if (projector == null) return;
@@ -73,10 +82,9 @@ public class MultiRaycastProjector : MonoBehaviour
 
         if (projector.Instance == null)
         {
-            projector.Instance = Instantiate(projector.pointerPrefab, point, Quaternion.Euler(0f, 0f, 90f));
-            projector.Instance.transform.localScale = projector.pointerScale;
+            projector.Instance = Instantiate(projector.pointer.prefab, point, Quaternion.Euler(0f, 0f, 90f));
+            projector.Instance.transform.localScale = projector.pointer.scale;
             projector.Instance.gameObject.name = $"{origin.name}-Pointer";
-            projector.Instance.transform.parent = origin.transform;
         }
         else
         {

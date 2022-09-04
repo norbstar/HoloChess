@@ -7,6 +7,8 @@ namespace UI.Panels
     {
         [SerializeField] DragBarUIManager dragBar;
         public DragBarUIManager DragBar { get { return dragBar; } }
+        [SerializeField] ButtonGroupUIManager buttonGroupManager;
+        public ButtonGroupUIManager ButtonGroupManager { get { return buttonGroupManager; } }
         
         private RootResolver rootResolver;
 

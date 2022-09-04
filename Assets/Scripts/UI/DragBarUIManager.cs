@@ -1,9 +1,12 @@
 using System.Collections;
 
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.UI;
+
+using UI.Panels;
 
 namespace UI
 {
@@ -23,6 +26,10 @@ namespace UI
         [SerializeField] float hapticsDuration = 0.1f;
         public float HapticsDuration { get { return hapticsDuration; } }
 
+        [Header("Color")]
+        [SerializeField] Color hoverColor = Color.white;
+        [SerializeField] Color selectColor = Color.white;
+
         public enum Event
         {
             OnPointerEnter,
@@ -35,13 +42,27 @@ namespace UI
         public event OnDragBarEvent EventReceived;
 
         private PointerEventHandler eventHandler;
-        private bool isPointerDown;
+        private RootResolver rootResolver;
+        private GameObject root;
+        private bool isPointerEntered, isPointerDown;
         public bool IsPointerDown { get { return isPointerDown; } }
         private GameObject interactor;
+        private Image image;
+        private Color originalColor;
 
-        void Awake() => ResolveDependencies();
+        void Awake()
+        {
+            ResolveDependencies();
+            originalColor = image.color;
+            root = rootResolver.Root;
+        }
 
-        private void ResolveDependencies() => eventHandler = GetComponent<PointerEventHandler>() as PointerEventHandler;
+        private void ResolveDependencies()
+        {
+            image = GetComponent<Image>() as Image;
+            eventHandler = GetComponent<PointerEventHandler>() as PointerEventHandler;
+            rootResolver = GetComponent<RootResolver>() as RootResolver;
+        }
 
         void OnEnable() => eventHandler.EventReceived += OnPointerEvent;
 
@@ -94,6 +115,9 @@ namespace UI
                 rayInteractor = interactor;
             }
 
+            image.color = hoverColor;
+            isPointerEntered = true;
+
             OnPointerEnter(eventData, eventData.pointerEnter, rayInteractor);
             PostEvent(Event.OnPointerEnter);
         }
@@ -102,14 +126,17 @@ namespace UI
 
         private IEnumerator OnPointerEnterCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            if (enableHaptics)
+            if (!isPointerDown)
             {
-                rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
-            }
+                if (enableHaptics)
+                {
+                    rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
+                }
 
-            if (onHoverClip != null)
-            {
-                AudioSource.PlayClipAtPoint(onHoverClip, Vector3.zero, 1.0f);
+                if (onHoverClip != null)
+                {
+                    AudioSource.PlayClipAtPoint(onHoverClip, Vector3.zero, 1.0f);
+                }
             }
 
             yield return null;
@@ -129,6 +156,9 @@ namespace UI
                 this.interactor = rayInteractor.gameObject;
             }
 
+            image.color = selectColor;
+            root.GetComponent<NavigationPanelUIManager>().ButtonGroupManager.Disable();
+
             isPointerDown = true;
 
             OnPointerDown(eventData, eventData.pointerEnter, rayInteractor);
@@ -145,6 +175,9 @@ namespace UI
             {
                 rayInteractor = interactor;
             }
+
+            image.color = (isPointerEntered) ? hoverColor : originalColor;
+            root.GetComponent<NavigationPanelUIManager>().ButtonGroupManager.Enable();
 
             this.interactor = null;
             isPointerDown = false;
@@ -163,6 +196,13 @@ namespace UI
             {
                 rayInteractor = interactor;
             }
+
+            if (!isPointerDown)
+            {
+                image.color = originalColor;
+            }
+
+            isPointerEntered = false;
 
             OnPointerExit(eventData, eventData.pointerEnter, rayInteractor);
             PostEvent(Event.OnPointerExit);

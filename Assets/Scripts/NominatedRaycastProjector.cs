@@ -15,24 +15,26 @@ public class NominatedRaycastProjector : MonoBehaviour
 
     void OnDisable() => notifier.EventReceived -= OnRaycastEvent;
 
-    // Frame-rate independent call for physics calculations
-    void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
         if (instance == null) return;
         
         instance.transform.LookAt(source.transform);
     }
 
-    private void OnRaycastEvent(GameObject origin, GameObject source, Vector3 point)
+    private void OnRaycastEvent(GameObject origin, RaycastHit hit)
     {
+        GameObject source = hit.transform.gameObject;
+        Vector3 point = hit.point;
+
         this.source = source;
 
         if (instance == null)
         {
             instance = Instantiate(pointerPrefab, point, Quaternion.Euler(0f, 0f, 90f));
             instance.transform.localScale = pointerScale;
-            instance.gameObject.name = "Pointer";
-            instance.transform.parent = origin.transform;
+            instance.gameObject.name = $"{origin.name}-Pointer";
         }
         else
         {

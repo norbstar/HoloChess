@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +12,7 @@ namespace UI
     [RequireComponent(typeof(GraphicRaycaster))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     [RequireComponent(typeof(RootResolver))]
-    public class MenuCanvasUIManager : CachedObject<MenuCanvasUIManager>
+    public class MenuCanvasUIManager : CachedObject<MenuCanvasUIManagerOriginal>
     {
         [Header("Components")]
         [SerializeField] NavigationPanelUIManager navigationManager;
@@ -22,9 +20,6 @@ namespace UI
 
         [Header("Config")]
         [SerializeField] GameObject referencePrefab;
-        [SerializeField] GameObject raycastPrefab;
-
-        private static float parentToChildMultiplier = 10f;
 
         [Serializable]
         public class Reference
@@ -36,15 +31,13 @@ namespace UI
         private CanvasGroup canvasGroup;
         private GraphicRaycaster raycaster;
         private TrackedDeviceGraphicRaycaster trackedRaycaster;
-        // private CollisionDetector collisionDetector;
-        private HandController leftHandController;
         private RootResolver rootResolver;
         private GameObject root;
         public GameObject Root { get { return root; } }
         private new Camera camera;
         public Camera Camera { get { return camera; } }
-        private List<Reference> references;
         private float originalOffset;
+        private RaycastNotifier leftHandNotifier;
 
         protected override void Awake()
         {
@@ -53,7 +46,6 @@ namespace UI
 
             root = rootResolver.Root;
             originalOffset = transform.localPosition.z;
-            references = new List<Reference>();
         }
 
         // Start is called before the first frame update
@@ -61,11 +53,8 @@ namespace UI
         {
             if (TryGet.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
             {
-                leftHandController = controller;
+                leftHandNotifier = controller.Notifier;
             }
-
-            // sphere.transform.localScale = Vector3.one * originalOffset * parentToChildMultiplier;
-sphere.transform.localScale = Vector3.one * originalOffset;
         }
 
         private void ResolveDependencies()
@@ -73,103 +62,43 @@ sphere.transform.localScale = Vector3.one * originalOffset;
             canvasGroup = GetComponent<CanvasGroup>() as CanvasGroup;
             raycaster = GetComponent<GraphicRaycaster>() as GraphicRaycaster;
             trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
-            // collisionDetector = sphere.GetComponent<CollisionDetector>() as CollisionDetector;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
             camera = Camera.main;
         }
 
-        // void OnEnable() => collisionDetector.EventReceived += OnCollisionEvent;
-
         // Update is called once per frame
         void Update()
         {
-            Debug.Log($"Camera Position : {camera.transform.position}");
-            Debug.Log($"Origin Position : {root.transform.position}");
-            Debug.Log($"Menu Position : {transform.position}");
-            Debug.Log($"Sphere Position : {sphere.transform.position}");
-        }
-
-        // Frame-rate independent call for physics calculations
-        void FixedUpdate()
-        {
             if (canvasGroup.alpha == 0f) return;
-
-            Vector3 offset = transform.position - root.transform.position;
-            transform.LookAt(transform.position + offset);
-        }
-
-        void OnDisable()
-        {
-            // collisionDetector.EventReceived -= OnCollisionEvent;
             
-            foreach (Reference reference in references)
-            {
-                Destroy(reference.gameObject);
-            }
-
-            references.Clear();
+            Vector3 offset = transform.position - (root.transform.position + new Vector3(0f, sphere.transform.position.y, 0f));
+            transform.LookAt(transform.position + offset);
         }
 
         public void Toggle()
         {
             if (canvasGroup.alpha == 0f)
             {
-                root.transform.position = camera.transform.position;
-
-                Reference reference = null;
-                reference = references.FirstOrDefault(r => r.name.Equals("Origin"));
-
-                if (reference == null)
-                {
-                    reference = new Reference
-                    {
-                        name = "Origin",
-                        gameObject = Instantiate(referencePrefab, root.transform.position, Quaternion.identity)
-                    };
-
-                    reference.gameObject.name = reference.name;
-                    references.Add(reference);
-                }
-                else
-                {
-                    reference.gameObject.transform.position = root.transform.position;
-                }
-
-                Vector3 spawnPoint = camera.transform.position + camera.transform.forward * originalOffset;
-
-                reference = references.FirstOrDefault(r => r.name.Equals("Canvas"));
-
-                if (reference == null)
-                {
-                    reference = new Reference
-                    {
-                        name = "Canvas",
-                        gameObject = Instantiate(referencePrefab, spawnPoint, Quaternion.identity)
-                    };
-
-                    reference.gameObject.name = reference.name;
-                    references.Add(reference);
-                }
-                else
-                {
-                    reference.gameObject.transform.position = spawnPoint;
-                }
-
-                transform.position = reference.gameObject.transform.position;
-
-                sphere.transform.position = root.transform.position;
+                root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
                 sphere.SetActive(true);
 
-                if (leftHandController != null)
+                Vector3? spawnPoint = null;
+                LayerMask menuLayerMask = LayerMask.GetMask("Menu");
+
+                float parentToChildMultiplier = navigationManager.transform.localScale.x / transform.localScale.x;
+                var ray = new Ray(camera.transform.position + camera.transform.forward * (originalOffset * parentToChildMultiplier), -camera.transform.forward);
+                bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, menuLayerMask);
+
+                if (hasHit)
                 {
-                    leftHandController.RaycastEventReceived += OnRaycastEvent;
+                    spawnPoint = hit.point;
+                    transform.position = spawnPoint.Value;
                 }
 
-                Debug.Log($"Init Camera Position : {camera.transform.position}");
-                Debug.Log($"Init Origin Position : {root.transform.position}");
-                Debug.Log($"Init Menu Position : {transform.position}");
-                Debug.Log($"Init Sphere Position : {sphere.transform.position}");
-
+                if (leftHandNotifier != null)
+                {
+                    leftHandNotifier.EventReceived += OnRaycastEvent;
+                }
 #if UNITY_EDITOR
                 raycaster.enabled = true;
 #else
@@ -179,6 +108,11 @@ sphere.transform.localScale = Vector3.one * originalOffset;
             }
             else
             {
+                if (leftHandNotifier != null)
+                {
+                    leftHandNotifier.EventReceived -= OnRaycastEvent;
+                }
+
                 canvasGroup.alpha = 0f;
 #if UNITY_EDITOR
                 raycaster.enabled = false;
@@ -186,36 +120,15 @@ sphere.transform.localScale = Vector3.one * originalOffset;
                 trackedRaycaster.enabled = false;
 #endif
                 sphere.SetActive(false);
-
-                if (leftHandController != null)
-                {
-                    leftHandController.RaycastEventReceived -= OnRaycastEvent;
-                }
             }
         }
 
-        // private void OnCollisionEvent(GameObject source, CollisionDetector.Event @event, Vector3? nearestPoint)
-        // {
-        //     if (!navigationManager.DragBar.IsPointerDown) return;
-        //     root.transform.position = nearestPoint.Value;
-        // }
-
-        private void OnRaycastEvent(HandController controller, GameObject source, Vector3 point)
+        private void OnRaycastEvent(GameObject origin, RaycastHit hit)
         {
             if (!navigationManager.DragBar.IsPointerDown) return;
 
-            if (controller.WhichHand == HandController.Hand.Left)
-            {
-                root.transform.position = point;
-            }
+            Vector3 offset = navigationManager.transform.position - navigationManager.DragBar.transform.position;
+            transform.position = hit.point + offset;
         }
-
-// #if UNITY_EDITOR
-//         public void OnDrawGizmos()
-//         {
-//             if (canvasGroup.alpha != 1f) return;
-//             Gizmos.DrawSphere(root.transform.position, originalOffset * 0.5f);
-//         }
-// #endif
     }
 }

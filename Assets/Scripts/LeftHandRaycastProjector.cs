@@ -1,47 +1,25 @@
+using System.Collections.Generic;
+
 using UnityEngine;
 
-public class LeftHandRaycastProjector : MonoBehaviour
+public class LeftHandRaycastProjector : MultiRaycastProjector
 {
     [Header("Config")]
-    [SerializeField] GameObject referencePrefab;
+    public MultiRaycastProjector.Pointer pointer;
 
-    private HandController leftHandController;
-    private GameObject reference;
-
-    void Awake()
+    protected override List<MultiRaycastProjector.Projector> GetProjectors()
     {
+        List<MultiRaycastProjector.Projector> projectors = new List<MultiRaycastProjector.Projector>();
+
         if (TryGet.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
         {
-            leftHandController = controller;
+            projectors.Add(new MultiRaycastProjector.Projector
+            {
+                pointer = pointer,
+                notifier = controller.Notifier
+            });
         }
-    }
 
-    void OnEnable()
-    {
-        if (leftHandController != null)
-        {
-            leftHandController.RaycastEventReceived += OnRaycastEvent;
-        }
-    }
-
-    void OnDisable()
-    {
-        if (leftHandController != null)
-        {
-            leftHandController.RaycastEventReceived -= OnRaycastEvent;
-        }
-    }
-
-    private void OnRaycastEvent(HandController controller, GameObject source, Vector3 point)
-    {
-        if (reference == null)
-        {
-            reference = Instantiate(referencePrefab, point, Quaternion.identity);
-            reference.gameObject.name = "Reference";
-        }
-        else
-        {
-            reference.transform.position = point;
-        }
+        return projectors;
     }
 }

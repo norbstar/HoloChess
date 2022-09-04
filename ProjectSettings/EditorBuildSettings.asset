@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Sphere Raycast Test.unity
     guid: 29593c3d86b4db84da27034956743772
   - enabled: 1
-    path: Assets/Scenes/Sandbox.unity
-    guid: 6d395fb1440f0834bb2b23cddbccf4f0
+    path: Assets/Scenes/Raycast Test.unity
+    guid: d855c2cc027af4e4e8cb1b57d65152ab
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 77a26a01542719049ac88daf7156e9d7, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6757eebe8082f624abe464694c5932ed, type: 2}

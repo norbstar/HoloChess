@@ -32,14 +32,8 @@ public class TryGet
     {
         if (TryGetControllers(out List<HandController> controllers))
         {
-            foreach (HandController thisController in controllers)
-            {
-                if (((int) characteristics == (int) HandController.LeftHandCharacteristics) || ((int) characteristics == (int) HandController.RightHandCharacteristics))
-                {
-                    controller = thisController;
-                    return true;
-                }
-            }
+            controller = controllers.FirstOrDefault(c => (int) characteristics == (int) c.Characteristics);
+            return (controller != null);
         }
 
         controller = default(HandController);
