@@ -18,6 +18,9 @@ namespace UI
         [SerializeField] NavigationPanelUIManager navigationManager;
         [SerializeField] GameObject sphere;
 
+        [Header("Audio")]
+        [SerializeField] AudioClip onRevealClip;
+
         [Header("Config")]
         [SerializeField] GameObject referencePrefab;
 
@@ -82,17 +85,23 @@ namespace UI
                 root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
                 sphere.SetActive(true);
 
-                Vector3? spawnPoint = null;
                 LayerMask menuLayerMask = LayerMask.GetMask("Menu");
 
                 float parentToChildMultiplier = navigationManager.transform.localScale.x / transform.localScale.x;
                 var ray = new Ray(camera.transform.position + camera.transform.forward * (originalOffset * parentToChildMultiplier), -camera.transform.forward);
                 bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, menuLayerMask);
 
+                Vector3? spawnPoint = null;
+                
                 if (hasHit)
                 {
                     spawnPoint = hit.point;
                     transform.position = spawnPoint.Value;
+                }
+
+                if (onRevealClip != null)
+                {
+                    AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
                 }
 
                 if (leftHandNotifier != null)
