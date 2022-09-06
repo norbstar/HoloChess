@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,6 +64,12 @@ public class TryGet
         return (opposingController != null);
     }
 
+    public static bool TryGetXRController(GameObject gameObject, out XRController xrController)
+    {
+        xrController = gameObject.GetComponent<XRController>() as XRController;
+        return (xrController != null);
+    }
+
     public static bool TryGetRootResolver(GameObject gameObject, out GameObject rootGameObject)
     {
         if (gameObject.TryGetComponent<RootResolver>(out RootResolver rootResolver))
@@ -73,11 +80,5 @@ public class TryGet
 
         rootGameObject = gameObject;
         return true;
-    }
-
-    public static bool TryGetXRController(GameObject gameObject, out XRController xrController)
-    {
-        xrController = gameObject.GetComponent<XRController>() as XRController;
-        return (xrController != null);
     }
 }

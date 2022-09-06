@@ -21,5 +21,11 @@ namespace UI.Panels
 
             return instances;
         }
-    }
+
+        protected bool TryResolveButtonByName(string name, out ButtonUIManager manager)
+        {
+            manager = instances.FirstOrDefault(b => b.name.Equals(name));
+            return (manager != null);
+        }
+   }
 }

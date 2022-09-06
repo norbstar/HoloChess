@@ -20,6 +20,9 @@ namespace UI.Panels
             ResolveDependencies();
         }
 
+        // Start is called before the first frame update
+        void Start() => ConfigButtons();
+
         private void ResolveDependencies()
         {
             audioSourceModifier = FindObjectOfType<AudioSourceModifier>();
@@ -27,10 +30,25 @@ namespace UI.Panels
             rootResolver = GetComponent<RootResolver>() as RootResolver;
         }
 
+        private void ConfigButtons()
+        {
+            if (TryResolveButtonByName("Terminal Toggle Button", out ButtonUIManager manager))
+            {
+                if (((ToggleButtonUIManager) manager).IsOn)
+                {
+                    terminalCanvasUIManager.Show();
+                }
+                else
+                {
+                    terminalCanvasUIManager.Hide();
+                }
+            }
+        }
+
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
-            Debug.Log($"{Time.time} OnSelect {name}");
+            // Debug.Log($"{Time.time} OnSelect {name}");
 
             if (name.Equals("Scene Button"))
             {

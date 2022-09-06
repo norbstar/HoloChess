@@ -1097,6 +1097,7 @@ MonoBehaviour:
   group: {fileID: 184644681}
   scrollRect: {fileID: 949707827}
   textUI: {fileID: 640764281}
+  refreshInterval: 0.25
 --- !u!1 &258040693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1191218111258354800, guid: 4696f6bba19435b49a8749e6f57f26eb, type: 3}
@@ -3448,6 +3449,10 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1191218112647766783, guid: 4696f6bba19435b49a8749e6f57f26eb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2186091862696700803, guid: 4696f6bba19435b49a8749e6f57f26eb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3768,7 +3773,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212651739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -3834,8 +3839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f6ac4fe7776204a89eb027b3920e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textUI: {fileID: 640764281}
-  refreshInterval: 0.25
 --- !u!114 &1212651745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3856,7 +3859,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212651739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
   m_Name: 
@@ -4153,7 +4156,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4264163875134681748, guid: d92999efb67ba5a45959e1bc02182380, type: 3}
       propertyPath: m_Name
-      value: Audio Source Monitor
+      value: Audio Source Modifier
       objectReference: {fileID: 0}
     - target: {fileID: 4264163875134681750, guid: d92999efb67ba5a45959e1bc02182380, type: 3}
       propertyPath: m_RootOrder
@@ -8346,8 +8349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f6ac4fe7776204a89eb027b3920e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textUI: {fileID: 3453121734705592636}
-  refreshInterval: 0.25
 --- !u!224 &3453121734503018241
 RectTransform:
   m_ObjectHideFlags: 0

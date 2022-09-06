@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4264163875134681751}
   - component: {fileID: 1047069360}
   m_Layer: 0
-  m_Name: Audio Source Monitor
+  m_Name: Audio Source Modifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

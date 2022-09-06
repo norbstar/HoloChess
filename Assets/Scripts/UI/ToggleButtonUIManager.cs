@@ -14,7 +14,7 @@ namespace UI
         [SerializeField] Color offColor;
         [SerializeField] Color onColor;
 
-        private bool isOn = false;
+        protected bool isOn = false;
         public bool IsOn
         {
             get

@@ -12,7 +12,7 @@ namespace UI.Panels
 
         protected abstract List<ButtonUIManager> ResolveInstances();
 
-        void OnEnable()
+        public virtual void OnEnable()
         {
             foreach (var instance in instances)
             {
@@ -20,7 +20,7 @@ namespace UI.Panels
             }
         }
 
-        void OnDisable()
+        public virtual void OnDisable()
         {
             foreach (var instance in instances)
             {

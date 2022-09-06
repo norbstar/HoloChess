@@ -31,6 +31,9 @@ namespace UI
             public GameObject gameObject;
         }
 
+        private bool isShown = false;
+        public bool IsShown { get { return isShown; } }
+
         private CanvasGroup canvasGroup;
         private GraphicRaycaster raycaster;
         private TrackedDeviceGraphicRaycaster trackedRaycaster;
@@ -82,54 +85,64 @@ namespace UI
         {
             if (canvasGroup.alpha == 0f)
             {
-                root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
-                sphere.SetActive(true);
-
-                LayerMask menuLayerMask = LayerMask.GetMask("Menu");
-
-                float parentToChildMultiplier = navigationManager.transform.localScale.x / transform.localScale.x;
-                var ray = new Ray(camera.transform.position + camera.transform.forward * (originalOffset * parentToChildMultiplier), -camera.transform.forward);
-                bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, menuLayerMask);
-
-                Vector3? spawnPoint = null;
-                
-                if (hasHit)
-                {
-                    spawnPoint = hit.point;
-                    transform.position = spawnPoint.Value;
-                }
-
-                if (onRevealClip != null)
-                {
-                    AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
-                }
-
-                if (leftHandNotifier != null)
-                {
-                    leftHandNotifier.EventReceived += OnRaycastEvent;
-                }
-#if UNITY_EDITOR
-                raycaster.enabled = true;
-#else
-                trackedRaycaster.enabled = true;
-#endif
-                canvasGroup.alpha = 1f;
+                Show();
             }
             else
             {
-                if (leftHandNotifier != null)
-                {
-                    leftHandNotifier.EventReceived -= OnRaycastEvent;
-                }
-
-                canvasGroup.alpha = 0f;
-#if UNITY_EDITOR
-                raycaster.enabled = false;
-#else
-                trackedRaycaster.enabled = false;
-#endif
-                sphere.SetActive(false);
+                Hide();
             }
+        }
+
+        private void Show()
+        {
+            root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
+            sphere.SetActive(true);
+
+            LayerMask menuLayerMask = LayerMask.GetMask("Menu");
+
+            float parentToChildMultiplier = navigationManager.transform.localScale.x / transform.localScale.x;
+            var ray = new Ray(camera.transform.position + camera.transform.forward * (originalOffset * parentToChildMultiplier), -camera.transform.forward);
+            bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, menuLayerMask);
+
+            Vector3? spawnPoint = null;
+            
+            if (hasHit)
+            {
+                spawnPoint = hit.point;
+                transform.position = spawnPoint.Value;
+            }
+
+            if (onRevealClip != null)
+            {
+                AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
+            }
+
+            if (leftHandNotifier != null)
+            {
+                leftHandNotifier.EventReceived += OnRaycastEvent;
+            }
+#if UNITY_EDITOR
+            raycaster.enabled = true;
+#else
+            trackedRaycaster.enabled = true;
+#endif
+            canvasGroup.alpha = 1f;
+        }
+
+        private void Hide()
+        {
+            if (leftHandNotifier != null)
+            {
+                leftHandNotifier.EventReceived -= OnRaycastEvent;
+            }
+
+            canvasGroup.alpha = 0f;
+#if UNITY_EDITOR
+            raycaster.enabled = false;
+#else
+            trackedRaycaster.enabled = false;
+#endif
+            sphere.SetActive(false);
         }
 
         private void OnRaycastEvent(GameObject origin, RaycastHit hit)
