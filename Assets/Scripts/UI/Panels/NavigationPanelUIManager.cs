@@ -13,6 +13,7 @@ namespace UI.Panels
 
         private AudioSourceModifier audioSourceModifier;
         private TerminalCanvasUIManager terminalCanvasUIManager;
+        private SettingsCanvasUIManager settingsCanvasUIManager;
         private RootResolver rootResolver;
 
         public override void Awake()
@@ -28,6 +29,7 @@ namespace UI.Panels
         {
             audioSourceModifier = FindObjectOfType<AudioSourceModifier>();
             terminalCanvasUIManager = FindObjectOfType<TerminalCanvasUIManager>();
+            settingsCanvasUIManager = FindObjectOfType<SettingsCanvasUIManager>();
             rootResolver = GetComponent<RootResolver>() as RootResolver;
         }
 
@@ -54,6 +56,10 @@ namespace UI.Panels
             if (name.Equals("Terminal Toggle Button"))
             {
                 terminalCanvasUIManager.Toggle();
+            }
+            if (name.Equals("Settings Button"))
+            {
+                settingsCanvasUIManager.Toggle();
             }
             else if (name.Equals("Exit Button"))
             {

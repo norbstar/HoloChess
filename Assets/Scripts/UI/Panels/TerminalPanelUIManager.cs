@@ -9,6 +9,7 @@ using TMPro;
 
 namespace UI.Panels
 {
+    [RequireComponent(typeof(RootResolver))]
     public class TerminalPanelUIManager : ShortcutPanelUIManager
     {
         [Header("Components")]
@@ -37,7 +38,6 @@ namespace UI.Panels
             Debug.Log($"Config.RefreshInterval:{refreshInterval} secs");
             StartCoroutine(MonitorLogs());
         }
-
 
         public override void OnEnable()
         {

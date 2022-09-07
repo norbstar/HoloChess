@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sphere Raycast Test.unity
-    guid: 29593c3d86b4db84da27034956743772
+    path: Assets/Scenes/Default.unity
+    guid: 62c8598dc219c7343ba937c509510afc
   - enabled: 1
     path: Assets/Scenes/Raycast Test.unity
     guid: d855c2cc027af4e4e8cb1b57d65152ab
+  - enabled: 1
+    path: Assets/Scenes/Sphere Raycast Test.unity
+    guid: 29593c3d86b4db84da27034956743772
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 77a26a01542719049ac88daf7156e9d7, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6757eebe8082f624abe464694c5932ed, type: 2}
