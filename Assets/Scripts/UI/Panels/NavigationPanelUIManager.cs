@@ -5,6 +5,7 @@ namespace UI.Panels
     [RequireComponent(typeof(RootResolver))]
     public class NavigationPanelUIManager : ShortcutPanelUIManager
     {
+        [Header("Components")]
         [SerializeField] DragBarUIManager dragBar;
         public DragBarUIManager DragBar { get { return dragBar; } }
         [SerializeField] ButtonGroupUIManager buttonGroupManager;

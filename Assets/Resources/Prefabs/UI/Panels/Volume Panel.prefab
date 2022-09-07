@@ -708,7 +708,8 @@ GameObject:
   - component: {fileID: 1383247279661892248}
   - component: {fileID: 1383247279661892252}
   - component: {fileID: 1383247279661892253}
-  - component: {fileID: 1383247279661892255}
+  - component: {fileID: 2440247924987912145}
+  - component: {fileID: 2963855749735069237}
   m_Layer: 5
   m_Name: Volume Panel
   m_TagString: Untagged
@@ -766,7 +767,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd70f47a0b27b8542b1eda7c6399fea2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3fa6eeb2fd6f7394c8b13e7ba34379f7, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -775,8 +776,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 200
---- !u!114 &1383247279661892255
+  m_PixelsPerUnitMultiplier: 100
+--- !u!225 &2440247924987912145
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383247279661892249}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2963855749735069237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -785,13 +798,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1383247279661892249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf6e85faa8190c142ad4faf5d0df9d2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 05f4ce688db579947a7e8054c9237326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1383247279379343886}
   toggle: {fileID: 7139689411593491258}
   eventHandler: {fileID: 6173200737864791451}
-  onHoverClip: {fileID: 8300000, guid: 5918e1159f1004249a91f32a9648c402, type: 3}
+  onHoverClip: {fileID: 8300000, guid: f86731e1191dea640a68813ec69d57b1, type: 3}
   enableHaptics: 1
 --- !u!1 &1952502258351204608
 GameObject:

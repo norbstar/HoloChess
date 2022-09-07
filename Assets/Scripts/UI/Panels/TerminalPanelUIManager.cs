@@ -12,6 +12,10 @@ namespace UI.Panels
     public class TerminalPanelUIManager : ShortcutPanelUIManager
     {
         [Header("Components")]
+        [SerializeField] DragBarUIManager dragBar;
+        public DragBarUIManager DragBar { get { return dragBar; } }
+         [SerializeField] ButtonGroupUIManager buttonGroupManager;
+        public ButtonGroupUIManager ButtonGroupManager { get { return buttonGroupManager; } }
         [SerializeField] ScrollRect scrollRect;
         [SerializeField] TextMeshProUGUI textUI;
 
@@ -47,7 +51,11 @@ namespace UI.Panels
             Application.logMessageReceived -= Log;
         }
 
-        public void Clear() => elements.Clear();
+        public void Clear()
+        {
+            elements.Clear();
+            refresh = true;
+        }
 
         private void Log(string logString, string stackTrace, LogType type)
         {
@@ -125,10 +133,12 @@ namespace UI.Panels
             }
         }
 
+        public void EnableDragBar(bool enable) => dragBar.gameObject.SetActive(enable);
+
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
-            // Debug.Log($"{Time.time} OnSelect {name}");
+            Debug.Log($"{Time.time} OnSelect {name}");
 
             if (name.Equals("Top Button"))
             {

@@ -166,7 +166,16 @@ namespace UI
             }
 
             image.color = selectColor;
-            root.GetComponent<NavigationPanelUIManager>().ButtonGroupManager.Disable();
+            
+            if (root.TryGetComponent<NavigationPanelUIManager>(out NavigationPanelUIManager navigationManager))
+            {
+                navigationManager.ButtonGroupManager.Disable();
+            }
+
+            if (root.TryGetComponent<TerminalPanelUIManager>(out TerminalPanelUIManager terminalManager))
+            {
+                terminalManager.ButtonGroupManager.Disable();
+            }
 
             isPointerDown = true;
 
@@ -186,7 +195,16 @@ namespace UI
             }
 
             image.color = hoverColor;
-            root.GetComponent<NavigationPanelUIManager>().ButtonGroupManager.Enable();
+            
+            if (root.TryGetComponent<NavigationPanelUIManager>(out NavigationPanelUIManager navigationManager))
+            {
+                navigationManager.ButtonGroupManager.Enable();
+            }
+
+            if (root.TryGetComponent<TerminalPanelUIManager>(out TerminalPanelUIManager terminalManager))
+            {
+                terminalManager.ButtonGroupManager.Enable();
+            }
 
             this.interactor = null;
             isPointerDown = false;

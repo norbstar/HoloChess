@@ -12,7 +12,7 @@ namespace UI
     [RequireComponent(typeof(GraphicRaycaster))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     [RequireComponent(typeof(RootResolver))]
-    public class MenuCanvasUIManager : CachedObject<MenuCanvasUIManagerOriginal>
+    public class MenuCanvasUIManager : MonoBehaviour
     {
         [Header("Components")]
         [SerializeField] NavigationPanelUIManager navigationManager;
@@ -45,22 +45,12 @@ namespace UI
         private float originalOffset;
         private RaycastNotifier leftHandNotifier;
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
             ResolveDependencies();
 
             root = rootResolver.Root;
             originalOffset = transform.localPosition.z;
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
-            {
-                leftHandNotifier = controller.Notifier;
-            }
         }
 
         private void ResolveDependencies()
@@ -70,6 +60,15 @@ namespace UI
             trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
             camera = Camera.main;
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
+            {
+                leftHandNotifier = controller.Notifier;
+            }
         }
 
         // Update is called once per frame

@@ -38,6 +38,6 @@ public class RaycastNotifier : MonoBehaviour
 
         if (!hasHit) return;
 
-        EventReceived?.Invoke(gameObject, hit);//hit.transform.gameObject, hit.point);
+        EventReceived?.Invoke(gameObject, hit);
     }
 }
