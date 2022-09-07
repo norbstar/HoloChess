@@ -10,7 +10,7 @@ using FX;
 
 namespace UI.Panels
 {
-    public class SliderPanelUIManager : MonoBehaviour
+    public class SliderPanelUIManager : MonoBehaviour, IAudioComponent
     {
         [Header("Components")]
         [SerializeField] Slider slider;
@@ -25,10 +25,11 @@ namespace UI.Panels
         [SerializeField] bool enableHaptics = false;
         public bool EnableHaptics { get { return enableHaptics; } }
 
-        public delegate void OnModifyEvent(float value);
-        public static event OnModifyEvent EventReceived;
+        public delegate void OnValueEvent(SliderPanelUIManager manager, float value);
+        public event OnValueEvent EventReceived;
 
         private Vector3 originalScale;
+        private bool isSynchronizing;
 
         // Start is called before the first frame update
         void Start()
@@ -130,7 +131,12 @@ namespace UI.Panels
                 toggle.interactable = true;
             }
 
-            EventReceived?.Invoke(slider.value);
+            if (!isSynchronizing)
+            {
+                EventReceived?.Invoke(this, slider.value);
+            }
+            
+            isSynchronizing = false;
         }
 
         public void OnToggleChanged(bool isOn)
@@ -139,6 +145,12 @@ namespace UI.Panels
 
             toggle.interactable = false;
             slider.value = slider.minValue;
+        }
+
+        public void SyncVolume(float volume)
+        {
+            isSynchronizing = true;
+            slider.value = volume;
         }
     }
 }

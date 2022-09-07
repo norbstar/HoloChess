@@ -57,7 +57,7 @@ namespace UI
         // Start is called before the first frame update
         void Start()
         {
-            if (TryGet.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
+            if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
             {
                 leftHandNotifier = controller.Notifier;
             }

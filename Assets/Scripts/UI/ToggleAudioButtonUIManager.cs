@@ -9,38 +9,25 @@ namespace UI
 {
     public class ToggleAudioButtonUIManager : ToggleButtonUIManager, IAudioComponent
     {
+        public delegate void OnToggleEvent(ToggleAudioButtonUIManager manager, bool isOn);
+        public event OnToggleEvent ToggleEventReceived;
+
         private List<IAudioComponent> audioComponents;
-        private float cachedValue;
 
         public override void Awake()
         {
             base.Awake();
-            audioComponents = GameObject.FindObjectsOfType<MonoBehaviour>().OfType<IAudioComponent>().ToList();
-        }
+            ResolveDependencies();
+       }
+
+        private void ResolveDependencies() => audioComponents = GameObject.FindObjectsOfType<MonoBehaviour>().OfType<IAudioComponent>().ToList();
 
         public override void OnClickButton(UnityButton button)
 	    {
             base.OnClickButton(button);
-
-            var newValue = (isOn) ? cachedValue : 0f;
-
-            foreach (IAudioComponent component in audioComponents)
-            {
-                if (!ReferenceEquals(gameObject, component.GetObject()))
-                {
-                    component.SyncVolume(newValue);
-                }
-            }
-
-            cachedValue = newValue;
+            ToggleEventReceived?.Invoke(this, IsOn);
         }
 
-        public GameObject GetObject() => gameObject;
-
-        public void SyncVolume(float volume)
-        {
-            isOn = volume > 0f;
-		    cachedValue = volume;
-        }
-    }
+        public void SyncVolume(float volume) => IsOn = volume > 0f;
+   }
 }

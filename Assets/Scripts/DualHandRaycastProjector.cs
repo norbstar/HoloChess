@@ -12,7 +12,7 @@ public class DualHandRaycastProjector : MultiRaycastProjector
     {
         List<MultiRaycastProjector.Projector> projectors = new List<MultiRaycastProjector.Projector>();
 
-        if (TryGet.TryGetControllers(out List<HandController> controllers))
+        if (TryGet.XR.TryGetControllers(out List<HandController> controllers))
         {
             // Debug.Log($"Dual Hand Raycast Projector Resolved {controllers.Count} controllers");
 

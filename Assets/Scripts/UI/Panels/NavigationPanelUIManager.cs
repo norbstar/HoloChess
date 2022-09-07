@@ -50,21 +50,9 @@ namespace UI.Panels
             var name = manager.Button.name;
             // Debug.Log($"{Time.time} OnSelect {name}");
 
-            if (name.Equals("Scene Button"))
-            {
-                // TODO
-            }
-            else if (name.Equals("Terminal Toggle Button"))
+            if (name.Equals("Terminal Toggle Button"))
             {
                 terminalCanvasUIManager.Toggle();
-            }
-            else if (name.Equals("Volume Toggle Button"))
-            {
-                audioSourceModifier.Volume = (((ToggleButtonUIManager) manager).IsOn) ? 1f : 0f;
-            }
-            else if (name.Equals("Settings Button"))
-            {
-                // TODO
             }
             else if (name.Equals("Exit Button"))
             {

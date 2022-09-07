@@ -11,7 +11,7 @@ public class LeftHandRaycastProjector : MultiRaycastProjector
     {
         List<MultiRaycastProjector.Projector> projectors = new List<MultiRaycastProjector.Projector>();
 
-        if (TryGet.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
+        if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
         {
             projectors.Add(new MultiRaycastProjector.Projector
             {
