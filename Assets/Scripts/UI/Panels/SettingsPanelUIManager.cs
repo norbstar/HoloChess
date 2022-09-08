@@ -9,6 +9,8 @@ namespace UI.Panels
         [SerializeField] DragBarUIManager dragBar;
         public DragBarUIManager DragBar { get { return dragBar; } }
 
+        private static string CLOSE_PROGESS_BUTTON = "Close Progress Button";
+        
         public delegate void OnCloseEvent();
         public event OnCloseEvent CloseEventReceived;
 
@@ -17,9 +19,9 @@ namespace UI.Panels
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
-            Debug.Log($"{Time.time} OnSelect {name}");
+            // Debug.Log($"{Time.time} OnSelect {name}");
 
-            if (name.Equals("Close Button"))
+            if (name.Equals(CLOSE_PROGESS_BUTTON))
             {
                 CloseEventReceived?.Invoke();
             }

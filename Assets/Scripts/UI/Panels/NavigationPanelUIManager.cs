@@ -11,11 +11,11 @@ namespace UI.Panels
         [SerializeField] ButtonGroupUIManager buttonGroupManager;
         public ButtonGroupUIManager ButtonGroupManager { get { return buttonGroupManager; } }
 
-        // private static string SCENE_BUTTON = "Scene Button";
-        // private static string TERMINAL_TOGGLE_BUTTON = "Terminal Toggle Button";
-        // private static string VOLUME_TOGGLE_BUTTON = "Volume Toggle Button";
-        // private static string SETTINGS_BUTTON = "Settings Button";
-        // private static string EXIT_PROGESS_BUTTON = "Exit Progress Button";
+        private static string SCENE_BUTTON = "Scene Button";
+        private static string TERMINAL_TOGGLE_BUTTON = "Terminal Toggle Button";
+        private static string VOLUME_TOGGLE_BUTTON = "Volume Toggle Button";
+        private static string SETTINGS_BUTTON = "Settings Button";
+        private static string EXIT_PROGESS_BUTTON = "Exit Progress Button";
 
         private AudioSourceModifier audioSourceModifier;
         private TerminalCanvasUIManager terminalCanvasUIManager;
@@ -103,15 +103,23 @@ namespace UI.Panels
             var name = manager.Button.name;
             // Debug.Log($"{Time.time} OnSelect {name}");
 
-            if (name.Equals("Terminal Toggle Button"))
+            if (name.Equals(SCENE_BUTTON))
+            {
+                // TODO
+            }
+            else if (name.Equals(TERMINAL_TOGGLE_BUTTON))
             {
                 terminalCanvasUIManager?.Toggle();
             }
-            if (name.Equals("Settings Button"))
+            else if (name.Equals(VOLUME_TOGGLE_BUTTON))
+            {
+                // TODO
+            }
+            else if (name.Equals(SETTINGS_BUTTON))
             {
                 settingsCanvasUIManager?.Toggle();
             }
-            else if (name.Equals("Exit Progress Button"))
+            else if (name.Equals(EXIT_PROGESS_BUTTON))
             {
                 Application.Quit();
             }

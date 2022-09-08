@@ -23,6 +23,11 @@ namespace UI.Panels
         [Header("Config")]
         [SerializeField] float refreshInterval = 0.25f;
 
+        private static string TOP_BUTTON = "Top Button";
+        private static string BOTTOM_BUTTON = "Bottom Button";
+        private static string CLEAR_PROGRESS_BUTTON = "Clear Progress Button";
+        private static string CLOSE_PROGRESS_BUTTON = "Close Progress Button";
+
         public delegate void OnCloseEvent();
         public event OnCloseEvent CloseEventReceived;
 
@@ -141,21 +146,21 @@ namespace UI.Panels
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
-            Debug.Log($"{Time.time} OnSelect {name}");
+            // Debug.Log($"{Time.time} OnSelect {name}");
 
-            if (name.Equals("Top Button"))
+            if (name.Equals(TOP_BUTTON))
             {
                 scrollRect.ScrollToTop();
             }
-            else if (name.Equals("Bottom Button"))
+            else if (name.Equals(BOTTOM_BUTTON))
             {
                 scrollRect.ScrollToBottom();
             }
-            else if (name.Equals("Clear Button"))
+            else if (name.Equals(CLEAR_PROGRESS_BUTTON))
             {
                 Clear();
             }
-            else if (name.Equals("Close Button"))
+            else if (name.Equals(CLOSE_PROGRESS_BUTTON))
             {
                 CloseEventReceived?.Invoke();
             }

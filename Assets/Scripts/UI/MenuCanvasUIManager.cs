@@ -92,7 +92,6 @@ namespace UI
 
         public void Toggle()
         {
-            // if (canvasGroup.alpha == 0f)
             if (!isShown)
             {
                 Show();
@@ -136,7 +135,6 @@ namespace UI
 #else
             trackedRaycaster.enabled = true;
 #endif
-            // canvasGroup.alpha = 1f;
             animator.SetTrigger("Show");
             isShown = true;
         }
@@ -148,7 +146,6 @@ namespace UI
                 leftHandNotifier.EventReceived -= OnRaycastEvent;
             }
 
-            // canvasGroup.alpha = 0f;
             animator.SetTrigger("Hide");
             isShown = false;
 #if UNITY_EDITOR
