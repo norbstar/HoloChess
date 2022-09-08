@@ -9,6 +9,7 @@ namespace UI
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(GraphicRaycaster))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(RootResolver))]
     public class TerminalCanvasUIManager : MonoBehaviour
     {
@@ -28,6 +29,7 @@ namespace UI
         public GameObject Root { get { return root; } }
         private float originalOffset;
         private RaycastNotifier leftHandNotifier;
+        private Animator animator;
 
         void Awake()
         {
@@ -41,6 +43,7 @@ namespace UI
             canvasGroup = GetComponent<CanvasGroup>() as CanvasGroup;
             raycaster = GetComponent<GraphicRaycaster>() as GraphicRaycaster;
             trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
+            animator = GetComponent<Animator>() as Animator;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
         }
 
@@ -66,7 +69,7 @@ namespace UI
 
         public void Toggle()
         {
-            if (canvasGroup.alpha == 0f)
+            if (!isShown)
             {
                 Show();
             }
@@ -87,7 +90,8 @@ namespace UI
 #else
             trackedRaycaster.enabled = true;
 #endif
-            canvasGroup.alpha = 1f;
+            animator.SetTrigger("Show");
+            isShown = true;
         }
 
         public void Hide()
@@ -97,7 +101,8 @@ namespace UI
                 leftHandNotifier.EventReceived -= OnRaycastEvent;
             }
 
-            canvasGroup.alpha = 0f;
+            animator.SetTrigger("Hide");
+            isShown = false;
 #if UNITY_EDITOR
             raycaster.enabled = false;
 #else

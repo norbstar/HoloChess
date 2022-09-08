@@ -7,6 +7,7 @@ namespace UI.Panels
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(GraphicRaycaster))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(RootResolver))]
     public class SettingsCanvasUIManager : MonoBehaviour
     {
@@ -26,6 +27,7 @@ namespace UI.Panels
         public GameObject Root { get { return root; } }
         private float originalOffset;
         private RaycastNotifier leftHandNotifier;
+        private Animator animator;
 
         void Awake()
         {
@@ -39,6 +41,7 @@ namespace UI.Panels
             canvasGroup = GetComponent<CanvasGroup>() as CanvasGroup;
             raycaster = GetComponent<GraphicRaycaster>() as GraphicRaycaster;
             trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
+            animator = GetComponent<Animator>() as Animator;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
         }
 
@@ -64,7 +67,7 @@ namespace UI.Panels
 
         public void Toggle()
         {
-            if (canvasGroup.alpha == 0f)
+            if (!isShown)
             {
                 Show();
             }
@@ -85,7 +88,8 @@ namespace UI.Panels
 #else
             trackedRaycaster.enabled = true;
 #endif
-            canvasGroup.alpha = 1f;
+            animator.SetTrigger("Show");
+            isShown = true;
         }
 
         public void Hide()
@@ -95,7 +99,8 @@ namespace UI.Panels
                 leftHandNotifier.EventReceived -= OnRaycastEvent;
             }
 
-            canvasGroup.alpha = 0f;
+            animator.SetTrigger("Hide");
+            isShown = false;
 #if UNITY_EDITOR
             raycaster.enabled = false;
 #else
