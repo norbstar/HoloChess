@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 720505863}
   - component: {fileID: 720505862}
   m_Layer: 5
-  m_Name: Exit Button
+  m_Name: Exit Progress Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3531,6 +3531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: {fileID: 3491556632994664353}
+  others: []
   dragBar: {fileID: 456045641924429198}
   buttonGroupManager: {fileID: 665347785}
 --- !u!114 &7350173520331707491

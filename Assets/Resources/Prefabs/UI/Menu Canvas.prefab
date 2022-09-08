@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 352445696529332526}
   - component: {fileID: 352445696529332512}
   - component: {fileID: 1403795284}
+  - component: {fileID: 540330439848578705}
   - component: {fileID: 736077535}
   m_Layer: 5
   m_Name: Menu Canvas
@@ -335,6 +336,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 0}
+--- !u!95 &540330439848578705
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352445696529332521}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &736077535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3769676f7f76e4a40a1d3e4bd6200a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navigationManager: {fileID: 1352964794288537882}
+  panel: {fileID: 1352964794288537882}
   sphere: {fileID: 0}
   onRevealClip: {fileID: 8300000, guid: 9bee97abf32998a41b9269214390485d, type: 3}
   referencePrefab: {fileID: 4917813849459877834, guid: ecea058c54f2617489b360e36ee25d93, type: 3}
@@ -2036,6 +2056,11 @@ PrefabInstance:
       objectReference: {fileID: 352445696529332521}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
+--- !u!224 &737080738633984897 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3491556633076729678, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
+  m_PrefabInstance: {fileID: 4201334281487592655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1352964794288537882 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2920743835108683221, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
@@ -2047,8 +2072,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac13661c123920941a20f863ebe7ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &737080738633984897 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3491556633076729678, guid: b2a73a55c3d8d6b408993533a20428b1, type: 3}
-  m_PrefabInstance: {fileID: 4201334281487592655}
-  m_PrefabAsset: {fileID: 0}

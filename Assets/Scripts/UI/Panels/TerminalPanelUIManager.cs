@@ -23,6 +23,9 @@ namespace UI.Panels
         [Header("Config")]
         [SerializeField] float refreshInterval = 0.25f;
 
+        public delegate void OnCloseEvent();
+        public event OnCloseEvent CloseEventReceived;
+
         private IDictionary<string, string> elements = new Dictionary<string, string>();
         private bool refresh;
 
@@ -35,7 +38,7 @@ namespace UI.Panels
         // Start is called before the first frame update
         void Start()
         {
-            Debug.Log($"Config.RefreshInterval:{refreshInterval} secs");
+            // Debug.Log($"Refresh Rate : {refreshInterval} secs");
             StartCoroutine(MonitorLogs());
         }
 
@@ -151,6 +154,10 @@ namespace UI.Panels
             else if (name.Equals("Clear Button"))
             {
                 Clear();
+            }
+            else if (name.Equals("Close Button"))
+            {
+                CloseEventReceived?.Invoke();
             }
         }
     }

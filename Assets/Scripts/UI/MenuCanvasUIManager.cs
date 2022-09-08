@@ -11,11 +11,13 @@ namespace UI
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(GraphicRaycaster))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(RootResolver))]
     public class MenuCanvasUIManager : MonoBehaviour
     {
         [Header("Components")]
-        [SerializeField] NavigationPanelUIManager navigationManager;
+        [SerializeField] NavigationPanelUIManager panel;
+        public NavigationPanelUIManager Panel { get { return panel; } }
         [SerializeField] GameObject sphere;
 
         [Header("Audio")]
@@ -43,7 +45,9 @@ namespace UI
         private new Camera camera;
         public Camera Camera { get { return camera; } }
         private float originalOffset;
+        private float parentToChildMultiplier;
         private RaycastNotifier leftHandNotifier;
+        private Animator animator;
 
         void Awake()
         {
@@ -51,6 +55,7 @@ namespace UI
 
             root = rootResolver.Root;
             originalOffset = transform.localPosition.z;
+            parentToChildMultiplier = panel.transform.localScale.x / transform.localScale.x;
         }
 
         private void ResolveDependencies()
@@ -59,6 +64,7 @@ namespace UI
             raycaster = GetComponent<GraphicRaycaster>() as GraphicRaycaster;
             trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
+            animator = GetComponent<Animator>() as Animator;
             camera = Camera.main;
         }
 
@@ -74,6 +80,10 @@ namespace UI
         // Update is called once per frame
         void Update()
         {
+            Debug.Log($"Scale : {transform.localScale.x}:{transform.localScale.y}:{transform.localScale.z}");
+            Debug.Log($"Alpha : {canvasGroup.alpha}");
+            Debug.Log($"Position {transform.position}");
+
             if (canvasGroup.alpha == 0f) return;
             
             Vector3 offset = transform.position - (root.transform.position + new Vector3(0f, sphere.transform.position.y, 0f));
@@ -82,7 +92,8 @@ namespace UI
 
         public void Toggle()
         {
-            if (canvasGroup.alpha == 0f)
+            // if (canvasGroup.alpha == 0f)
+            if (!isShown)
             {
                 Show();
             }
@@ -99,7 +110,6 @@ namespace UI
 
             LayerMask menuLayerMask = LayerMask.GetMask("Menu");
 
-            float parentToChildMultiplier = navigationManager.transform.localScale.x / transform.localScale.x;
             var ray = new Ray(camera.transform.position + camera.transform.forward * (originalOffset * parentToChildMultiplier), -camera.transform.forward);
             bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, menuLayerMask);
 
@@ -108,6 +118,7 @@ namespace UI
             if (hasHit)
             {
                 spawnPoint = hit.point;
+                Debug.Log($"{Time.time} Spawn Point : {spawnPoint}");
                 transform.position = spawnPoint.Value;
             }
 
@@ -125,7 +136,9 @@ namespace UI
 #else
             trackedRaycaster.enabled = true;
 #endif
-            canvasGroup.alpha = 1f;
+            // canvasGroup.alpha = 1f;
+            animator.SetTrigger("Show");
+            isShown = true;
         }
 
         private void Hide()
@@ -135,7 +148,9 @@ namespace UI
                 leftHandNotifier.EventReceived -= OnRaycastEvent;
             }
 
-            canvasGroup.alpha = 0f;
+            // canvasGroup.alpha = 0f;
+            animator.SetTrigger("Hide");
+            isShown = false;
 #if UNITY_EDITOR
             raycaster.enabled = false;
 #else
@@ -146,9 +161,9 @@ namespace UI
 
         private void OnRaycastEvent(GameObject origin, RaycastHit hit)
         {
-            if (!navigationManager.DragBar.IsPointerDown) return;
+            if (!panel.DragBar.IsPointerDown) return;
 
-            Vector3 offset = navigationManager.transform.position - navigationManager.DragBar.transform.position;
+            Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
             transform.position = hit.point + offset;
         }
     }

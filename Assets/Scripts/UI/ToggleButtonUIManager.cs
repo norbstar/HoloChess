@@ -13,6 +13,7 @@ namespace UI
         [Header("Custom Config")]
         [SerializeField] Color offColor;
         [SerializeField] Color onColor;
+        [SerializeField] bool isOnByDefault;
 
         private bool isOn = false;
         public bool IsOn
@@ -27,6 +28,12 @@ namespace UI
                 isOn = value;
                 bar.color = (isOn) ? onColor : offColor;
             }
+        }
+
+        public override void Awake()
+        {
+            base.Awake();
+            isOn = isOnByDefault;
         }
 
         public override void OnClickButton(UnityButton button)

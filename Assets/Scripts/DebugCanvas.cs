@@ -12,15 +12,9 @@ public class DebugCanvas : MonoBehaviour
     private IDictionary<string, string> elements = new Dictionary<string, string>();
     private int boo;
 
-    void OnEnable()
-    {
-        Application.logMessageReceived += Log;
-    }
+    void OnEnable() => Application.logMessageReceived += Log;
 
-    void OnDisable()
-    {
-        Application.logMessageReceived -= Log;
-    }
+    void OnDisable() => Application.logMessageReceived -= Log;
 
     public void Log(string logString, string stackTrace, LogType type)
     {

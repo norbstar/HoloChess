@@ -13,7 +13,8 @@ namespace UI
     public class TerminalCanvasUIManager : MonoBehaviour
     {
         [Header("Components")]
-        [SerializeField] TerminalPanelUIManager terminalManager;
+        [SerializeField] TerminalPanelUIManager panel;
+        public TerminalPanelUIManager Panel { get { return panel; } }
         [SerializeField] GameObject sphere;
 
         private bool isShown = false;
@@ -60,7 +61,7 @@ namespace UI
             Vector3 offset = transform.position - (root.transform.position + new Vector3(0f, sphere.transform.position.y, 0f));
             transform.LookAt(transform.position + offset);
 
-            terminalManager.EnableDragBar(sphere.activeSelf);
+            panel.EnableDragBar(sphere.activeSelf);
         }
 
         public void Toggle()
@@ -106,9 +107,9 @@ namespace UI
 
         private void OnRaycastEvent(GameObject origin, RaycastHit hit)
         {
-            if (!terminalManager.DragBar.IsPointerDown) return;
+            if (!panel.DragBar.IsPointerDown) return;
 
-            Vector3 offset = terminalManager.transform.position - terminalManager.DragBar.transform.position;
+            Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
             transform.position = hit.point + offset;
         }
     }

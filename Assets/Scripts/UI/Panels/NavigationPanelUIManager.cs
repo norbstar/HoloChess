@@ -11,6 +11,12 @@ namespace UI.Panels
         [SerializeField] ButtonGroupUIManager buttonGroupManager;
         public ButtonGroupUIManager ButtonGroupManager { get { return buttonGroupManager; } }
 
+        // private static string SCENE_BUTTON = "Scene Button";
+        // private static string TERMINAL_TOGGLE_BUTTON = "Terminal Toggle Button";
+        // private static string VOLUME_TOGGLE_BUTTON = "Volume Toggle Button";
+        // private static string SETTINGS_BUTTON = "Settings Button";
+        // private static string EXIT_PROGESS_BUTTON = "Exit Progress Button";
+
         private AudioSourceModifier audioSourceModifier;
         private TerminalCanvasUIManager terminalCanvasUIManager;
         private SettingsCanvasUIManager settingsCanvasUIManager;
@@ -33,8 +39,40 @@ namespace UI.Panels
             rootResolver = GetComponent<RootResolver>() as RootResolver;
         }
 
+        public override void OnEnable()
+        {
+            base.OnEnable();
+
+            if (terminalCanvasUIManager != null)
+            {
+                terminalCanvasUIManager.Panel.CloseEventReceived += OnTerminalCloseEvent;
+            }
+
+            if (settingsCanvasUIManager != null)
+            {
+                settingsCanvasUIManager.Panel.CloseEventReceived += OnSettingsCloseEvent;
+            }
+        }
+
+        public override void OnDisable()
+        {
+            base.OnEnable();
+
+            if (terminalCanvasUIManager != null)
+            {
+                terminalCanvasUIManager.Panel.CloseEventReceived -= OnTerminalCloseEvent;
+            }
+
+            if (settingsCanvasUIManager != null)
+            {
+                settingsCanvasUIManager.Panel.CloseEventReceived -= OnSettingsCloseEvent;
+            }
+        }
+
         private void ConfigButtons()
         {
+            if (terminalCanvasUIManager == null) return;
+
             if (TryResolveButtonByName("Terminal Toggle Button", out ButtonUIManager manager))
             {
                 if (((ToggleButtonUIManager) manager).IsOn)
@@ -48,6 +86,18 @@ namespace UI.Panels
             }
         }
 
+        private void OnSettingsCloseEvent() => settingsCanvasUIManager.Hide();
+
+        private void OnTerminalCloseEvent()
+        {
+            terminalCanvasUIManager.Hide();
+
+            if (TryResolveButtonByName("Terminal Toggle Button", out ButtonUIManager manager))
+            {
+                ((ToggleButtonUIManager) manager).IsOn = false;
+            }
+        }
+        
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
@@ -55,13 +105,13 @@ namespace UI.Panels
 
             if (name.Equals("Terminal Toggle Button"))
             {
-                terminalCanvasUIManager.Toggle();
+                terminalCanvasUIManager?.Toggle();
             }
             if (name.Equals("Settings Button"))
             {
-                settingsCanvasUIManager.Toggle();
+                settingsCanvasUIManager?.Toggle();
             }
-            else if (name.Equals("Exit Button"))
+            else if (name.Equals("Exit Progress Button"))
             {
                 Application.Quit();
             }

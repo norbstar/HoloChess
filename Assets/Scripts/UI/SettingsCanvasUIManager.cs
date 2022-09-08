@@ -11,7 +11,8 @@ namespace UI.Panels
     public class SettingsCanvasUIManager : MonoBehaviour
     {
         [Header("Components")]
-        [SerializeField] SettingsPanelUIManager settingsManager;
+        [SerializeField] SettingsPanelUIManager panel;
+        public SettingsPanelUIManager Panel { get { return panel; } }
         [SerializeField] GameObject sphere;
 
         private bool isShown = false;
@@ -58,7 +59,7 @@ namespace UI.Panels
             Vector3 offset = transform.position - (root.transform.position + new Vector3(0f, sphere.transform.position.y, 0f));
             transform.LookAt(transform.position + offset);
 
-            settingsManager.EnableDragBar(sphere.activeSelf);
+            panel.EnableDragBar(sphere.activeSelf);
         }
 
         public void Toggle()
@@ -104,9 +105,9 @@ namespace UI.Panels
 
         private void OnRaycastEvent(GameObject origin, RaycastHit hit)
         {
-            if (!settingsManager.DragBar.IsPointerDown) return;
+            if (!panel.DragBar.IsPointerDown) return;
 
-            Vector3 offset = settingsManager.transform.position - settingsManager.DragBar.transform.position;
+            Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
             transform.position = hit.point + offset;
         }
     }
