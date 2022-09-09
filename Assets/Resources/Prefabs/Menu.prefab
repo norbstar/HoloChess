@@ -388,9 +388,37 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9072824807851660896, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9072824808138029627, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
       propertyPath: m_Value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808760176129, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808760176129, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808760176129, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808760176129, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808760176129, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808760176129, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
@@ -500,7 +528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 352445696529332521, guid: e0af634e1def6de42b34cfe3f8f4097a, type: 3}
       propertyPath: m_Name
-      value: Menu Canvas
+      value: Home Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 3151184641194810060, guid: e0af634e1def6de42b34cfe3f8f4097a, type: 3}
       propertyPath: root

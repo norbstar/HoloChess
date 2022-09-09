@@ -167,9 +167,9 @@ namespace UI
 
             image.color = selectColor;
             
-            if (root.TryGetComponent<NavigationPanelUIManager>(out NavigationPanelUIManager navigationManager))
+            if (root.TryGetComponent<HomePanelUIManager>(out HomePanelUIManager homeManager))
             {
-                navigationManager.ButtonGroupManager.Disable();
+                homeManager.ButtonGroupManager.Disable();
             }
 
             if (root.TryGetComponent<TerminalPanelUIManager>(out TerminalPanelUIManager terminalManager))
@@ -196,9 +196,9 @@ namespace UI
 
             image.color = hoverColor;
             
-            if (root.TryGetComponent<NavigationPanelUIManager>(out NavigationPanelUIManager navigationManager))
+            if (root.TryGetComponent<HomePanelUIManager>(out HomePanelUIManager homeManager))
             {
-                navigationManager.ButtonGroupManager.Enable();
+                homeManager.ButtonGroupManager.Enable();
             }
 
             if (root.TryGetComponent<TerminalPanelUIManager>(out TerminalPanelUIManager terminalManager))
