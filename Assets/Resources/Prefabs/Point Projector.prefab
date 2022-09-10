@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8600457437382047154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8042435395262214301}
+  - component: {fileID: 4568967961463940637}
+  m_Layer: 0
+  m_Name: Point Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8042435395262214301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600457437382047154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4568967961463940637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600457437382047154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc14073743d55142a0e1c5a64d0844c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bluePrefab: {fileID: 2306630705916068336, guid: 677d0643c14dc84499daaac489a6a1f1, type: 3}
+  greenPrefab: {fileID: 2306630705916068336, guid: ebb2f490fdb8e34489da5410b253cb56, type: 3}
+  redPrefab: {fileID: 2306630705916068336, guid: adc581bcf731e2f48accecc8763488a0, type: 3}
+  yellowPrefab: {fileID: 2306630705916068336, guid: 548f84257fbb2b84883fa9a0ca03331e, type: 3}
+  whitePrefab: {fileID: 2306630705916068336, guid: 0a6b36da926888e4d846d414dbfdcc38, type: 3}

@@ -23,9 +23,9 @@ public class NominatedRaycastProjector : MonoBehaviour
         instance.transform.LookAt(source.transform);
     }
 
-    private void OnRaycastEvent(GameObject origin, RaycastHit hit)
+    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
     {
-        GameObject source = hit.transform.gameObject;
+        // GameObject source = hit.transform.gameObject;
         Vector3 point = hit.point;
 
         this.source = source;
@@ -34,7 +34,7 @@ public class NominatedRaycastProjector : MonoBehaviour
         {
             instance = Instantiate(pointerPrefab, point, Quaternion.Euler(0f, 0f, 90f));
             instance.transform.localScale = pointerScale;
-            instance.gameObject.name = $"{origin.name}-Pointer";
+            instance.gameObject.name = $"{source.name}-Pointer";
         }
         else
         {

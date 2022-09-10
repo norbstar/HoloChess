@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
-using UI.Panels;
-
 namespace UI
 {
     [RequireComponent(typeof(CanvasGroup))]
@@ -11,11 +9,11 @@ namespace UI
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(RootResolver))]
-    public class SettingsCanvasUIManager : AnimatedCanvasUIManager
+    public class BaseCanvasUIManager<T> : AnimatedCanvasUIManager where  T : IDragbarPanel
     {
         [Header("Components")]
-        [SerializeField] SettingsPanelUIManager panel;
-        public SettingsPanelUIManager Panel { get { return panel; } }
+        [SerializeField] T panel;
+        public T Panel { get { return panel; } }
         [SerializeField] GameObject sphere;
 
         private void LookAtRoot()
@@ -36,9 +34,11 @@ namespace UI
 
         protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
         {
-            if (!panel.DragBar.IsPointerDown) return;
+            var dragBar = panel.GetDragBar();
+            
+            if (!dragBar.IsPointerDown) return;
 
-            Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
+            Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
             transform.position = hit.point + offset;
         }
     }

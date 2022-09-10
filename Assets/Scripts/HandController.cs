@@ -71,9 +71,9 @@ public class HandController : GizmoManager
 
     void OnDisable() => notifier.EventReceived -= OnRaycastEvent;
 
-    private void OnRaycastEvent(GameObject origin, RaycastHit hit)
+    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
     {
-        GameObject source = hit.transform.gameObject;
+        // GameObject source = hit.transform.gameObject;
         Vector3 point = hit.point;
         
         // Debug.Log($"Hand Controller Origin : {origin.name} Source : {source.name} Point : {point}");

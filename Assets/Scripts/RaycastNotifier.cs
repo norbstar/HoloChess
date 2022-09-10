@@ -9,7 +9,7 @@ public class RaycastNotifier : MonoBehaviour
     [SerializeField] float invertOffset = 1f;
     [SerializeField] List<string> masks;
 
-    public delegate void OnRaycastEvent(GameObject origin, RaycastHit hit);
+    public delegate void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit);
     public event OnRaycastEvent EventReceived;
 
     private int mixedLayerMask;
@@ -38,6 +38,6 @@ public class RaycastNotifier : MonoBehaviour
 
         if (!hasHit) return;
 
-        EventReceived?.Invoke(gameObject, hit);
+        EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hit);
     }
 }

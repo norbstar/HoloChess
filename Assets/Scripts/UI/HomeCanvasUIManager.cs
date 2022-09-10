@@ -13,7 +13,7 @@ namespace UI
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(RootResolver))]
-    public class HomeCanvasUIManager : MonoBehaviour
+    public class HomeCanvasUIManager : AnimatedCanvasUIManager
     {
         [Header("Components")]
         [SerializeField] HomePanelUIManager panel;
@@ -33,76 +33,37 @@ namespace UI
             public GameObject gameObject;
         }
 
-        private bool isShown = false;
-        public bool IsShown { get { return isShown; } }
-
-        private CanvasGroup canvasGroup;
-        private GraphicRaycaster raycaster;
-        private TrackedDeviceGraphicRaycaster trackedRaycaster;
-        private RootResolver rootResolver;
-        private GameObject root;
-        public GameObject Root { get { return root; } }
         private new Camera camera;
         public Camera Camera { get { return camera; } }
         private float originalOffset;
         private float parentToChildMultiplier;
-        private RaycastNotifier leftHandNotifier;
-        private Animator animator;
 
-        void Awake()
+        protected override void Awake()
         {
-            ResolveDependencies();
+            base.Awake();
 
-            root = rootResolver.Root;
+            ResolveDependencies();
             originalOffset = transform.localPosition.z;
             parentToChildMultiplier = panel.transform.localScale.x / transform.localScale.x;
         }
 
-        private void ResolveDependencies()
-        {
-            canvasGroup = GetComponent<CanvasGroup>() as CanvasGroup;
-            raycaster = GetComponent<GraphicRaycaster>() as GraphicRaycaster;
-            trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
-            rootResolver = GetComponent<RootResolver>() as RootResolver;
-            animator = GetComponent<Animator>() as Animator;
-            camera = Camera.main;
-        }
+        private void ResolveDependencies() => camera = Camera.main;
 
-        // Start is called before the first frame update
-        void Start()
+        private void LookAtRoot()
         {
-            if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
-            {
-                leftHandNotifier = controller.Notifier;
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            Debug.Log($"Scale : {transform.localScale.x}:{transform.localScale.y}:{transform.localScale.z}");
-            Debug.Log($"Alpha : {canvasGroup.alpha}");
-            Debug.Log($"Position {transform.position}");
-
-            if (canvasGroup.alpha == 0f) return;
-            
-            Vector3 offset = transform.position - (root.transform.position + new Vector3(0f, sphere.transform.position.y, 0f));
+            Vector3 offset = transform.position - sphere.transform.position;
             transform.LookAt(transform.position + offset);
         }
-
-        public void Toggle()
+        
+        protected override void OnUpdate()
         {
-            if (!isShown)
+            if (isShown)
             {
-                Show();
-            }
-            else
-            {
-                Hide();
+                LookAtRoot();
             }
         }
 
-        private void Show()
+        public override void Show()
         {
             root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
             sphere.SetActive(true);
@@ -117,50 +78,35 @@ namespace UI
             if (hasHit)
             {
                 spawnPoint = hit.point;
-                Debug.Log($"{Time.time} Spawn Point : {spawnPoint}");
                 transform.position = spawnPoint.Value;
             }
+
+            LookAtRoot();
 
             if (onRevealClip != null)
             {
                 AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
             }
 
-            if (leftHandNotifier != null)
-            {
-                leftHandNotifier.EventReceived += OnRaycastEvent;
-            }
-#if UNITY_EDITOR
-            raycaster.enabled = true;
-#else
-            trackedRaycaster.enabled = true;
-#endif
-            animator.SetTrigger("Show");
-            isShown = true;
+            base.Show();
         }
 
-        private void Hide()
+        public override void Hide()
         {
-            if (leftHandNotifier != null)
-            {
-                leftHandNotifier.EventReceived -= OnRaycastEvent;
-            }
-
-            animator.SetTrigger("Hide");
-            isShown = false;
-#if UNITY_EDITOR
-            raycaster.enabled = false;
-#else
-            trackedRaycaster.enabled = false;
-#endif
+            base.Hide();
             sphere.SetActive(false);
         }
 
-        private void OnRaycastEvent(GameObject origin, RaycastHit hit)
+        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
         {
+            Debug.Log($"OnRaycastEvent [1] {source.name} Origin : {origin} Hit : {hit.point}");
+
             if (!panel.DragBar.IsPointerDown) return;
 
+            Debug.Log($"OnRaycastEvent [2]");
+
             Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
+            // Debug.Log($"Offset : {offset} Distance : {Vector3.Distance(panel.transform.position, panel.DragBar.transform.position)}");
             transform.position = hit.point + offset;
         }
     }

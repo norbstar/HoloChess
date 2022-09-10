@@ -11,111 +11,105 @@ namespace UI
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(RootResolver))]
-    public class TerminalCanvasUIManager : MonoBehaviour
+    public class TerminalCanvasUIManager : AnimatedCanvasUIManager
     {
         [Header("Components")]
         [SerializeField] TerminalPanelUIManager panel;
         public TerminalPanelUIManager Panel { get { return panel; } }
         [SerializeField] GameObject sphere;
 
-        private bool isShown = false;
-        public bool IsShown { get  { return isShown; } }
+        [Header("Config")]
+        [SerializeField] float projectedRadius = 2.5f;
 
-        private CanvasGroup canvasGroup;
-        private GraphicRaycaster raycaster;
-        private TrackedDeviceGraphicRaycaster trackedRaycaster;
-        private RootResolver rootResolver;
-        private GameObject root;
-        public GameObject Root { get { return root; } }
-        private float originalOffset;
-        private RaycastNotifier leftHandNotifier;
-        private Animator animator;
-
-        void Awake()
-        {
-            ResolveDependencies();
-            root = rootResolver.Root;
-            originalOffset = transform.localPosition.z;
-        }
-
-        private void ResolveDependencies()
-        {
-            canvasGroup = GetComponent<CanvasGroup>() as CanvasGroup;
-            raycaster = GetComponent<GraphicRaycaster>() as GraphicRaycaster;
-            trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
-            animator = GetComponent<Animator>() as Animator;
-            rootResolver = GetComponent<RootResolver>() as RootResolver;
-        }
+        private PointProjectorManager pointProjectorManager;
+        private PointProjector hPoint, p1Point, p2Point, p3Point, p4Point, p5Point, p6Point, p7Point, tPoint;
 
         // Start is called before the first frame update
-        void Start()
+        protected override void Start()
         {
-            if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
-            {
-                leftHandNotifier = controller.Notifier;
-            }
+            base.Start();
+
+            pointProjectorManager = FindObjectOfType<PointProjectorManager>() as PointProjectorManager;
+            // hPoint = pointProjectorManager.Add("Hit Point");
+            p1Point = pointProjectorManager.Add(PointProjector.Type.White, "p1");
+            p2Point = pointProjectorManager.Add(PointProjector.Type.Red, "p2");
+            p3Point = pointProjectorManager.Add(PointProjector.Type.Green, "p3");
+            p4Point = pointProjectorManager.Add(PointProjector.Type.Blue, "p4");
+            p5Point = pointProjectorManager.Add(PointProjector.Type.Yellow, "p5");
+            p6Point = pointProjectorManager.Add(PointProjector.Type.Yellow, "p6");
+            p7Point = pointProjectorManager.Add(PointProjector.Type.Yellow, "p7");
+            // tPoint = pointProjectorManager.Add("Transform Point");
+
+            // if (pointProjectorManager.TryGet("Hit Point", out PointProjector projector))
+            // {
+            //     projector.Point = hit.point;
+            // }
         }
 
-        // Update is called once per frame
-        void Update()
+        private void LookAtRoot()
         {
-            if (canvasGroup.alpha == 0f) return;
-            
-            Vector3 offset = transform.position - (root.transform.position + new Vector3(0f, sphere.transform.position.y, 0f));
+            Vector3 offset = transform.position - sphere.transform.position;
             transform.LookAt(transform.position + offset);
+        }
+
+        protected override void OnUpdate()
+        {
+            if (isShown)
+            {
+                LookAtRoot();
+            }
 
             panel.EnableDragBar(sphere.activeSelf);
         }
 
-        public void Toggle()
+        public override void Show()
         {
-            if (!isShown)
-            {
-                Show();
-            }
-            else
-            {
-                Hide();
-            }
+            // float distance = Vector3.Distance(FindObjectOfType<HomeCanvasUIManager>().transform.position, sphere.transform.position);
+            Vector3 direction = (FindObjectOfType<HomeCanvasUIManager>().transform.position - sphere.transform.position).normalized;
+            Vector3 projectedPoint = sphere.transform.position + (direction * projectedRadius);
+            // transform.position = sphere.transform.position;
+            // transform.Translate(direction * projectedRadius);
+            // this.p1Point.Point = projectedPoint;
+            // Debug.Log($"Projected Point[1] : {this.p1Point.Point}");
+
+            // this.p1Point.Point = sphere.transform.position;
+            // this.p2Point.Point = sphere.transform.position + direction;
+            // this.p3Point.Point = sphere.transform.position + direction * distance;
+            // this.p4Point.Point = sphere.transform.position + direction * projectedRadius;
+            
+            transform.position = projectedPoint;
+            LookAtRoot();
+
+            base.Show();
         }
 
-        public void Show()
-        {
-            if (leftHandNotifier != null)
-            {
-                leftHandNotifier.EventReceived += OnRaycastEvent;
-            }
-#if UNITY_EDITOR
-            raycaster.enabled = true;
-#else
-            trackedRaycaster.enabled = true;
-#endif
-            animator.SetTrigger("Show");
-            isShown = true;
-        }
-
-        public void Hide()
-        {
-            if (leftHandNotifier != null)
-            {
-                leftHandNotifier.EventReceived -= OnRaycastEvent;
-            }
-
-            animator.SetTrigger("Hide");
-            isShown = false;
-#if UNITY_EDITOR
-            raycaster.enabled = false;
-#else
-            trackedRaycaster.enabled = false;
-#endif
-        }
-
-        private void OnRaycastEvent(GameObject origin, RaycastHit hit)
+        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
         {
             if (!panel.DragBar.IsPointerDown) return;
 
+            // float distance = Vector3.Distance(hit.point, sphere.transform.position);
+            // Vector3 direction = (hit.point - sphere.transform.position).normalized;
+            this.p5Point.Point = hit.point;
+            Vector3 projectedPoint = source.transform.position + (-direction * projectedRadius);
+            this.p6Point.Point = projectedPoint;
+            // transform.position = hit.point;
+            // transform.Translate(direction * projectedRadius);
+
             Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
-            transform.position = hit.point + offset;
+
+            // this.hitPoint.Point = hit.point;
+            // Debug.Log($"Hit Point : {this.hPoint.Point}");
+
+            // this.p5Point.Point = sphere.transform.position + direction;
+            // this.p6Point.Point = sphere.transform.position + direction * distance;
+            // this.p7Point.Point = sphere.transform.position + direction * projectedRadius;
+
+           // Debug.Log($"Projected Point[1] : {this.p1Point.Point}");
+            
+            // this.transformPoint.Point = projectedPoint + offset;
+            // Debug.Log($"Transform Point : {this.transformPoint.Point}");
+
+            // transform.position = projectedPoint + offset;
         }
     }
 }

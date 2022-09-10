@@ -15,11 +15,13 @@ namespace UI.Panels
         private static string TERMINAL_TOGGLE_BUTTON = "Terminal Toggle Button";
         private static string VOLUME_TOGGLE_BUTTON = "Volume Toggle Button";
         private static string SETTINGS_TOGGLE_BUTTON = "Settings Toggle Button";
+        private static string BLANK_TOGGLE_BUTTON = "Blank Toggle Button";
         private static string EXIT_PROGESS_BUTTON = "Exit Progress Button";
 
         private AudioSourceModifier audioSourceModifier;
         private TerminalCanvasUIManager terminalCanvasUIManager;
         private SettingsCanvasUIManager settingsCanvasUIManager;
+        private BlankCanvasUIManager blankCanvasUIManager;
         private RootResolver rootResolver;
 
         public override void Awake()
@@ -36,6 +38,7 @@ namespace UI.Panels
             audioSourceModifier = FindObjectOfType<AudioSourceModifier>();
             terminalCanvasUIManager = FindObjectOfType<TerminalCanvasUIManager>();
             settingsCanvasUIManager = FindObjectOfType<SettingsCanvasUIManager>();
+            blankCanvasUIManager = FindObjectOfType<BlankCanvasUIManager>();
             rootResolver = GetComponent<RootResolver>() as RootResolver;
         }
 
@@ -52,6 +55,11 @@ namespace UI.Panels
             {
                 settingsCanvasUIManager.Panel.CloseEventReceived += OnSettingsCloseEvent;
             }
+
+            if (blankCanvasUIManager != null)
+            {
+                blankCanvasUIManager.Panel.CloseEventReceived += OnBlankCloseEvent;
+            }
         }
 
         public override void OnDisable()
@@ -66,6 +74,11 @@ namespace UI.Panels
             if (settingsCanvasUIManager != null)
             {
                 settingsCanvasUIManager.Panel.CloseEventReceived -= OnSettingsCloseEvent;
+            }
+
+            if (blankCanvasUIManager != null)
+            {
+                blankCanvasUIManager.Panel.CloseEventReceived -= OnBlankCloseEvent;
             }
         }
 
@@ -86,13 +99,31 @@ namespace UI.Panels
             }
         }
 
-        private void OnSettingsCloseEvent() => settingsCanvasUIManager.Hide();
-
         private void OnTerminalCloseEvent()
         {
             terminalCanvasUIManager.Hide();
 
-            if (TryResolveButtonByName("Terminal Toggle Button", out ButtonUIManager manager))
+            if (TryResolveButtonByName(TERMINAL_TOGGLE_BUTTON, out ButtonUIManager manager))
+            {
+                ((ToggleButtonUIManager) manager).IsOn = false;
+            }
+        }
+
+        private void OnSettingsCloseEvent()
+        {
+            settingsCanvasUIManager.Hide();
+
+            if (TryResolveButtonByName(SETTINGS_TOGGLE_BUTTON, out ButtonUIManager manager))
+            {
+                ((ToggleButtonUIManager) manager).IsOn = false;
+            }
+        }
+
+        private void OnBlankCloseEvent()
+        {
+            blankCanvasUIManager.Hide();
+
+            if (TryResolveButtonByName(BLANK_TOGGLE_BUTTON, out ButtonUIManager manager))
             {
                 ((ToggleButtonUIManager) manager).IsOn = false;
             }

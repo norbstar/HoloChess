@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UI.Panels
 {
     [RequireComponent(typeof(RootResolver))]
-    public class SettingsPanelUIManager : ShortcutPanelUIManager
+    public class BasePanelUIManager : ShortcutPanelUIManager, IDragbarPanel
     {
         [Header("Components")]
         [SerializeField] DragBarUIManager dragBar;
@@ -13,6 +13,10 @@ namespace UI.Panels
         
         public delegate void OnCloseEvent();
         public event OnCloseEvent CloseEventReceived;
+
+        public GameObject GetObject() => gameObject;
+
+        public DragBarUIManager GetDragBar() => dragBar;
 
         public void EnableDragBar(bool enable) => dragBar.gameObject.SetActive(enable);
 
