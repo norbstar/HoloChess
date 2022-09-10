@@ -90,11 +90,17 @@ namespace UI.Panels
             {
                 if (((ToggleButtonUIManager) manager).IsOn)
                 {
-                    terminalCanvasUIManager.Show();
+                    if (!terminalCanvasUIManager.IsShown)
+                    {
+                        terminalCanvasUIManager.Show();
+                    }
                 }
                 else
                 {
-                    terminalCanvasUIManager.Hide();
+                    if (terminalCanvasUIManager.IsShown)
+                    {
+                        terminalCanvasUIManager.Hide();
+                    }
                 }
             }
         }

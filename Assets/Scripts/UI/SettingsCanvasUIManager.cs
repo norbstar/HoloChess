@@ -39,6 +39,7 @@ namespace UI
             if (!panel.DragBar.IsPointerDown) return;
 
             Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
+            // Debug.Log($"Offset : {offset} Distance : {Vector3.Distance(panel.transform.position, panel.DragBar.transform.position)}");
             transform.position = hit.point + offset;
         }
     }

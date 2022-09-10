@@ -11,6 +11,10 @@ namespace UI
     [RequireComponent(typeof(RootResolver))]
     public abstract class AnimatedCanvasUIManager : MonoBehaviour
     {
+        [Header("Audio")]
+        [SerializeField] AudioClip onRevealClip;
+        [SerializeField] AudioClip onConcealClip;
+
         protected bool isShown = false;
         public bool IsShown { get  { return isShown; } }
 
@@ -76,6 +80,11 @@ namespace UI
             {
                 leftHandNotifier.EventReceived += OnRaycastEvent;
             }
+
+            if (onRevealClip != null)
+            {
+                AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
+            }
 #if UNITY_EDITOR
             raycaster.enabled = true;
 #else
@@ -90,6 +99,11 @@ namespace UI
             if (leftHandNotifier != null)
             {
                 leftHandNotifier.EventReceived -= OnRaycastEvent;
+            }
+
+            if (onConcealClip != null)
+            {
+                AudioSource.PlayClipAtPoint(onConcealClip, Vector3.zero, 1.0f);
             }
 
             animator.SetTrigger("Hide");

@@ -18,12 +18,12 @@ GameObject:
   - component: {fileID: 1351165553634611112}
   - component: {fileID: 4933284439564989846}
   m_Layer: 5
-  m_Name: Black Canvas
+  m_Name: Blank Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7999653810697867258
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31,7 +31,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3217808455405182034}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2.5}
   m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
   m_Children:
@@ -132,7 +132,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3217808455405182034}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c6568fe7bfae642b4ef587c47919e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onRevealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
+  onConcealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
   panel: {fileID: 6522236259763816165}
   sphere: {fileID: 0}
 --- !u!1001 &4785380722656278506

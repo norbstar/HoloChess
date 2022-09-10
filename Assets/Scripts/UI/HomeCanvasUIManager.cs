@@ -18,10 +18,8 @@ namespace UI
         [Header("Components")]
         [SerializeField] HomePanelUIManager panel;
         public HomePanelUIManager Panel { get { return panel; } }
-        [SerializeField] GameObject sphere;
-
-        [Header("Audio")]
-        [SerializeField] AudioClip onRevealClip;
+        [SerializeField] GameObject innerSphere;
+        [SerializeField] GameObject outerSphere;
 
         [Header("Config")]
         [SerializeField] GameObject referencePrefab;
@@ -51,7 +49,7 @@ namespace UI
 
         private void LookAtRoot()
         {
-            Vector3 offset = transform.position - sphere.transform.position;
+            Vector3 offset = transform.position - innerSphere.transform.position;
             transform.LookAt(transform.position + offset);
         }
         
@@ -63,12 +61,18 @@ namespace UI
             }
         }
 
+        private void EnableSpheres(bool enable)
+        {
+            innerSphere.SetActive(enable);
+            outerSphere.SetActive(enable);
+        }
+
         public override void Show()
         {
             root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
-            sphere.SetActive(true);
+            EnableSpheres(true);
 
-            LayerMask menuLayerMask = LayerMask.GetMask("Menu");
+            LayerMask menuLayerMask = LayerMask.GetMask("Near Menu");
 
             var ray = new Ray(camera.transform.position + camera.transform.forward * (originalOffset * parentToChildMultiplier), -camera.transform.forward);
             bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, menuLayerMask);
@@ -82,28 +86,18 @@ namespace UI
             }
 
             LookAtRoot();
-
-            if (onRevealClip != null)
-            {
-                AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
-            }
-
             base.Show();
         }
 
         public override void Hide()
         {
             base.Hide();
-            sphere.SetActive(false);
+            EnableSpheres(false);
         }
 
         protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
         {
-            Debug.Log($"OnRaycastEvent [1] {source.name} Origin : {origin} Hit : {hit.point}");
-
             if (!panel.DragBar.IsPointerDown) return;
-
-            Debug.Log($"OnRaycastEvent [2]");
 
             Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
             // Debug.Log($"Offset : {offset} Distance : {Vector3.Distance(panel.transform.position, panel.DragBar.transform.position)}");

@@ -180,9 +180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3769676f7f76e4a40a1d3e4bd6200a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onRevealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
+  onConcealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
   panel: {fileID: 1352964794288537882}
-  sphere: {fileID: 0}
-  onRevealClip: {fileID: 8300000, guid: 9bee97abf32998a41b9269214390485d, type: 3}
+  innerSphere: {fileID: 0}
+  outerSphere: {fileID: 0}
   referencePrefab: {fileID: 4917813849459877834, guid: ecea058c54f2617489b360e36ee25d93, type: 3}
 --- !u!1001 &4201334281487592655
 PrefabInstance:
