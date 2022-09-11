@@ -9,7 +9,7 @@ public class RaycastNotifier : MonoBehaviour
     [SerializeField] float invertOffset = 1f;
     [SerializeField] List<string> masks;
 
-    public delegate void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit);
+    public delegate void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit);
     public event OnRaycastEvent EventReceived;
 
     private int mixedLayerMask;
@@ -32,12 +32,21 @@ public class RaycastNotifier : MonoBehaviour
         Vector3 direction = (invertRay) ? -transform.forward : transform.forward;
         
         var ray = new Ray(origin, direction);
-        Debug.DrawRay(origin, direction, Color.green);
+        // Debug.DrawRay(origin, direction, Color.green);
         
+#if false
         bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, mixedLayerMask);
 
         if (!hasHit) return;
 
-        EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hit);
+        EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hit.transform.gameObject, hit);
+#endif
+
+        RaycastHit [] hits = (Physics.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, mixedLayerMask));
+
+        foreach (RaycastHit hit in hits)
+        {
+            EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hit.transform.gameObject, hit);
+        }
     }
 }

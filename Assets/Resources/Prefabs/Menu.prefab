@@ -120,8 +120,9 @@ GameObject:
   - component: {fileID: 7872688036047358685}
   - component: {fileID: 4081271002976175702}
   - component: {fileID: 7644947021689058739}
-  m_Layer: 6
-  m_Name: Outer Sphere
+  - component: {fileID: 2045910507}
+  m_Layer: 7
+  m_Name: Outer Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,6 +204,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2045910507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264307545361512850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cace9f2dbd5cbf4b83e9812c621e764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6103890503081307976
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,8 +228,9 @@ GameObject:
   - component: {fileID: 6103890503081308043}
   - component: {fileID: 6103890503081308046}
   - component: {fileID: 6103890503081308148}
+  - component: {fileID: 579632976}
   m_Layer: 6
-  m_Name: Inner Sphere
+  m_Name: Inner Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,6 +312,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &579632976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103890503081307976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cace9f2dbd5cbf4b83e9812c621e764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &968672493391926342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -310,9 +336,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1191218111258354800}
     - target: {fileID: 9072824807056654233, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
-      propertyPath: sphere
+      propertyPath: layer
       value: 
-      objectReference: {fileID: 4264307545361512850}
+      objectReference: {fileID: 2045910507}
     - target: {fileID: 9072824807056654242, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
       propertyPath: m_Name
       value: Terminal Canvas
@@ -468,13 +494,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 1191218111258354801}
     m_Modifications:
     - target: {fileID: 736077535, guid: e0af634e1def6de42b34cfe3f8f4097a, type: 3}
-      propertyPath: innerSphere
+      propertyPath: layer
       value: 
-      objectReference: {fileID: 6103890503081307976}
-    - target: {fileID: 736077535, guid: e0af634e1def6de42b34cfe3f8f4097a, type: 3}
-      propertyPath: outerSphere
-      value: 
-      objectReference: {fileID: 4264307545361512850}
+      objectReference: {fileID: 579632976}
     - target: {fileID: 1403795284, guid: e0af634e1def6de42b34cfe3f8f4097a, type: 3}
       propertyPath: root
       value: 
@@ -601,9 +623,9 @@ PrefabInstance:
       value: Black Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 4933284439564989846, guid: 91b9c6769b6dd5e49b0cbdc18c2c50f2, type: 3}
-      propertyPath: sphere
+      propertyPath: layer
       value: 
-      objectReference: {fileID: 4264307545361512850}
+      objectReference: {fileID: 2045910507}
     - target: {fileID: 7999653810697867258, guid: 91b9c6769b6dd5e49b0cbdc18c2c50f2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -707,9 +729,9 @@ PrefabInstance:
       value: Settings Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 3119328998787570882, guid: a8287c3ad02801547b9cd363e463c9da, type: 3}
-      propertyPath: sphere
+      propertyPath: layer
       value: 
-      objectReference: {fileID: 4264307545361512850}
+      objectReference: {fileID: 2045910507}
     - target: {fileID: 4101502732528113492, guid: a8287c3ad02801547b9cd363e463c9da, type: 3}
       propertyPath: root
       value: 

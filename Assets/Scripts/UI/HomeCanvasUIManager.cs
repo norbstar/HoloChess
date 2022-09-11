@@ -18,8 +18,8 @@ namespace UI
         [Header("Components")]
         [SerializeField] HomePanelUIManager panel;
         public HomePanelUIManager Panel { get { return panel; } }
-        [SerializeField] GameObject innerSphere;
-        [SerializeField] GameObject outerSphere;
+        [SerializeField] MenuLayer layer;
+        public MenuLayer Layer { get { return layer; } }
 
         [Header("Config")]
         [SerializeField] GameObject referencePrefab;
@@ -49,7 +49,7 @@ namespace UI
 
         private void LookAtRoot()
         {
-            Vector3 offset = transform.position - innerSphere.transform.position;
+            Vector3 offset = transform.position - layer.transform.position;
             transform.LookAt(transform.position + offset);
         }
         
@@ -61,16 +61,10 @@ namespace UI
             }
         }
 
-        private void EnableSpheres(bool enable)
-        {
-            innerSphere.SetActive(enable);
-            outerSphere.SetActive(enable);
-        }
-
         public override void Show()
         {
             root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
-            EnableSpheres(true);
+            layer.gameObject.SetActive(true);
 
             LayerMask menuLayerMask = LayerMask.GetMask("Near Menu");
 
@@ -92,15 +86,14 @@ namespace UI
         public override void Hide()
         {
             base.Hide();
-            EnableSpheres(false);
+            layer.gameObject.SetActive(false);
         }
 
-        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
+        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            if (!panel.DragBar.IsPointerDown) return;
+            if ((!target.Equals(layer.gameObject)) || (!panel.DragBar.IsPointerDown)) return;
 
             Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
-            // Debug.Log($"Offset : {offset} Distance : {Vector3.Distance(panel.transform.position, panel.DragBar.transform.position)}");
             transform.position = hit.point + offset;
         }
     }

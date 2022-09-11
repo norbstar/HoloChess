@@ -16,11 +16,21 @@ namespace UI
         [Header("Components")]
         [SerializeField] TerminalPanelUIManager panel;
         public TerminalPanelUIManager Panel { get { return panel; } }
-        [SerializeField] GameObject sphere;
+        [SerializeField] MenuLayer layer;
+
+        private HomeCanvasUIManager homeCanvasUIManager;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            ResolveDependencies();
+        }
+
+        private void ResolveDependencies() => homeCanvasUIManager = FindObjectOfType<HomeCanvasUIManager>() as HomeCanvasUIManager;
 
         private void LookAtRoot()
         {
-            Vector3 offset = transform.position - sphere.transform.position;
+            Vector3 offset = transform.position - layer.transform.position;
             transform.LookAt(transform.position + offset);
         }
 
@@ -31,15 +41,34 @@ namespace UI
                 LookAtRoot();
             }
 
-            panel.EnableDragBar(sphere.activeSelf);
+            panel.EnableDragBar(homeCanvasUIManager.Layer.IsShown);
         }
 
-        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit hit)
+        public override void Show()
         {
-            if (!panel.DragBar.IsPointerDown) return;
+            layer.gameObject.SetActive(true);
+            layer.Attach(gameObject);
+
+            base.Show();
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+
+            layer.Detach(gameObject);
+
+            if (!layer.HasChildren)
+            {
+                layer.gameObject.SetActive(false);
+            }
+        }
+
+        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
+        {
+            if ((!target.Equals(layer.gameObject)) || (!panel.DragBar.IsPointerDown)) return;
 
             Vector3 offset = panel.transform.position - panel.DragBar.transform.position;
-            // Debug.Log($"Offset : {offset} Distance : {Vector3.Distance(panel.transform.position, panel.DragBar.transform.position)}");
             transform.position = hit.point + offset;
         }
     }
