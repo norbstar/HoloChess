@@ -10,7 +10,7 @@ using TMPro;
 namespace UI.Panels
 {
     [RequireComponent(typeof(RootResolver))]
-    public class TerminalPanelUIManager : ShortcutPanelUIManager
+    public class TerminalPanelUIManager : ShortcutPanelUIManager, IDragbarPanel
     {
         [Header("Components")]
         [SerializeField] DragBarUIManager dragBar;
@@ -140,6 +140,10 @@ namespace UI.Panels
                 yield return new WaitForSeconds(refreshInterval);
             }
         }
+
+        public GameObject GetObject() => gameObject;
+
+        public DragBarUIManager GetDragBar() => dragBar;
 
         public void EnableDragBar(bool enable) => dragBar.gameObject.SetActive(enable);
 

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UI.Panels
 {
     [RequireComponent(typeof(RootResolver))]
-    public class HomePanelUIManager : ShortcutPanelUIManager
+    public class HomePanelUIManager : ShortcutPanelUIManager, IDragbarPanel
     {
         [Header("Components")]
         [SerializeField] DragBarUIManager dragBar;
@@ -11,17 +11,16 @@ namespace UI.Panels
         [SerializeField] ButtonGroupUIManager buttonGroupManager;
         public ButtonGroupUIManager ButtonGroupManager { get { return buttonGroupManager; } }
 
-        private static string SCENE_BUTTON = "Scene Button";
+        private static string SCENE_TOGGLE_BUTTON = "Scene Toggle Button";
         private static string TERMINAL_TOGGLE_BUTTON = "Terminal Toggle Button";
         private static string VOLUME_TOGGLE_BUTTON = "Volume Toggle Button";
         private static string SETTINGS_TOGGLE_BUTTON = "Settings Toggle Button";
-        private static string BLANK_TOGGLE_BUTTON = "Blank Toggle Button";
         private static string EXIT_PROGESS_BUTTON = "Exit Progress Button";
 
         private AudioSourceModifier audioSourceModifier;
+        private SceneCanvasUIManager sceneCanvasUIManager;
         private TerminalCanvasUIManager terminalCanvasUIManager;
         private SettingsCanvasUIManager settingsCanvasUIManager;
-        private BlankCanvasUIManager blankCanvasUIManager;
         private RootResolver rootResolver;
 
         public override void Awake()
@@ -36,15 +35,20 @@ namespace UI.Panels
         private void ResolveDependencies()
         {
             audioSourceModifier = FindObjectOfType<AudioSourceModifier>();
+            sceneCanvasUIManager = FindObjectOfType<SceneCanvasUIManager>();
             terminalCanvasUIManager = FindObjectOfType<TerminalCanvasUIManager>();
             settingsCanvasUIManager = FindObjectOfType<SettingsCanvasUIManager>();
-            blankCanvasUIManager = FindObjectOfType<BlankCanvasUIManager>();
             rootResolver = GetComponent<RootResolver>() as RootResolver;
         }
 
         public override void OnEnable()
         {
             base.OnEnable();
+
+            if (sceneCanvasUIManager != null)
+            {
+                sceneCanvasUIManager.Panel.CloseEventReceived += OnSceneCloseEvent;
+            }
 
             if (terminalCanvasUIManager != null)
             {
@@ -55,16 +59,16 @@ namespace UI.Panels
             {
                 settingsCanvasUIManager.Panel.CloseEventReceived += OnSettingsCloseEvent;
             }
-
-            if (blankCanvasUIManager != null)
-            {
-                blankCanvasUIManager.Panel.CloseEventReceived += OnBlankCloseEvent;
-            }
         }
 
         public override void OnDisable()
         {
             base.OnEnable();
+
+            if (sceneCanvasUIManager != null)
+            {
+                sceneCanvasUIManager.Panel.CloseEventReceived -= OnSceneCloseEvent;
+            }
 
             if (terminalCanvasUIManager != null)
             {
@@ -75,18 +79,31 @@ namespace UI.Panels
             {
                 settingsCanvasUIManager.Panel.CloseEventReceived -= OnSettingsCloseEvent;
             }
-
-            if (blankCanvasUIManager != null)
-            {
-                blankCanvasUIManager.Panel.CloseEventReceived -= OnBlankCloseEvent;
-            }
         }
 
         private void ConfigButtons()
         {
-            if (terminalCanvasUIManager == null) return;
+            ButtonUIManager manager;
 
-            if (TryResolveButtonByName("Terminal Toggle Button", out ButtonUIManager manager))
+            if (TryResolveButtonByName("Scene Toggle Button", out manager))
+            {
+                if (((ToggleButtonUIManager) manager).IsOn)
+                {
+                    if (!sceneCanvasUIManager.IsShown)
+                    {
+                        sceneCanvasUIManager.Show();
+                    }
+                }
+                else
+                {
+                    if (sceneCanvasUIManager.IsShown)
+                    {
+                        sceneCanvasUIManager.Hide();
+                    }
+                }
+            }
+
+            if (TryResolveButtonByName("Terminal Toggle Button", out manager))
             {
                 if (((ToggleButtonUIManager) manager).IsOn)
                 {
@@ -102,6 +119,34 @@ namespace UI.Panels
                         terminalCanvasUIManager.Hide();
                     }
                 }
+            }
+
+            if (TryResolveButtonByName("Settings Toggle Button", out manager))
+            {
+                if (((ToggleButtonUIManager) manager).IsOn)
+                {
+                    if (!settingsCanvasUIManager.IsShown)
+                    {
+                        settingsCanvasUIManager.Show();
+                    }
+                }
+                else
+                {
+                    if (settingsCanvasUIManager.IsShown)
+                    {
+                        settingsCanvasUIManager.Hide();
+                    }
+                }
+            }
+        }
+
+        private void OnSceneCloseEvent()
+        {
+            sceneCanvasUIManager.Hide();
+
+            if (TryResolveButtonByName(SCENE_TOGGLE_BUTTON, out ButtonUIManager manager))
+            {
+                ((ToggleButtonUIManager) manager).IsOn = false;
             }
         }
 
@@ -125,24 +170,20 @@ namespace UI.Panels
             }
         }
 
-        private void OnBlankCloseEvent()
-        {
-            blankCanvasUIManager.Hide();
+        public GameObject GetObject() => gameObject;
 
-            if (TryResolveButtonByName(BLANK_TOGGLE_BUTTON, out ButtonUIManager manager))
-            {
-                ((ToggleButtonUIManager) manager).IsOn = false;
-            }
-        }
+        public DragBarUIManager GetDragBar() => dragBar;
+
+        public void EnableDragBar(bool enable) => dragBar.gameObject.SetActive(enable);
         
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
             // Debug.Log($"{Time.time} OnSelect {name}");
 
-            if (name.Equals(SCENE_BUTTON))
+            if (name.Equals(SCENE_TOGGLE_BUTTON))
             {
-                // TODO
+                sceneCanvasUIManager?.Toggle();
             }
             else if (name.Equals(TERMINAL_TOGGLE_BUTTON))
             {

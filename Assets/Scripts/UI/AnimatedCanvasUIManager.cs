@@ -25,7 +25,6 @@ namespace UI
         private TrackedDeviceGraphicRaycaster trackedRaycaster;
         private RootResolver rootResolver;
         public GameObject Root { get { return root; } }
-        private RaycastNotifier leftHandNotifier;
         private Animator animator;
 
         protected virtual void Awake()
@@ -41,15 +40,6 @@ namespace UI
             trackedRaycaster = GetComponent<TrackedDeviceGraphicRaycaster>() as TrackedDeviceGraphicRaycaster;
             animator = GetComponent<Animator>() as Animator;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
-        }
-
-        // Start is called before the first frame update
-        protected virtual void Start()
-        {
-            if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
-            {
-                leftHandNotifier = controller.Notifier;
-            }
         }
 
         // Update is called once per frame
@@ -76,11 +66,6 @@ namespace UI
 
         public virtual void Show()
         {
-            if (leftHandNotifier != null)
-            {
-                leftHandNotifier.EventReceived += OnRaycastEvent;
-            }
-
             if (onRevealClip != null)
             {
                 AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
@@ -96,11 +81,6 @@ namespace UI
 
         public virtual void Hide()
         {
-            if (leftHandNotifier != null)
-            {
-                leftHandNotifier.EventReceived -= OnRaycastEvent;
-            }
-
             if (onConcealClip != null)
             {
                 AudioSource.PlayClipAtPoint(onConcealClip, Vector3.zero, 1.0f);

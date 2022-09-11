@@ -28,6 +28,8 @@ public class RaycastNotifier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EventReceived.GetInvocationList().Length == 0) return;
+        
         Vector3 origin = (invertRay) ? transform.position + transform.forward * invertOffset : transform.position;
         Vector3 direction = (invertRay) ? -transform.forward : transform.forward;
         

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UI.Panels
 {
     [RequireComponent(typeof(RootResolver))]
-    public class BasePanelUIManager : ShortcutPanelUIManager, IDragbarPanel
+    public class ScenePanelUIManager : ShortcutPanelUIManager, IDragbarPanel
     {
         [Header("Components")]
         [SerializeField] DragBarUIManager dragBar;
