@@ -1,5 +1,3 @@
-using System;
-
 using UnityEngine;
 
 namespace UI
@@ -97,7 +95,11 @@ namespace UI
         protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
             if (!target.Equals(layer.gameObject)) return;
+            UpdatePosition(hit);
+        }
 
+        protected virtual void UpdatePosition(RaycastHit hit)
+        {
             Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
             transform.position = hit.point + offset;
         }

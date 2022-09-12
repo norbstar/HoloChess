@@ -17,15 +17,14 @@ namespace UI
         [SerializeField] TrackingMode trackingMode;
 
         private new Camera camera;
-        public Camera Camera { get { return camera; } }
         private float originalOffset;
         private float parentToChildMultiplier;
 
         protected override void Awake()
         {
             base.Awake();
-
             ResolveDependencies();
+
             originalOffset = transform.localPosition.z;
             parentToChildMultiplier = panel.transform.localScale.x / transform.localScale.x;
         }
