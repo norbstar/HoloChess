@@ -184,7 +184,7 @@ MonoBehaviour:
   onConcealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
   panel: {fileID: 1352964794288537882}
   layer: {fileID: 0}
-  referencePrefab: {fileID: 4917813849459877834, guid: ecea058c54f2617489b360e36ee25d93, type: 3}
+  trackingMode: 1
 --- !u!1001 &4201334281487592655
 PrefabInstance:
   m_ObjectHideFlags: 0

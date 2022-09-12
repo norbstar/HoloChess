@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UI.Panels
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class VolumePanelUIManager : SliderPanelUIManager
+    public class VolumePanelUIManager : ToggleSliderPanelUIManager
     {
         private CanvasGroup canvasGroup;
 

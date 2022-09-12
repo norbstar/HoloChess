@@ -26,6 +26,7 @@ namespace UI
         private RootResolver rootResolver;
         public GameObject Root { get { return root; } }
         private Animator animator;
+        protected Vector3 originalPosition;
 
         protected virtual void Awake()
         {
@@ -66,6 +67,8 @@ namespace UI
 
         public virtual void Show()
         {
+            originalPosition = transform.position;
+
             if (onRevealClip != null)
             {
                 AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);

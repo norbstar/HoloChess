@@ -13,9 +13,8 @@ namespace UI.Panels
     public class SliderPanelUIManager : MonoBehaviour, IAudioComponent
     {
         [Header("Components")]
-        [SerializeField] Slider slider;
+        [SerializeField] protected Slider slider;
         public float Value { get { return slider.value; } set { slider.value = value; } }
-        [SerializeField] Toggle toggle;
         [SerializeField] PointerEventHandler eventHandler;
 
         [Header("Audio")]
@@ -32,19 +31,13 @@ namespace UI.Panels
         private bool isSynchronizing;
 
         // Start is called before the first frame update
-        void Start()
+        protected virtual void Start()
         {
             originalScale = slider.handleRect.transform.localScale;
             
             slider.onValueChanged.AddListener(delegate {
                 OnValueChanged(slider.value);
             });
-
-            toggle.onValueChanged.AddListener(delegate {
-                OnToggleChanged(toggle.isOn);
-            });
-
-            toggle.isOn = (slider.value == slider.minValue);
         }
 
         void OnEnable() => eventHandler.EventReceived += OnPointerEvent;
@@ -122,29 +115,14 @@ namespace UI.Panels
             yield return null;
         }
 
-        public void OnValueChanged(float value)
+        protected virtual void OnValueChanged(float value)
         {
-            toggle.isOn = (value == slider.minValue);
-
-            if (!toggle.isOn && !toggle.interactable)
-            {
-                toggle.interactable = true;
-            }
-
             if (!isSynchronizing)
             {
                 EventReceived?.Invoke(this, slider.value);
             }
             
             isSynchronizing = false;
-        }
-
-        public void OnToggleChanged(bool isOn)
-        {
-            if (!isOn) return;
-
-            toggle.interactable = false;
-            slider.value = slider.minValue;
         }
 
         public void SyncVolume(float volume)

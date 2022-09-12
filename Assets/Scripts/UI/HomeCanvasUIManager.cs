@@ -6,6 +6,16 @@ namespace UI
 {
     public class HomeCanvasUIManager : DragbarCanvasUIManager<HomePanelUIManager>
     {
+        public enum TrackingMode
+        {
+            Free,
+            Restricted,
+            Locked
+        }
+
+        [Header("Config")]
+        [SerializeField] TrackingMode trackingMode;
+
         private new Camera camera;
         public Camera Camera { get { return camera; } }
         private float originalOffset;
@@ -24,8 +34,30 @@ namespace UI
 
         public override void Show()
         {
-            root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
             layer.gameObject.SetActive(true);
+            bool setRoot = false;
+
+            switch (trackingMode)
+            {
+                case TrackingMode.Free:
+                    setRoot = true;
+                    break;
+
+                case TrackingMode.Restricted:
+                    var collider = layer.GetComponent<SphereCollider>() as SphereCollider;
+                    var inBounds = (collider.bounds.Contains(camera.transform.position));
+                    setRoot = (!inBounds);
+                    break;
+                
+                case TrackingMode.Locked:
+                    setRoot = false;
+                    break;
+            }
+
+            if (setRoot)
+            {
+                root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
+            }
 
             LayerMask menuLayerMask = LayerMask.GetMask("Near Menu");
 

@@ -2,12 +2,20 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(SphereCollider))]
 public class MenuLayer : MonoBehaviour
 {
+    private new SphereCollider collider;
+    public SphereCollider Collider { get { return collider; } }
     private List<GameObject> children;
 
-    void Awake() => children = new List<GameObject>();
+    void Awake()
+    {
+        ResolveDependencies();
+        children = new List<GameObject>();
+    }
+
+    private void ResolveDependencies() => collider = GetComponent<SphereCollider>() as SphereCollider;
 
     public bool IsShown { get { return gameObject.activeSelf; } }
     
