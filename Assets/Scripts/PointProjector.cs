@@ -53,6 +53,8 @@ public class PointProjector : MonoBehaviour
                 break;
         }
 
+        instance.transform.parent = transform;
+        
         if (overrideScale.HasValue)
         {
             instance.transform.localScale = overrideScale.Value;

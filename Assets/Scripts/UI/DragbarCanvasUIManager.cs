@@ -19,13 +19,19 @@ namespace UI
             base.Awake();
             ResolveDependencies();
             dragBar = panel.GetDragBar();
+            
+            transform.position = new Vector3(
+                layer.transform.position.x,
+                layer.transform.position.y,
+                layer.transform.position.z + (layer.transform.localScale.z * 0.5f)
+            );
         }
 
         private void ResolveDependencies() => homeCanvasUIManager = FindObjectOfType<HomeCanvasUIManager>() as HomeCanvasUIManager;
 
-        void OnEnable() => dragBar.EventReceived += OnDragBarEvent;
+        protected virtual void OnEnable() => dragBar.EventReceived += OnDragBarEvent;
 
-        void OnDisable() => dragBar.EventReceived -= OnDragBarEvent;
+        protected virtual void OnDisable() => dragBar.EventReceived -= OnDragBarEvent;
 
         // Start is called before the first frame update
         protected virtual void Start()
@@ -95,11 +101,13 @@ namespace UI
         protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
             if (!target.Equals(layer.gameObject)) return;
-            UpdatePosition(hit);
+            UpdatePosition(source, origin, direction, target, hit);
         }
 
-        protected virtual void UpdatePosition(RaycastHit hit)
+        protected virtual void UpdatePosition(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
+            // Vector3 referenceDirection = (layer.transform.position - hit.point).normalized;
+            // hit.point = layer.transform.position + (referenceDirection * layer.Collider.radius * 0.5f);
             Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
             transform.position = hit.point + offset;
         }

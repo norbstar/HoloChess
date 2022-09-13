@@ -15,7 +15,7 @@ namespace UI
         [SerializeField] Color onColor;
         [SerializeField] bool isOnByDefault;
 
-        private bool isOn = false;
+        protected bool isOn = false;
         public bool IsOn
         {
             get
@@ -38,9 +38,7 @@ namespace UI
 
         public override void OnClickButton(UnityButton button)
         {
-            bar.color = (isOn) ? offColor : onColor;
-            isOn = !isOn;
-
+            IsOn = !isOn;
             base.OnClickButton(button);
         }
     }

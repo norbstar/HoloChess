@@ -25,7 +25,7 @@ namespace UI
         public override void OnClickButton(UnityButton button)
 	    {
             base.OnClickButton(button);
-            ToggleEventReceived?.Invoke(this, IsOn);
+            ToggleEventReceived?.Invoke(this, isOn);
         }
 
         public void SyncVolume(float volume) => IsOn = volume > 0f;

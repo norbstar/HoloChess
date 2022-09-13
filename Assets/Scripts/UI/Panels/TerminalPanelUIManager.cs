@@ -26,10 +26,16 @@ namespace UI.Panels
         private static string TOP_BUTTON = "Top Button";
         private static string BOTTOM_BUTTON = "Bottom Button";
         private static string CLEAR_PROGRESS_BUTTON = "Clear Progress Button";
+        private static string LOCK_SWAP_BUTTON = "Lock Swap Button";
         private static string CLOSE_PROGRESS_BUTTON = "Close Progress Button";
+
+        public delegate void OnLockEvent(bool isLocked);
+        public event OnLockEvent LockedEventReceived;
 
         public delegate void OnCloseEvent();
         public event OnCloseEvent CloseEventReceived;
+
+        public bool IsLocked { get { return ((SwapButtonUIManager) ResolveButton(LOCK_SWAP_BUTTON)).IsOn; } }
 
         private IDictionary<string, string> elements = new Dictionary<string, string>();
         private bool refresh;
@@ -41,11 +47,7 @@ namespace UI.Panels
         }
 
         // Start is called before the first frame update
-        void Start()
-        {
-            // Debug.Log($"Refresh Rate : {refreshInterval} secs");
-            StartCoroutine(MonitorLogs());
-        }
+        void Start() => StartCoroutine(MonitorLogs());
 
         public override void OnEnable()
         {
@@ -163,6 +165,11 @@ namespace UI.Panels
             else if (name.Equals(CLEAR_PROGRESS_BUTTON))
             {
                 Clear();
+            }
+            else if (name.Equals(LOCK_SWAP_BUTTON))
+            {
+                bool isOn = ((SwapButtonUIManager) manager).IsOn;
+                LockedEventReceived?.Invoke(isOn);
             }
             else if (name.Equals(CLOSE_PROGRESS_BUTTON))
             {
