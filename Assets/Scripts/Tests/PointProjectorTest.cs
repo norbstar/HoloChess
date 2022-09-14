@@ -16,9 +16,9 @@ namespace Tests
 
         void OnEnable()
         {
-            pointA = manager.Add(PointProjector.Type.Red, "Point A", scale);
-            pointB = manager.Add(PointProjector.Type.Green, "Point B", scale);
-            pointC = manager.Add(PointProjector.Type.Blue, "Point C", scale);
+            pointA = manager.Add(PointProjector.Type.Red, "Point A", "A", scale);
+            pointB = manager.Add(PointProjector.Type.Green, "Point B", "B", scale);
+            pointC = manager.Add(PointProjector.Type.Blue, "Point C", "C", scale);
         }
 
         void OnDisable()

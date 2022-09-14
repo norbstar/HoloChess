@@ -22,11 +22,24 @@ public class PointProjector : MonoBehaviour
     }
 
     private GameObject instance;
+    private PointManager manager;
     private Vector3 point;
     private string label;
 
     public Vector3 Point { get { return point; } set { point = value; } }
-    public string Label { get { return label; } set { label = value; } } 
+    public string Label
+    {
+        get
+        {
+            return label;
+        }
+        
+        set
+        {
+            label = value;
+            manager.Text = label;
+        }
+    } 
 
     public void Build(Type type, string label, Vector3? overrideScale = null)
     {
@@ -60,8 +73,8 @@ public class PointProjector : MonoBehaviour
             instance.transform.localScale = overrideScale.Value;
         }
 
-        instance.GetComponent<PointManager>().Text = label;
-        this.label = name = label;
+        manager = instance.GetComponent<PointManager>() as PointManager;
+        Label = label;
     }
 
     // Update is called once per frame

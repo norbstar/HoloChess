@@ -8,18 +8,20 @@ public class PointProjectorDatabase : MonoBehaviour
 
     private void ResolveDependencies() => manager = FindObjectOfType<PointProjectorManager>() as PointProjectorManager;
 
-    public static void PlotPoint(string label, PointProjector.Type type, Vector3 position, Vector3? overrideScale = null)
+    public static void PlotPoint(string name, string label, PointProjector.Type type, Vector3 position, Vector3? overrideScale = null)
     {
-        if (manager.TryGet(label, out PointProjector projector))
+        if (manager.TryGet(name, out PointProjector projector))
         {
-            projector.Point = position;           
+            projector.Point = position;
         }
         else
         {
-            var instance = manager.Add(type, label, overrideScale);
-            instance.Point = position;
+            projector = manager.Add(type, name, label, overrideScale);
+            projector.Point = position;
         }
+
+        projector.Label = label;
     }
 
-    public static bool DestroyPoint(string label) => manager.Remove(label);
+    public static bool DestroyPoint(string name) => manager.Remove(name);
 }

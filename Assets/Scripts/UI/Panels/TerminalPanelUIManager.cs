@@ -15,7 +15,7 @@ namespace UI.Panels
         [Header("Components")]
         [SerializeField] DragBarUIManager dragBar;
         public DragBarUIManager DragBar { get { return dragBar; } }
-         [SerializeField] ButtonGroupUIManager buttonGroupManager;
+        [SerializeField] ButtonGroupUIManager buttonGroupManager;
         public ButtonGroupUIManager ButtonGroupManager { get { return buttonGroupManager; } }
         [SerializeField] ScrollRect scrollRect;
         [SerializeField] TextMeshProUGUI textUI;

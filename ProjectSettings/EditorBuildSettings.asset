@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sphere Raycast Test.unity
+    path: Assets/Scenes/Tests/Canvas Pointer Test.unity
+    guid: e13eedc8aec420f4b9ef644b87106e2a
+  - enabled: 1
+    path: Assets/Scenes/Tests/Sphere Raycast Test.unity
     guid: 29593c3d86b4db84da27034956743772
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 77a26a01542719049ac88daf7156e9d7, type: 2}

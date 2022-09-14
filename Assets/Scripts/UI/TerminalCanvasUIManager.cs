@@ -7,8 +7,6 @@ namespace UI
     public class TerminalCanvasUIManager : DragbarCanvasUIManager<TerminalPanelUIManager>
     {
         private new Camera camera;
-        private float originalOffset;
-        private float parentToChildMultiplier;
         private bool isLocked;
         private float lockY;
 
@@ -16,9 +14,6 @@ namespace UI
         {
             base.Awake();
             ResolveDependencies();
-
-            originalOffset = transform.localPosition.z;
-            parentToChildMultiplier = panel.transform.localScale.x / transform.localScale.x;
         }
 
         private void ResolveDependencies() => camera = Camera.main;
@@ -27,6 +22,7 @@ namespace UI
         protected override void Start()
         {
             base.Start();
+            // PointProjectorDatabase.PlotPoint($"{gameObject.name} Start", $"{gameObject.name} {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Yellow, transform.position);
             isLocked = panel.IsLocked;
 
             if (isLocked)
@@ -39,6 +35,15 @@ namespace UI
         {
             base.OnEnable();
             panel.LockedEventReceived += OnLockSwapEvent;
+        }
+
+        // Update is called once per frame
+        protected override void Update()
+        {
+            base.Update();
+            Debug.Log($"Position X : {transform.position.x}");
+            Debug.Log($"Position Y : {transform.position.y}");
+            Debug.Log($"Position Z : {transform.position.z}");
         }
 
         protected override void OnDisable()
@@ -67,24 +72,83 @@ namespace UI
                 return;
             }
 
+            hit.point = dragBar.transform.position;
+
+#if true
+            /* Stage 1 */
+            Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
+            var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
+
+            /* Stage 2 */
+            Vector3 referencePoint = new Vector3(layer.transform.position.x, point.y, layer.transform.position.z);
+            relativeDirection = (point - referencePoint).normalized;
+
+            /* Stage 3 */
+            referencePoint = new Vector3(layer.transform.position.x, lockY, layer.transform.position.z);
+            var ray = new Ray(referencePoint + relativeDirection * layer.transform.lossyScale.z, -relativeDirection);
+            LayerMask menuLayerMask = LayerMask.GetMask("Far Menu");
+            bool hasHit = Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, menuLayerMask);
+
+            if (hasHit)
+            {
+                /* Stage 4 */
+                relativeDirection = (hit.point - layer.transform.position).normalized;
+                point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
+                // transform.position = point;
+
+                Debug.Log($"Point X : {point.x}");
+                Debug.Log($"Point Y : {point.y}");
+                Debug.Log($"Point Z : {point.z}");
+                
+                PointProjectorDatabase.PlotPoint($"{gameObject.name} [2]", $"{gameObject.name} {Vector3.Distance(layer.transform.position, point)}", PointProjector.Type.Blue, point);
+            }
+#endif
+
+#if false
+            /* Stage 1 */
+            Vector3 referencePoint = new Vector3(layer.transform.position.x, hit.point.y, layer.transform.position.z);
+            var relativeDirection = (hit.point - referencePoint).normalized;
+
+            /* Stage 2 */
+            referencePoint = new Vector3(layer.transform.position.x, lockY, layer.transform.position.z);
+            var ray = new Ray(referencePoint + relativeDirection * layer.transform.lossyScale.z, -relativeDirection);
+            LayerMask menuLayerMask = LayerMask.GetMask("Far Menu");
+            bool hasHit = Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, menuLayerMask);
+
+            if (hasHit)
+            {
+                transform.position = hit.point;
+                
+                PointProjectorDatabase.PlotPoint($"{gameObject.name} [2]", $"{gameObject.name} {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Blue, transform.position);
+            }
+#endif
+
+#if false
             // var point = new Vector3(hit.point.x, layer.transform.position.y, hit.point.z);
             // Vector3 direction = (point - layer.transform.position).normalized;
             Vector3 referencePoint = new Vector3(layer.transform.position.x, lockY, layer.transform.position.z);
             // PointProjectorDatabase.PlotPoint("Ref", PointProjector.Type.White, referencePoint, Vector3.one * 0.15f);
 
-            Vector3 adjustedDirection = (new Vector3(hit.point.x, lockY, hit.point.z) - referencePoint).normalized;
+            Vector3 adjustedDirection = (new Vector3(point.x, lockY, point.z) - referencePoint).normalized;
             LayerMask menuLayerMask = LayerMask.GetMask("Far Menu");
 
-            // var ray = new Ray(layer.transform.position + direction * (originalOffset * parentToChildMultiplier), -direction);
-            var ray = new Ray(referencePoint + adjustedDirection * (originalOffset * parentToChildMultiplier), -adjustedDirection);
+            // var ray = new Ray(layer.transform.position + direction * layer.transform.lossyScale.z, -direction);
+            var ray = new Ray(referencePoint + adjustedDirection * layer.transform.lossyScale.z, -adjustedDirection);
             bool hasHit = Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, menuLayerMask);
 
             if (hasHit)
             {
+                relativeDirection = (hit.point - layer.transform.position).normalized;
+                hit.point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
                 // PointProjectorDatabase.PlotPoint("Hit B", PointProjector.Type.White, hit.point, Vector3.one * 0.15f);
                 // Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
-                transform.position = hit.point;
+                transform.position = hit.point/* + offset*/;
             }
+
+            // PointProjectorDatabase.PlotPoint("Tracked", $"Tracked [{transform.position.x},{transform.position.y},{transform.position.z}] {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Blue, transform.position);
+            PointProjectorDatabase.PlotPoint("Tracked", $"Tracked {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Blue, transform.position);
+            // Debug.Log($"Tracked Distance {Vector3.Distance(layer.transform.position, transform.position)}");
+#endif
         }
     }
 }

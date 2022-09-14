@@ -10,16 +10,18 @@ public class PointProjectorManager : MonoBehaviour
 
     private List<PointProjector> projectors;
 
-    public PointProjector Add(PointProjector.Type type, string label, Vector3? overrideScale = null)
+    public PointProjector Add(PointProjector.Type type, string name, string label, Vector3? overrideScale = null)
     {
         if (projectors == null)
         {
             projectors = new List<PointProjector>();
         }
 
-        if (projectors.FirstOrDefault(p => p.Label.Equals(label))) return null;
+        if (projectors.FirstOrDefault(p => p.name.Equals(name))) return null;
 
         var instance = Instantiate(prefab, Vector3.zero, Quaternion.identity, gameObject.transform);
+        instance.name = name;
+
         var projector = instance.GetComponent<PointProjector>();
         projector.Build(type, label, overrideScale);
         projectors.Add(projector);
@@ -27,11 +29,11 @@ public class PointProjectorManager : MonoBehaviour
         return projector;
     }
 
-    public bool Remove(string label)
+    public bool Remove(string name)
     {
         if (projectors == null) return false;
 
-        var instance = projectors.FirstOrDefault(p => p.Label.Equals(label));
+        var instance = projectors.FirstOrDefault(p => p.name.Equals(name));
         
         if (instance != null)
         {
@@ -43,7 +45,7 @@ public class PointProjectorManager : MonoBehaviour
         return false;
     }
     
-    public bool TryGet(string label, out PointProjector projector)
+    public bool TryGet(string name, out PointProjector projector)
     {
         if (projectors == null)
         {
@@ -51,7 +53,7 @@ public class PointProjectorManager : MonoBehaviour
             return false;
         }
 
-        projector = projectors.FirstOrDefault(p => p.Label.Equals(label));
+        projector = projectors.FirstOrDefault(p => p.name.Equals(name));
         return (projector != null);
     }
 }

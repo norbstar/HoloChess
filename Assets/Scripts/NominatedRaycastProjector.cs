@@ -1,3 +1,5 @@
+using System;
+
 using UnityEngine;
 
 public class NominatedRaycastProjector : MonoBehaviour
@@ -8,8 +10,18 @@ public class NominatedRaycastProjector : MonoBehaviour
 
     [SerializeField] RaycastNotifier notifier;
 
+    [Serializable]
+    public class Info
+    {
+        public GameObject source;
+        public Vector3 origin;
+        public Vector3 direction;
+        public GameObject target;
+        public RaycastHit hit;
+    }
+    
+    private Info hitInfo;
     private GameObject instance;
-    private GameObject source;
 
     void OnEnable() => notifier.EventReceived += OnRaycastEvent;
 
@@ -20,15 +32,22 @@ public class NominatedRaycastProjector : MonoBehaviour
     {
         if (instance == null) return;
         
-        instance.transform.LookAt(source.transform);
+        instance.transform.LookAt(hitInfo.target.transform);
     }
 
     private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
     {
-        // GameObject source = hit.transform.gameObject;
+        // Debug.Log($"{source.name} OnRaycastEvent : {hit.point}");
         Vector3 point = hit.point;
 
-        this.source = source;
+        this.hitInfo = new Info
+        {
+            source = source,
+            origin = origin,
+            direction = direction,
+            target = target,
+            hit = hit
+        };
 
         if (instance == null)
         {

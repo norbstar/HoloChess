@@ -22,10 +22,20 @@ public class MultiRaycastProjector : MonoBehaviour
         [Header("Notifier")]
         public RaycastNotifier notifier;
 
-        public GameObject Instance { get { return instance; } set { instance = value; } }
-        public GameObject Source { get { return source; } set { source = value; } }
+        [Serializable]
+        public class Info
+        {
+            public GameObject source;
+            public Vector3 origin;
+            public Vector3 direction;
+            public GameObject target;
+            public RaycastHit hit;
+        }
 
-        private GameObject source;
+        public GameObject Instance { get { return instance; } set { instance = value; } }
+        public Info HitInfo { get { return hitInfo; } set { hitInfo = value; } }
+
+        private Info hitInfo;
         private GameObject instance;
     }
 
@@ -64,25 +74,34 @@ public class MultiRaycastProjector : MonoBehaviour
         {
             if (projector.Instance != null)
             {
-                projector.Instance.transform.LookAt(projector.Source.transform);
+                // -projector.HitInfo.hit.normal
+                Debug.Log($"{gameObject.name} LookAt : {projector.HitInfo.target.transform}");
+                projector.Instance.transform.LookAt(/*projector.HitInfo.target.transform*/projector.HitInfo.hit.point + -projector.HitInfo.hit.normal);
             }
         }
     }
 
     private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
     {
-        // GameObject source = hit.transform.gameObject;
-        Vector3 point = hit.point;
-
-        Projector projector = projectors.FirstOrDefault(p => GameObject.ReferenceEquals(origin, p.notifier.gameObject));
+        Debug.Log($"{gameObject.name} {source.name} OnRaycastEvent : {hit.point}");
+        Projector projector = projectors.FirstOrDefault(p => GameObject.ReferenceEquals(source, p.notifier.gameObject));
 
         if (projector == null) return;
 
-        projector.Source = source;
+        projector.HitInfo = new Projector.Info
+        {
+            source = source,
+            origin = origin,
+            direction = direction,
+            target = target,
+            hit = hit
+        };
 
+        Vector3 point = hit.point;
+        
         if (projector.Instance == null)
         {
-            projector.Instance = Instantiate(projector.pointer.prefab, point, Quaternion.Euler(0f, 0f, 90f));
+            projector.Instance = Instantiate(projector.pointer.prefab, point, Quaternion.identity);
             projector.Instance.transform.localScale = projector.pointer.scale;
             projector.Instance.gameObject.name = $"{source.name}-Pointer";
         }

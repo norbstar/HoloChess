@@ -23,24 +23,32 @@ namespace UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!enableCallbacks) return;
+
+            // Debug.Log($"OnPointerEnter : {eventData.pointerEnter.gameObject.name}");
             EventReceived?.Invoke(gameObject, Event.Enter, eventData);
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             if (!enableCallbacks) return;
+
+            // Debug.Log($"OnPointerDown : {eventData.pointerEnter.gameObject.name}");
             EventReceived?.Invoke(gameObject, Event.Down, eventData);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             if (!enableCallbacks) return;
+
+            // Debug.Log($"OnPointerUp : {eventData.pointerEnter.gameObject.name}");
             EventReceived?.Invoke(gameObject, Event.Up, eventData);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             if (!enableCallbacks) return;
+            
+            // Debug.Log($"OnPointerExit : {eventData.pointerEnter.gameObject.name}");
             EventReceived?.Invoke(gameObject, Event.Exit, eventData);
         }
     }

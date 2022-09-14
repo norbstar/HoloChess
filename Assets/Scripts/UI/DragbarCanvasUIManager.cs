@@ -19,7 +19,7 @@ namespace UI
             base.Awake();
             ResolveDependencies();
             dragBar = panel.GetDragBar();
-            
+
             transform.position = new Vector3(
                 layer.transform.position.x,
                 layer.transform.position.y,
@@ -106,10 +106,19 @@ namespace UI
 
         protected virtual void UpdatePosition(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            // Vector3 referenceDirection = (layer.transform.position - hit.point).normalized;
-            // hit.point = layer.transform.position + (referenceDirection * layer.Collider.radius * 0.5f);
+            Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
+            var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
+            // PointProjectorDatabase.PlotPoint($"{gameObject.name}", $"{gameObject.name} {Vector3.Distance(layer.transform.position, point)}", PointProjector.Type.Blue, point);
+
+            // Debug.Log($"Layer Point : {layer.transform.position}");
+            // Debug.Log($"Relative Direction : {relativeDirection.x}, {relativeDirection.y}, {relativeDirection.z}");
+            // Debug.Log($"Distance : {layer.transform.localScale.z * 0.5f}");
             Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
-            transform.position = hit.point + offset;
+            transform.position = point + offset;
+
+            // PointProjectorDatabase.PlotPoint("Default", $"Default [{transform.position.x},{transform.position.y},{transform.position.z}] {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Red, transform.position);
+            // PointProjectorDatabase.PlotPoint("Home [3]", $"Home Point {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Blue, transform.position);
+            // Debug.Log($"Default Distance {Vector3.Distance(layer.transform.position, transform.position)}");
         }
     }
 }
