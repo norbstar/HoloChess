@@ -98,6 +98,6 @@ namespace UI
 #endif
         }
 
-        protected abstract void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit);
+        protected abstract void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits);
     }
 }

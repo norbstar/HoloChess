@@ -11,15 +11,9 @@ using Enum;
 [RequireComponent(typeof(ActionBasedController))]
 public class HandController : GizmoManager
 {
-    [Serializable]
-    public class PointerConfig
-    {
-        public GameObject prefab;
-        public List<string> compositeCompatibilityMask;
-    }
-
     [Header("Config")]
-    [SerializeField] PointerConfig pointerConfig;
+    [SerializeField] GameObject pointerPrefab;
+    [SerializeField] List<string> compositeMask;
 
     public static InputDeviceCharacteristics RightHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Right);
     public static InputDeviceCharacteristics LeftHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Left);
@@ -41,9 +35,29 @@ public class HandController : GizmoManager
     [SerializeField] bool enablePointer = false;
 
     private ActionBasedController controller;
+    private LayerMask layerMask;
     private RaycastNotifier notifier;
     private InputDeviceCharacteristics characteristics;
     private GameObject pointer;
+
+    public RaycastNotifier Notifier
+    {
+        get
+        {
+            if (notifier == null)
+            {
+                notifier = GetComponent<RaycastNotifier>() as RaycastNotifier;
+            }
+
+            return notifier;
+        }
+    }
+
+    public InputDeviceCharacteristics Characteristics { get { return characteristics; } }
+    public Hand WhichHand{ get { return hand; } }
+
+    private bool hasHit;
+    private RaycastHit hit;
 
     void Awake()
     {
@@ -59,6 +73,8 @@ public class HandController : GizmoManager
                 characteristics = RightHandCharacteristics;
                 break;
         }
+
+        layerMask = LayerMaskExtensions.CreateLayerMask(compositeMask);
     }
 
     private void ResolveDependencies()
@@ -66,24 +82,6 @@ public class HandController : GizmoManager
         controller = GetComponent<ActionBasedController>() as ActionBasedController;
         notifier = Notifier;
     }
-
-    public InputDeviceCharacteristics Characteristics { get { return characteristics; } }
-    public Hand WhichHand{ get { return hand; } }
-    public RaycastNotifier Notifier
-    {
-        get
-        {
-            if (notifier == null)
-            {
-                notifier = GetComponent<RaycastNotifier>() as RaycastNotifier;
-            }
-
-            return notifier;
-        }
-    }
-
-    private bool hasHit;
-    private RaycastHit hit;
 
     void OnEnable() => notifier.EventReceived += OnRaycastEvent;
 
@@ -96,38 +94,36 @@ public class HandController : GizmoManager
         pointer.transform.LookAt(hit.point + -hit.normal);
     }
 
-    // private bool InMask(string layer)
-    // {
-    //     foreach (pointerConfig )
-    // }
-
-    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
+    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
     {
-        Debug.Log($"{gameObject.name} OnRaycastEvent");
-
-        // if (LayerMaskExtensions.HasLayer(pointerConfig.compositeCompatibilityMask, target.layer)))
-        // {
-
-        // }
-
-        hasHit = true;
-        this.hit = hit;
-
-        Vector3 point = hit.point;
-
-        if (enablePointer)
+        foreach (RaycastHit hit in hits)
         {
-            if (pointer == null)
+            var target = hit.transform.gameObject;
+            
+            if (LayerMaskExtensions.HasLayer(layerMask, target.layer))
             {
-                pointer = Instantiate(pointerConfig.prefab, point, Quaternion.identity);
-            }
-            else
-            {
-                pointer.transform.position = point;
+                Debug.Log($"{gameObject.name} OnRaycastEvent");
+
+                hasHit = true;
+                this.hit = hit;
+
+                Vector3 point = hit.point;
+
+                if (enablePointer)
+                {
+                    if (pointer == null)
+                    {
+                        pointer = Instantiate(pointerPrefab, point, Quaternion.identity);
+                    }
+                    else
+                    {
+                        pointer.transform.position = point;
+                    }
+                }
+
+                RaycastEventReceived?.Invoke(this, source, point);
             }
         }
-
-        RaycastEventReceived?.Invoke(this, source, point);
     }
 
     // LateUpdate is called once per frame

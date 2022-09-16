@@ -2663,11 +2663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1632859313763025310, guid: 705c3ea5b592c6c4d8e4d80fff5d2bfc, type: 3}
       propertyPath: m_Name
-      value: Action Based (New Input System) (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1632859315781924413, guid: 705c3ea5b592c6c4d8e4d80fff5d2bfc, type: 3}
-      propertyPath: invertRay
-      value: 1
+      value: Action Based (New Input System)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 705c3ea5b592c6c4d8e4d80fff5d2bfc, type: 3}
@@ -6002,6 +5998,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.1, y: 0.1, z: 0.1}
   pointerPrefab: {fileID: 0}
+  compositeMask: []
   hand: 1
   enablePointer: 0
 --- !u!114 &1773141124
@@ -6019,9 +6016,7 @@ MonoBehaviour:
   castMode: 1
   invertRay: 0
   invertOffset: 5
-  masks:
-  - Near Menu
-  - Far Menu
+  compositeMask: []
 --- !u!114 &1773141125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7172,6 +7167,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.1, y: 0.1, z: 0.1}
   pointerPrefab: {fileID: 0}
+  compositeMask: []
   hand: 0
   enablePointer: 0
 --- !u!114 &2061995284
@@ -7189,9 +7185,7 @@ MonoBehaviour:
   castMode: 1
   invertRay: 1
   invertOffset: 10
-  masks:
-  - Near Menu
-  - Far Menu
+  compositeMask: []
 --- !u!114 &2061995285
 MonoBehaviour:
   m_ObjectHideFlags: 0

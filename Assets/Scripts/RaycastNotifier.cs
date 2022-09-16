@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -16,21 +17,19 @@ public class RaycastNotifier : MonoBehaviour
     [SerializeField] float invertOffset = 1f;
     [SerializeField] List<string> compositeMask;
 
-    public delegate void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit);
+    [Serializable]
+    public class HitInfo
+    {
+        public GameObject target;
+        public RaycastHit hit;
+    }
+
+    public delegate void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits);
     public event OnRaycastEvent EventReceived;
 
-    private int mixedLayerMask;
+    private int layerMask;
 
-    void Awake()
-    {
-        foreach (string mask in compositeMask)
-        {
-            if (mask != null)
-            {
-                mixedLayerMask |= LayerMask.GetMask(mask);
-            }
-        }
-    }
+    void Awake() => layerMask = LayerMaskExtensions.CreateLayerMask(compositeMask);
 
     // Update is called once per frame
     void Update()
@@ -60,22 +59,19 @@ public class RaycastNotifier : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} RayCastAll");
 
-        RaycastHit [] hits = (Physics.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, mixedLayerMask));
-
-        foreach (RaycastHit hit in hits)
-        {
-            EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hit.transform.gameObject, hit);
-        }
+        RaycastHit[] hits = (Physics.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, layerMask));
+        EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hits);
     }
 
     private void RayCastOne(Ray ray)
     {
         Debug.Log($"{gameObject.name} RayCastOne");
 
-        bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, mixedLayerMask);
+        bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, layerMask);
 
-        if (!hasHit) return;
-
-        EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hit.transform.gameObject, hit);
+        if (hasHit)
+        {
+            EventReceived?.Invoke(gameObject, ray.origin, ray.direction, new RaycastHit[] { hit });
+        }
     }
 }

@@ -619,11 +619,10 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  ponter:
-    prefab: {fileID: 7433576646663723534, guid: 6313e41990cd5604883a4c4116e03624, type: 3}
-    compositeCompatibilityMask:
-    - Default
-    - UI
+  pointerPrefab: {fileID: 7433576646663723534, guid: 6313e41990cd5604883a4c4116e03624, type: 3}
+  compositeMask:
+  - Default
+  - UI
   hand: 1
   enablePointer: 1
 --- !u!1 &1632859314257837247
@@ -1401,7 +1400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castMode: 1
-  invertRay: 0
+  invertRay: 1
   invertOffset: 10
   compositeMask:
   - Default
@@ -1423,11 +1422,10 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  ponter:
-    prefab: {fileID: 7433576646663723534, guid: 6313e41990cd5604883a4c4116e03624, type: 3}
-    compositeCompatibilityMask:
-    - Default
-    - UI
+  pointerPrefab: {fileID: 7433576646663723534, guid: 6313e41990cd5604883a4c4116e03624, type: 3}
+  compositeMask:
+  - Default
+  - UI
   hand: 0
   enablePointer: 1
 --- !u!1 &1632859315791965169

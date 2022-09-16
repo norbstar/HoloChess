@@ -35,28 +35,32 @@ public class NominatedRaycastProjector : MonoBehaviour
         instance.transform.LookAt(hitInfo.target.transform);
     }
 
-    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
+    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
     {
-        Vector3 point = hit.point;
+        foreach (RaycastHit hit in hits)
+        {
+            Vector3 point = hit.point;
+            var target = hit.transform.gameObject;
+            
+            this.hitInfo = new Info
+            {
+                source = source,
+                origin = origin,
+                direction = direction,
+                target = target,
+                hit = hit
+            };
 
-        this.hitInfo = new Info
-        {
-            source = source,
-            origin = origin,
-            direction = direction,
-            target = target,
-            hit = hit
-        };
-
-        if (instance == null)
-        {
-            instance = Instantiate(pointerPrefab, point, Quaternion.Euler(0f, 0f, 90f));
-            instance.transform.localScale = pointerScale;
-            instance.gameObject.name = $"{source.name}-Pointer";
-        }
-        else
-        {
-            instance.transform.position = point;
+            if (instance == null)
+            {
+                instance = Instantiate(pointerPrefab, point, Quaternion.identity);
+                instance.transform.localScale = pointerScale;
+                instance.gameObject.name = $"{source.name}-Pointer";
+            }
+            else
+            {
+                instance.transform.position = point;
+            }
         }
     }
 }

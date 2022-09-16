@@ -83,14 +83,11 @@ namespace UI
 
         private void OnDragBarEvent(DragBarUIManager manager, DragBarUIManager.Event @event)
         {
-            // Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
-
             switch (@event)
             {
                 case DragBarUIManager.Event.OnPointerDown:
                     if (leftHandNotifier != null)
                     {
-                        // Debug.Log($"{gameObject.name} OnDragBarEvent Pointer : Down");
                         Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
                         leftHandNotifier.EventReceived += OnRaycastEvent;
                     }
@@ -99,7 +96,6 @@ namespace UI
                 case DragBarUIManager.Event.OnPointerUp:
                     if (leftHandNotifier != null)
                     {
-                        // Debug.Log($"{gameObject.name} OnDragBarEvent Pointer : Up");
                         Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
                         leftHandNotifier.EventReceived -= OnRaycastEvent;
                     }
@@ -107,15 +103,20 @@ namespace UI
             }
         }
 
-        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
+        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
         {
             Debug.Log($"{gameObject.name} OnRaycastEvent");
-
-            if (!GameObject.ReferenceEquals(target, layer.gameObject)) return;
-            // if (!target.Equals(layer.gameObject)) return;
-
-            Debug.Log($"{gameObject.name} OnRaycastEvent Target Pertains To Layer : {layer.gameObject.name}");
-            UpdatePosition(source, origin, direction, target, hit);
+            
+            foreach (RaycastHit hit in hits)
+            {
+                var target = hit.transform.gameObject;
+                
+                if (GameObject.ReferenceEquals(target, layer.gameObject))
+                {
+                    Debug.Log($"{gameObject.name} OnRaycastEvent Target Pertains To Layer : {layer.gameObject.name}");
+                    UpdatePosition(source, origin, direction, target, hit);
+                }
+            }
         }
 
         protected virtual void UpdatePosition(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
