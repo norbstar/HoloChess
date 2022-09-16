@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -8,8 +11,15 @@ using Enum;
 [RequireComponent(typeof(ActionBasedController))]
 public class HandController : GizmoManager
 {
+    [Serializable]
+    public class PointerConfig
+    {
+        public GameObject prefab;
+        public List<string> compositeCompatibilityMask;
+    }
+
     [Header("Config")]
-    [SerializeField] GameObject pointerPrefab;
+    [SerializeField] PointerConfig pointerConfig;
 
     public static InputDeviceCharacteristics RightHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Right);
     public static InputDeviceCharacteristics LeftHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Left);
@@ -82,23 +92,34 @@ public class HandController : GizmoManager
     // Update is called once per frame
     void Update()
     {
-        if (!enablePointer) return;
+        if ((!enablePointer) || (pointer == null) || (!pointer.gameObject.activeSelf)) return;
         pointer.transform.LookAt(hit.point + -hit.normal);
     }
 
+    // private bool InMask(string layer)
+    // {
+    //     foreach (pointerConfig )
+    // }
+
     private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
     {
+        Debug.Log($"{gameObject.name} OnRaycastEvent");
+
+        // if (LayerMaskExtensions.HasLayer(pointerConfig.compositeCompatibilityMask, target.layer)))
+        // {
+
+        // }
+
         hasHit = true;
         this.hit = hit;
 
-        Debug.Log($"{gameObject.name} {source.name} OnRaycastEvent : {hit.point}");
         Vector3 point = hit.point;
 
         if (enablePointer)
         {
             if (pointer == null)
             {
-                pointer = Instantiate(pointerPrefab, point, Quaternion.identity);
+                pointer = Instantiate(pointerConfig.prefab, point, Quaternion.identity);
             }
             else
             {

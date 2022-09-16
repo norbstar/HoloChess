@@ -14,7 +14,7 @@ public class RaycastNotifier : MonoBehaviour
     [SerializeField] CastMode castMode = CastMode.All;
     [SerializeField] bool invertRay = false;
     [SerializeField] float invertOffset = 1f;
-    [SerializeField] List<string> masks;
+    [SerializeField] List<string> compositeMask;
 
     public delegate void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit);
     public event OnRaycastEvent EventReceived;
@@ -23,7 +23,7 @@ public class RaycastNotifier : MonoBehaviour
 
     void Awake()
     {
-        foreach (string mask in masks)
+        foreach (string mask in compositeMask)
         {
             if (mask != null)
             {
@@ -35,9 +35,9 @@ public class RaycastNotifier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (EventReceived.GetInvocationList().Length == 0) return;
-        
         Debug.Log($"{gameObject.name} Update Listeners : {EventReceived.GetInvocationList().Length}");
+        
+        if (EventReceived.GetInvocationList().Length == 0) return;
 
         Vector3 origin = (invertRay) ? transform.position + transform.forward * invertOffset : transform.position;
         Vector3 direction = (invertRay) ? -transform.forward : transform.forward;
@@ -58,6 +58,8 @@ public class RaycastNotifier : MonoBehaviour
 
     private void RayCastAll(Ray ray)
     {
+        Debug.Log($"{gameObject.name} RayCastAll");
+
         RaycastHit [] hits = (Physics.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, mixedLayerMask));
 
         foreach (RaycastHit hit in hits)
@@ -68,6 +70,8 @@ public class RaycastNotifier : MonoBehaviour
 
     private void RayCastOne(Ray ray)
     {
+        Debug.Log($"{gameObject.name} RayCastOne");
+
         bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, mixedLayerMask);
 
         if (!hasHit) return;

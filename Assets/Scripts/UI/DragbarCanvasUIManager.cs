@@ -20,11 +20,14 @@ namespace UI
             ResolveDependencies();
             dragBar = panel.GetDragBar();
 
-            transform.position = new Vector3(
-                layer.transform.position.x,
-                layer.transform.position.y,
-                layer.transform.position.z + (layer.transform.localScale.z * 0.5f)
-            );
+            if (layer != null)
+            {
+                transform.position = new Vector3(
+                    layer.transform.position.x,
+                    layer.transform.position.y,
+                    layer.transform.position.z + (layer.transform.localScale.z * 0.5f)
+                );
+            }
         }
 
         private void ResolveDependencies() => homeCanvasUIManager = FindObjectOfType<HomeCanvasUIManager>() as HomeCanvasUIManager;
@@ -80,11 +83,15 @@ namespace UI
 
         private void OnDragBarEvent(DragBarUIManager manager, DragBarUIManager.Event @event)
         {
+            // Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
+
             switch (@event)
             {
                 case DragBarUIManager.Event.OnPointerDown:
                     if (leftHandNotifier != null)
                     {
+                        // Debug.Log($"{gameObject.name} OnDragBarEvent Pointer : Down");
+                        Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
                         leftHandNotifier.EventReceived += OnRaycastEvent;
                     }
                     break;
@@ -92,6 +99,8 @@ namespace UI
                 case DragBarUIManager.Event.OnPointerUp:
                     if (leftHandNotifier != null)
                     {
+                        // Debug.Log($"{gameObject.name} OnDragBarEvent Pointer : Up");
+                        Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
                         leftHandNotifier.EventReceived -= OnRaycastEvent;
                     }
                     break;
@@ -100,12 +109,19 @@ namespace UI
 
         protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            if (!target.Equals(layer.gameObject)) return;
+            Debug.Log($"{gameObject.name} OnRaycastEvent");
+
+            if (!GameObject.ReferenceEquals(target, layer.gameObject)) return;
+            // if (!target.Equals(layer.gameObject)) return;
+
+            Debug.Log($"{gameObject.name} OnRaycastEvent Target Pertains To Layer : {layer.gameObject.name}");
             UpdatePosition(source, origin, direction, target, hit);
         }
 
         protected virtual void UpdatePosition(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
+            Debug.Log($"{gameObject.name} UpdatePosition Default Impl");
+
             Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
             var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
             // PointProjectorDatabase.PlotPoint($"{gameObject.name}", $"{gameObject.name} {Vector3.Distance(layer.transform.position, point)}", PointProjector.Type.Blue, point);

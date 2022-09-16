@@ -83,7 +83,6 @@ public class MultiRaycastProjector : MonoBehaviour
 
     private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
     {
-        Debug.Log($"{gameObject.name} {source.name} OnRaycastEvent : {hit.point}");
         Projector projector = projectors.FirstOrDefault(p => GameObject.ReferenceEquals(source, p.notifier.gameObject));
 
         if (projector == null) return;

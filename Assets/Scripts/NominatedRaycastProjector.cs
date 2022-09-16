@@ -37,7 +37,6 @@ public class NominatedRaycastProjector : MonoBehaviour
 
     private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
     {
-        // Debug.Log($"{source.name} OnRaycastEvent : {hit.point}");
         Vector3 point = hit.point;
 
         this.hitInfo = new Info

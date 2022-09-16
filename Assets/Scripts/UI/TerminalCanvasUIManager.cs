@@ -38,13 +38,13 @@ namespace UI
         }
 
         // Update is called once per frame
-        protected override void Update()
-        {
-            base.Update();
-            Debug.Log($"Position X : {transform.position.x}");
-            Debug.Log($"Position Y : {transform.position.y}");
-            Debug.Log($"Position Z : {transform.position.z}");
-        }
+        // protected override void Update()
+        // {
+        //     base.Update();
+        //     Debug.Log($"Position X : {transform.position.x}");
+        //     Debug.Log($"Position Y : {transform.position.y}");
+        //     Debug.Log($"Position Z : {transform.position.z}");
+        // }
 
         protected override void OnDisable()
         {
@@ -64,6 +64,8 @@ namespace UI
 
         protected override void UpdatePosition(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
+            Debug.Log($"{gameObject.name} UpdatePosition Override Impl");
+
             // PointProjectorDatabase.PlotPoint("Hit A", PointProjector.Type.White, hit.point, Vector3.one * 0.15f);
 
             if (!isLocked)
@@ -72,9 +74,30 @@ namespace UI
                 return;
             }
 
-            hit.point = dragBar.transform.position;
+            Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
+            var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
 
-#if true
+            GameObject p0 = new GameObject();
+            p0.transform.position = layer.transform.position;
+            p0.transform.rotation = layer.transform.rotation;
+            p0.transform.LookAt(point);
+
+            float angle = Vector3.SignedAngle(layer.transform.forward, transform.forward, transform.right);
+
+            Vector3 tmp = p0.transform.localEulerAngles;
+            tmp.x = angle;
+            p0.transform.localEulerAngles = tmp;
+
+            point = p0.transform.position + p0.transform.forward * (layer.transform.localScale.z * 0.5f);
+
+            // hit.point = dragBar.transform.position;
+
+            // hit.point = new Vector3(hit.point.x, lockY, hit.point.z);
+            // Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
+            // var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
+            transform.position = point;
+            
+#if false
             /* Stage 1 */
             Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
             var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
