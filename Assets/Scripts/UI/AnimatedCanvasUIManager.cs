@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
@@ -98,6 +100,6 @@ namespace UI
 #endif
         }
 
-        protected abstract void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits);
+        protected abstract void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits);
     }
 }

@@ -48,33 +48,6 @@ namespace Tests
             point.performed += Callback_OnPointPerformed;
         }
 
-#if false
-        // Update is called once per frame
-        void Update()
-        {
-            if (!isPointerEnter) return;
-
-            Vector3 position = Mouse.current.position.ReadValue();
-            Debug.Log($"Position : {position}");
-            Ray ray = Camera.main.ScreenPointToRay(position);
-
-            // Debug.Log($"Position : {eventData.position}");
-            // Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-            Vector3 worldPosition = Vector3.zero;
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                worldPosition = hit.point;
-            }
-
-            // position.z = Camera.main.nearClipPlane;
-            // Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-            Debug.Log($"World Position : {worldPosition}");
-            
-            pointer.transform.position = worldPosition;
-        }
-#endif
-
         void OnDisable()
         {
             var eventHandler = GetComponent<PointerEventHandler>() as PointerEventHandler;

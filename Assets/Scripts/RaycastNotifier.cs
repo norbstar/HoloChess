@@ -11,20 +11,27 @@ public class RaycastNotifier : MonoBehaviour
         All
     }
 
+    public enum CastType
+    {
+        Outbound,
+        Pulse
+    }
+
     [Header("Config")]
     [SerializeField] CastMode castMode = CastMode.All;
-    [SerializeField] bool invertRay = false;
-    [SerializeField] float invertOffset = 1f;
+    [SerializeField] CastType castType = CastType.Outbound;
+    [SerializeField] float range = 1f;
     [SerializeField] List<string> compositeMask;
 
     [Serializable]
     public class HitInfo
     {
-        public GameObject target;
+        public Vector3 origin;
+        public Vector3 direction;
         public RaycastHit hit;
     }
 
-    public delegate void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits);
+    public delegate void OnRaycastEvent(GameObject source, List<HitInfo> hits);
     public event OnRaycastEvent EventReceived;
 
     private int layerMask;
@@ -34,44 +41,108 @@ public class RaycastNotifier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"{gameObject.name} Update Listeners : {EventReceived.GetInvocationList().Length}");
+        Debug.Log($"{gameObject.name} Listener Count : {EventReceived.GetInvocationList().Length}");
         
         if (EventReceived.GetInvocationList().Length == 0) return;
 
-        Vector3 origin = (invertRay) ? transform.position + transform.forward * invertOffset : transform.position;
-        Vector3 direction = (invertRay) ? -transform.forward : transform.forward;
-        
-        var ray = new Ray(origin, direction);
-        
+        List<HitInfo> hits = null;
+
+        switch (castType)
+        {
+            case CastType.Outbound:
+                RaycastOutbound(out hits);
+                break;
+
+            case CastType.Pulse:
+                RaycastPulse(out hits);
+                break;
+        }
+
+        Debug.Log($"Hit Count : {hits.Count}");
+
+        if (hits.Count > 0)
+        {
+            EventReceived?.Invoke(gameObject, hits);
+        }
+    }
+
+    private RaycastHit[] Cast(Ray ray)
+    {
+        RaycastHit[] hits = null;
+
         switch (castMode)
         {
             case CastMode.One:
-                RayCastOne(ray);
+                if (RaycastOne(ray, out RaycastHit hit))
+                {
+                    hits = new RaycastHit[] { hit };
+                }
                 break;
             
             case CastMode.All:
-                RayCastAll(ray);
+                RaycastAll(ray, out hits);
                 break;
         }
+
+        return hits;
     }
 
-    private void RayCastAll(Ray ray)
+    private bool RaycastOutbound(out List<HitInfo> hits)
     {
-        Debug.Log($"{gameObject.name} RayCastAll");
+        var origin = transform.position;
+        var direction = transform.forward;
+        var ray = new Ray(origin, direction);
+        RaycastHit[] hitList = Cast(ray);
 
-        RaycastHit[] hits = (Physics.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, layerMask));
-        EventReceived?.Invoke(gameObject, ray.origin, ray.direction, hits);
-    }
+        hits = new List<HitInfo>();
 
-    private void RayCastOne(Ray ray)
-    {
-        Debug.Log($"{gameObject.name} RayCastOne");
-
-        bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, layerMask);
-
-        if (hasHit)
+        for (int itr = 0; itr < hitList.Length; itr++)
         {
-            EventReceived?.Invoke(gameObject, ray.origin, ray.direction, new RaycastHit[] { hit });
+            RaycastHit hit = hitList[itr];
+
+            hits.Add(new HitInfo
+            {
+                origin = origin,
+                direction = direction,
+                hit = hit
+            });
         }
+
+        return hits.Count > 0;
     }
+
+    private bool RaycastPulse(out List<HitInfo> hits)
+    {
+        RaycastOutbound(out List<HitInfo> outboundHits);
+
+        hits = new List<HitInfo>();
+        hits.AddRange(outboundHits);
+
+        var origin = transform.position + transform.forward * range;
+        var direction = -transform.forward;
+        var ray = new Ray(origin, direction);
+        RaycastHit[] hitList = Cast(ray);
+
+        for (int itr = 0; itr < hitList.Length; itr++)
+        {
+            RaycastHit hit = hitList[itr];
+
+            hits.Add(new HitInfo
+            {
+                origin = origin,
+                direction = direction,
+                hit = hit
+            });
+        }
+
+        return hits.Count > 0;
+    }
+
+    private bool RaycastAll(Ray ray, out RaycastHit[] hits)
+    {
+        hits = (Physics.RaycastAll(ray.origin, ray.direction, range, layerMask));
+        return hits.Length > 0;
+    }
+
+    private bool RaycastOne(Ray ray, out RaycastHit hit) => Physics.Raycast(ray.origin, ray.direction, out hit, range, layerMask);
 }

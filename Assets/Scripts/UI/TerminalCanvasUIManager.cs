@@ -64,7 +64,7 @@ namespace UI
 
         protected override void ProcessRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            Debug.Log($"{gameObject.name} ProcessRaycastEvent Override Impl");
+            // Debug.Log($"{gameObject.name} ProcessRaycastEvent Override Impl");
 
             // PointProjectorDatabase.PlotPoint("Hit A", PointProjector.Type.White, hit.point, Vector3.one * 0.15f);
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -35,20 +36,20 @@ public class NominatedRaycastProjector : MonoBehaviour
         instance.transform.LookAt(hitInfo.target.transform);
     }
 
-    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
+    private void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
     {
-        foreach (RaycastHit hit in hits)
+        foreach (RaycastNotifier.HitInfo hitInfo in hits)
         {
-            Vector3 point = hit.point;
-            var target = hit.transform.gameObject;
+            Vector3 point = hitInfo.hit.point;
+            var target = hitInfo.hit.transform.gameObject;
             
             this.hitInfo = new Info
             {
                 source = source,
-                origin = origin,
-                direction = direction,
+                origin = hitInfo.origin,
+                direction = hitInfo.direction,
                 target = target,
-                hit = hit
+                hit = hitInfo.hit
             };
 
             if (instance == null)

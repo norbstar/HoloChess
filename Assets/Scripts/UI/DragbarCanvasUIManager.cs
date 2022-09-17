@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace UI
@@ -86,7 +88,7 @@ namespace UI
                 case DragBarUIManager.Event.OnPointerDown:
                     if (leftHandNotifier != null)
                     {
-                        Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
+                        // Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
                         leftHandNotifier.EventReceived += OnRaycastEvent;
                     }
                     break;
@@ -94,33 +96,33 @@ namespace UI
                 case DragBarUIManager.Event.OnPointerUp:
                     if (leftHandNotifier != null)
                     {
-                        Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
+                        // Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
                         leftHandNotifier.EventReceived -= OnRaycastEvent;
                     }
                     break;
             }
         }
 
-        protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
+        protected override void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
         {
-            Debug.Log($"{gameObject.name} OnRaycastEvent [1]");
+            // Debug.Log($"{gameObject.name} OnRaycastEvent [1]");
             
-            foreach (RaycastHit hit in hits)
+            foreach (RaycastNotifier.HitInfo hitInfo in hits)
             {
-                var target = hit.transform.gameObject;
-                Debug.Log($"{gameObject.name} OnRaycastEvent [2] Target : {target.name} Layer : {layer.gameObject.name}");
+                var target = hitInfo.hit.transform.gameObject;
+                // Debug.Log($"{gameObject.name} OnRaycastEvent [2] Target : {target.name} Layer : {layer.gameObject.name}");
 
                 if (GameObject.ReferenceEquals(target, layer.gameObject))
                 {
-                    Debug.Log($"{gameObject.name} OnRaycastEvent [3] Target Pertains To Layer : {layer.gameObject.name}");
-                    ProcessRaycastEvent(source, origin, direction, target, hit);
+                    // Debug.Log($"{gameObject.name} OnRaycastEvent [3] Target Pertains To Layer : {layer.gameObject.name}");
+                    ProcessRaycastEvent(source, hitInfo.origin, hitInfo.direction, target, hitInfo.hit);
                 }
             }
         }
 
         protected virtual void ProcessRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            Debug.Log($"{gameObject.name} ProcessRaycastEvent Default Impl");
+            // Debug.Log($"{gameObject.name} ProcessRaycastEvent Default Impl");
 
             Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
             var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);

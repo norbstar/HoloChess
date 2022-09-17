@@ -90,20 +90,22 @@ public class HandController : GizmoManager
         pointer.transform.LookAt(hit.point + -hit.normal);
     }
 
-    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
+    private void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
     {
-        float closestDistance = 0f;
+        float closestDistance = float.MaxValue;
         RaycastHit? closestHit = null;
 
-        foreach (RaycastHit hit in hits)
-        {
-            var target = hit.transform.gameObject;
-            var distance = Vector3.Distance(target.transform.position, transform.position);
+        Debug.Log($"{gameObject.name} OnRaycastEvent Hit Count: {hits.Count}");
 
-            if ((!closestHit.HasValue) || distance < closestDistance)
+        foreach (RaycastNotifier.HitInfo hitInfo in hits)
+        {
+            var target = hitInfo.hit.transform.gameObject;
+            var distance = Vector3.Distance(hitInfo.hit.transform.position, transform.position);
+
+            if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestHit = hit;
+                closestHit = hitInfo.hit;
             }
         }
 
@@ -113,8 +115,6 @@ public class HandController : GizmoManager
 
             if (LayerMaskExtensions.HasLayer(layerMask, target.layer))
             {
-                Debug.Log($"{gameObject.name} OnRaycastEvent");
-
                 hasHit = true;
                 this.hit = closestHit.Value;
 

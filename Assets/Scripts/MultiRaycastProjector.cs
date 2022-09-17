@@ -81,26 +81,26 @@ public class MultiRaycastProjector : MonoBehaviour
         }
     }
 
-    private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
+    private void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
     {
         Projector projector = projectors.FirstOrDefault(p => GameObject.ReferenceEquals(source, p.notifier.gameObject));
 
         if (projector == null) return;
 
-        foreach (RaycastHit hit in hits)
+        foreach (RaycastNotifier.HitInfo hitInfo in hits)
         {
-            var target = hit.transform.gameObject;
+            var target = hitInfo.hit.transform.gameObject;
 
             projector.HitInfo = new Projector.Info
             {
                 source = source,
-                origin = origin,
-                direction = direction,
+                origin = hitInfo.origin,
+                direction = hitInfo.direction,
                 target = target,
-                hit = hit
+                hit = hitInfo.hit
             };
 
-            Vector3 point = hit.point;
+            Vector3 point = hitInfo.hit.point;
             
             if (projector.Instance == null)
             {
