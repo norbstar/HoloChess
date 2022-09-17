@@ -2665,6 +2665,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Action Based (New Input System)
       objectReference: {fileID: 0}
+    - target: {fileID: 1632859314030338618, guid: 705c3ea5b592c6c4d8e4d80fff5d2bfc, type: 3}
+      propertyPath: pointerPrefab
+      value: 
+      objectReference: {fileID: 7433576646663723534, guid: a54698b8e50a957499600a67a61bf1ec, type: 3}
+    - target: {fileID: 1632859315781924414, guid: 705c3ea5b592c6c4d8e4d80fff5d2bfc, type: 3}
+      propertyPath: pointerPrefab
+      value: 
+      objectReference: {fileID: 4917813849459877834, guid: ecea058c54f2617489b360e36ee25d93, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 705c3ea5b592c6c4d8e4d80fff5d2bfc, type: 3}
 --- !u!1001 &599168557

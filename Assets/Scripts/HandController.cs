@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -20,9 +19,6 @@ public class HandController : GizmoManager
 
     public delegate void ActuationEvent(ControllerEnums.Actuation actuation, InputDeviceCharacteristics characteristics);
     public event ActuationEvent AcutationEventReceived;
-
-    public delegate void RaycastEvent(HandController controller, GameObject gameObject, Vector3 point);
-    public event RaycastEvent RaycastEventReceived;
 
     public enum Hand
     {
@@ -96,21 +92,36 @@ public class HandController : GizmoManager
 
     private void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
     {
+        float closestDistance = 0f;
+        RaycastHit? closestHit = null;
+
         foreach (RaycastHit hit in hits)
         {
             var target = hit.transform.gameObject;
-            
+            var distance = Vector3.Distance(target.transform.position, transform.position);
+
+            if ((!closestHit.HasValue) || distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestHit = hit;
+            }
+        }
+
+        if (closestHit.HasValue)
+        {
+            var target = closestHit.Value.transform.gameObject;
+
             if (LayerMaskExtensions.HasLayer(layerMask, target.layer))
             {
                 Debug.Log($"{gameObject.name} OnRaycastEvent");
 
                 hasHit = true;
-                this.hit = hit;
-
-                Vector3 point = hit.point;
+                this.hit = closestHit.Value;
 
                 if (enablePointer)
                 {
+                    Vector3 point = hit.point;
+
                     if (pointer == null)
                     {
                         pointer = Instantiate(pointerPrefab, point, Quaternion.identity);
@@ -120,8 +131,6 @@ public class HandController : GizmoManager
                         pointer.transform.position = point;
                     }
                 }
-
-                RaycastEventReceived?.Invoke(this, source, point);
             }
         }
     }

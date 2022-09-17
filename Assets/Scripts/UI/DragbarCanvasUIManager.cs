@@ -65,14 +65,12 @@ namespace UI
         {
             layer.gameObject.SetActive(true);
             layer.Attach(gameObject);
-
             base.Show();
         }
 
         public override void Hide()
         {
             base.Hide();
-
             layer.Detach(gameObject);
 
             if (!layer.HasChildren)
@@ -105,37 +103,29 @@ namespace UI
 
         protected override void OnRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, RaycastHit[] hits)
         {
-            Debug.Log($"{gameObject.name} OnRaycastEvent");
+            Debug.Log($"{gameObject.name} OnRaycastEvent [1]");
             
             foreach (RaycastHit hit in hits)
             {
                 var target = hit.transform.gameObject;
-                
+                Debug.Log($"{gameObject.name} OnRaycastEvent [2] Target : {target.name} Layer : {layer.gameObject.name}");
+
                 if (GameObject.ReferenceEquals(target, layer.gameObject))
                 {
-                    Debug.Log($"{gameObject.name} OnRaycastEvent Target Pertains To Layer : {layer.gameObject.name}");
-                    UpdatePosition(source, origin, direction, target, hit);
+                    Debug.Log($"{gameObject.name} OnRaycastEvent [3] Target Pertains To Layer : {layer.gameObject.name}");
+                    ProcessRaycastEvent(source, origin, direction, target, hit);
                 }
             }
         }
 
-        protected virtual void UpdatePosition(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
+        protected virtual void ProcessRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            Debug.Log($"{gameObject.name} UpdatePosition Default Impl");
+            Debug.Log($"{gameObject.name} ProcessRaycastEvent Default Impl");
 
             Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
             var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
-            // PointProjectorDatabase.PlotPoint($"{gameObject.name}", $"{gameObject.name} {Vector3.Distance(layer.transform.position, point)}", PointProjector.Type.Blue, point);
-
-            // Debug.Log($"Layer Point : {layer.transform.position}");
-            // Debug.Log($"Relative Direction : {relativeDirection.x}, {relativeDirection.y}, {relativeDirection.z}");
-            // Debug.Log($"Distance : {layer.transform.localScale.z * 0.5f}");
             Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
             transform.position = point + offset;
-
-            // PointProjectorDatabase.PlotPoint("Default", $"Default [{transform.position.x},{transform.position.y},{transform.position.z}] {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Red, transform.position);
-            // PointProjectorDatabase.PlotPoint("Home [3]", $"Home Point {Vector3.Distance(layer.transform.position, transform.position)}", PointProjector.Type.Blue, transform.position);
-            // Debug.Log($"Default Distance {Vector3.Distance(layer.transform.position, transform.position)}");
         }
     }
 }

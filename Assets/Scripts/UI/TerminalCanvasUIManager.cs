@@ -62,15 +62,15 @@ namespace UI
             }
         }
 
-        protected override void UpdatePosition(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
+        protected override void ProcessRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            Debug.Log($"{gameObject.name} UpdatePosition Override Impl");
+            Debug.Log($"{gameObject.name} ProcessRaycastEvent Override Impl");
 
             // PointProjectorDatabase.PlotPoint("Hit A", PointProjector.Type.White, hit.point, Vector3.one * 0.15f);
 
             if (!isLocked)
             {
-                base.UpdatePosition(source, origin, direction, target, hit);
+                base.ProcessRaycastEvent(source, origin, direction, target, hit);
                 return;
             }
 
