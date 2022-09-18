@@ -40,7 +40,7 @@ namespace UI
             OnPointerExit,
         }
 
-        public delegate void OnDragBarEvent(DragBarUIManager manager, Event @event);
+        public delegate void OnDragBarEvent(DragBarUIManager manager, Event @event, GameObject source);
         public event OnDragBarEvent EventReceived;
 
         private PointerEventHandler eventHandler;
@@ -126,7 +126,7 @@ namespace UI
             isPointerEntered = true;
 
             OnPointerEnter(eventData, eventData.pointerEnter, rayInteractor);
-            PostEvent(Event.OnPointerEnter);
+            PostEvent(Event.OnPointerEnter, interactor.gameObject ?? null);
         }
 
         protected virtual void OnPointerEnter(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor) => StartCoroutine(OnPointerEnterCoroutine(eventData, eventData.pointerEnter, rayInteractor));
@@ -180,7 +180,7 @@ namespace UI
             isPointerDown = true;
 
             OnPointerDown(eventData, eventData.pointerEnter, rayInteractor);
-            PostEvent(Event.OnPointerDown);
+            PostEvent(Event.OnPointerDown, interactor.gameObject ?? null);
         }
 
         protected virtual void OnPointerDown(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor) { }
@@ -210,7 +210,7 @@ namespace UI
             isPointerDown = false;
 
             OnPointerUp(eventData, eventData.pointerEnter, rayInteractor);
-            PostEvent(Event.OnPointerUp);
+            PostEvent(Event.OnPointerUp, interactor.gameObject ?? null);
         }
 
         protected virtual void OnPointerUp(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor) { }
@@ -230,7 +230,7 @@ namespace UI
             isPointerEntered = false;
 
             OnPointerExit(eventData, eventData.pointerEnter, rayInteractor);
-            PostEvent(Event.OnPointerExit);
+            PostEvent(Event.OnPointerExit, interactor.gameObject ?? null);
         }
 
         protected virtual void OnPointerExit(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor) => StartCoroutine(OnPointerExitCoroutine(eventData, eventData.pointerEnter, rayInteractor));
@@ -241,6 +241,6 @@ namespace UI
             yield return null;
         }
 
-        protected void PostEvent(Event @event) => EventReceived?.Invoke(this, @event);
+        protected void PostEvent(Event @event, GameObject source) => EventReceived?.Invoke(this, @event, source);
     }
 }

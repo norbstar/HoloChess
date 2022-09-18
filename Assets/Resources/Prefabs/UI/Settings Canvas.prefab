@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4563165133745200424}
   - component: {fileID: 4101502732528113492}
   - component: {fileID: 3421165079983579607}
+  - component: {fileID: 5382131252724504592}
   - component: {fileID: 3119328998787570882}
   m_Layer: 5
   m_Name: Settings Canvas
@@ -168,6 +169,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5382131252724504592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233376995667767853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e8434ebe8c9a042838555d8b9df576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3119328998787570882
 MonoBehaviour:
   m_ObjectHideFlags: 0

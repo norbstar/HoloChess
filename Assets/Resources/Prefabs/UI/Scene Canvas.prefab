@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3707931287373166343}
   - component: {fileID: 3804941757026303355}
   - component: {fileID: 2548125743315930104}
+  - component: {fileID: 258403766684471417}
   - component: {fileID: 3913127163977136239}
   m_Layer: 5
   m_Name: Scene Canvas
@@ -168,6 +169,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &258403766684471417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106414177367218178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e8434ebe8c9a042838555d8b9df576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3913127163977136239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +204,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6816468467110267818}
     m_Modifications:
+    - target: {fileID: 362526852660374134, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362526852660374134, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362526852660374134, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 564022801196997631, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 564022801196997631, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 564022801196997631, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 564022801270260608, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 564022801270260608, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6500308194066315225, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

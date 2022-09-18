@@ -85,56 +85,65 @@ namespace UI.Panels
         {
             ButtonUIManager manager;
 
-            if (TryResolveButtonByName("Scene Toggle Button", out manager))
+            if (sceneCanvasUIManager != null)
             {
-                if (((ToggleButtonUIManager) manager).IsOn)
+                if (TryResolveButtonByName("Scene Toggle Button", out manager))
                 {
-                    if (!sceneCanvasUIManager.IsShown)
+                    if (((ToggleButtonUIManager) manager).IsOn)
                     {
-                        sceneCanvasUIManager.Show();
+                        if (!sceneCanvasUIManager.IsShown)
+                        {
+                            sceneCanvasUIManager.Show();
+                        }
                     }
-                }
-                else
-                {
-                    if (sceneCanvasUIManager.IsShown)
+                    else
                     {
-                        sceneCanvasUIManager.Hide();
+                        if (sceneCanvasUIManager.IsShown)
+                        {
+                            sceneCanvasUIManager.Hide();
+                        }
                     }
                 }
             }
 
-            if (TryResolveButtonByName("Terminal Toggle Button", out manager))
+            if (terminalCanvasUIManager != null)
             {
-                if (((ToggleButtonUIManager) manager).IsOn)
+                if (TryResolveButtonByName("Terminal Toggle Button", out manager))
                 {
-                    if (!terminalCanvasUIManager.IsShown)
+                    if (((ToggleButtonUIManager) manager).IsOn)
                     {
-                        terminalCanvasUIManager.Show();
+                        if (!terminalCanvasUIManager.IsShown)
+                        {
+                            terminalCanvasUIManager.Show();
+                        }
                     }
-                }
-                else
-                {
-                    if (terminalCanvasUIManager.IsShown)
+                    else
                     {
-                        terminalCanvasUIManager.Hide();
+                        if (terminalCanvasUIManager.IsShown)
+                        {
+                            terminalCanvasUIManager.Hide();
+                        }
                     }
                 }
             }
 
-            if (TryResolveButtonByName("Settings Toggle Button", out manager))
+            if (settingsCanvasUIManager != null)
             {
-                if (((ToggleButtonUIManager) manager).IsOn)
+                if (TryResolveButtonByName("Settings Toggle Button", out manager))
                 {
-                    if (!settingsCanvasUIManager.IsShown)
+                    if (((ToggleButtonUIManager) manager).IsOn)
                     {
-                        settingsCanvasUIManager.Show();
+                        if (!settingsCanvasUIManager.IsShown)
+                        {
+                            settingsCanvasUIManager.Show();
+                        }
                     }
-                }
-                else
-                {
-                    if (settingsCanvasUIManager.IsShown)
+                    else
                     {
-                        settingsCanvasUIManager.Hide();
+                        if (settingsCanvasUIManager.IsShown)
+                        {
+                            settingsCanvasUIManager.Hide();
+                        }
                     }
                 }
             }

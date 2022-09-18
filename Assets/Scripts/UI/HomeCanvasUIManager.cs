@@ -54,7 +54,7 @@ namespace UI
                 root.transform.position = new Vector3(camera.transform.position.x, 0f, camera.transform.position.z);
             }
 
-            LayerMask layerMask = LayerMask.GetMask("Near Menu");
+            LayerMask layerMask = LayerMask.GetMask(Layers.INNER_MENU_LAYER);
 
             var ray = new Ray(camera.transform.position + camera.transform.forward * layer.transform.lossyScale.z, -camera.transform.forward);
             bool hasHit = Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, layerMask);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -10,9 +11,24 @@ using Enum;
 [RequireComponent(typeof(ActionBasedController))]
 public class HandController : GizmoManager
 {
+    [Serializable]
+    public class PointerConfig
+    {
+        public GameObject prefab;
+        public List<string> compositeMask;
+    }
+
+    [Serializable]
+    public class Pointers
+    {
+        public GameObject defaultPrefab;
+        public List<string> defaultCompositeMask;
+        public List<PointerConfig> configs;
+    }
+
     [Header("Config")]
-    [SerializeField] GameObject pointerPrefab;
-    [SerializeField] List<string> compositeMask;
+    [SerializeField] Pointers pointers;
+    [SerializeField] float pointerOffset = 0.2f;
 
     public static InputDeviceCharacteristics RightHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Right);
     public static InputDeviceCharacteristics LeftHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Left);
@@ -70,7 +86,7 @@ public class HandController : GizmoManager
                 break;
         }
 
-        layerMask = LayerMaskExtensions.CreateLayerMask(compositeMask);
+        layerMask = LayerMaskExtensions.CreateLayerMask(pointers.defaultCompositeMask);
     }
 
     private void ResolveDependencies()
@@ -92,15 +108,41 @@ public class HandController : GizmoManager
 
     private void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
     {
+        if (!enablePointer) return;
+
         float closestDistance = float.MaxValue;
         RaycastHit? closestHit = null;
 
-        Debug.Log($"{gameObject.name} OnRaycastEvent Hit Count: {hits.Count}");
+        System.Text.StringBuilder logBuilder = new System.Text.StringBuilder();
+        logBuilder.Append($"{gameObject.name} OnRaycastEvent Hit Count: {hits.Count}");
 
         foreach (RaycastNotifier.HitInfo hitInfo in hits)
         {
             var target = hitInfo.hit.transform.gameObject;
-            var distance = Vector3.Distance(hitInfo.hit.transform.position, transform.position);
+            logBuilder.Append($"\n [1] Hit Target : {target.name}");
+            
+            if (!LayerMaskExtensions.HasLayer(layerMask, target.layer)) continue;
+
+            bool handleHit = true;
+
+            if (target.TryGetComponent<RootResolver>(out RootResolver rootResolver))
+            {
+                target =  rootResolver.Root;
+            }
+
+            if (target.TryGetComponent<FocusResoiver>(out FocusResoiver focusResolver))
+            {
+                logBuilder.Append($"\n [2] Resolved FocusResolver");
+                handleHit = focusResolver.ShouldReceivePointer();
+                logBuilder.Append($"\n [3] FocusResolver Handle Hit : {handleHit}");
+            }
+
+            logBuilder.Append($"\n [4] Handle Hit : {handleHit}");
+            
+            if (!handleHit) continue;
+
+            var distance = Vector3.Distance(hitInfo.hit.point, transform.position);
+            logBuilder.Append($"\n [5] Hit Distance : {distance}");
 
             if (distance < closestDistance)
             {
@@ -109,28 +151,24 @@ public class HandController : GizmoManager
             }
         }
 
+        logBuilder.Append($"\n [6] Closest Hit : {closestHit?.collider.gameObject.name}");
+        Debug.Log(logBuilder.ToString());
+
         if (closestHit.HasValue)
         {
-            var target = closestHit.Value.transform.gameObject;
+            this.hit = closestHit.Value;
+            var target = hit.transform.gameObject;
+            Vector3 point = hit.point;
+            hasHit = true;
 
-            if (LayerMaskExtensions.HasLayer(layerMask, target.layer))
+            if (pointer == null)
             {
-                hasHit = true;
-                this.hit = closestHit.Value;
-
-                if (enablePointer)
-                {
-                    Vector3 point = hit.point;
-
-                    if (pointer == null)
-                    {
-                        pointer = Instantiate(pointerPrefab, point, Quaternion.identity);
-                    }
-                    else
-                    {
-                        pointer.transform.position = point;
-                    }
-                }
+                pointer = Instantiate(pointers.defaultPrefab, point + (hit.normal * pointerOffset), Quaternion.identity);
+                pointer.transform.parent = transform;
+            }
+            else
+            {
+                pointer.transform.position = point + (hit.normal * pointerOffset);
             }
         }
     }

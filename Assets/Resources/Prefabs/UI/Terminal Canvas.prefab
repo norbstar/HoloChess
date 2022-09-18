@@ -16,8 +16,9 @@ GameObject:
   - component: {fileID: 9072824807056654234}
   - component: {fileID: 9072824807056654232}
   - component: {fileID: 6244674761574158145}
+  - component: {fileID: 3241189026298084994}
   - component: {fileID: 9072824807056654233}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Terminal Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,6 +169,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3241189026298084994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9072824807056654242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e8434ebe8c9a042838555d8b9df576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9072824807056654233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,10 +204,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9072824807056654245}
     m_Modifications:
+    - target: {fileID: 473343138351920991, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274055717623665910, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3941888832507517822, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: root
       value: 
       objectReference: {fileID: 9072824807056654242}
+    - target: {fileID: 4476094496969572949, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201003580795, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201495158602, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7263116201575640893, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -206,6 +239,18 @@ PrefabInstance:
     - target: {fileID: 7263116201575640893, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201663781914, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201807534415, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201937839238, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7263116202136543029, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -230,6 +275,18 @@ PrefabInstance:
     - target: {fileID: 7263116202136543029, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202372037510, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202583350313, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202595283664, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7263116202793450478, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_Pivot.x
@@ -319,9 +376,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terminal Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 7263116202793450479, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7263116202969556820, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116203039676256, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8462942099664601892, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588983408301755733, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139494704815038242, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}

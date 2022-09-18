@@ -602,8 +602,9 @@ MonoBehaviour:
   compositeMask:
   - Default
   - UI
-  - Near Menu
-  - Far Menu
+  - Floor
+  - Inner Menu Layer
+  - Outer Menu Layer
 --- !u!114 &1632859314030338618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,10 +620,14 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointerPrefab: {fileID: 7433576646663723534, guid: a54698b8e50a957499600a67a61bf1ec, type: 3}
-  compositeMask:
-  - Default
-  - UI
+  pointers:
+    defaultPrefab: {fileID: 4048733118396847682, guid: 175dfa1331c661c44be1ba1aa43a469f, type: 3}
+    defaultCompositeMask:
+    - Default
+    - UI
+    - Floor
+    configs: []
+  pointerOffset: 0.002
   hand: 1
   enablePointer: 1
 --- !u!1 &1632859314257837247
@@ -1405,8 +1410,9 @@ MonoBehaviour:
   compositeMask:
   - Default
   - UI
-  - Near Menu
-  - Far Menu
+  - Floor
+  - Inner Menu Layer
+  - Outer Menu Layer
 --- !u!114 &1632859315781924414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,10 +1428,14 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointerPrefab: {fileID: 4917813849459877834, guid: ecea058c54f2617489b360e36ee25d93, type: 3}
-  compositeMask:
-  - Default
-  - UI
+  pointers:
+    defaultPrefab: {fileID: 4048733118396847682, guid: 175dfa1331c661c44be1ba1aa43a469f, type: 3}
+    defaultCompositeMask:
+    - Default
+    - UI
+    - Floor
+    configs: []
+  pointerOffset: 0.002
   hand: 0
   enablePointer: 1
 --- !u!1 &1632859315791965169

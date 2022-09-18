@@ -756,6 +756,7 @@ GameObject:
   - component: {fileID: 3489228091597946987}
   - component: {fileID: 2346549173207198652}
   - component: {fileID: 895747800549531102}
+  - component: {fileID: 4325252940518673072}
   m_Layer: 5
   m_Name: Surface
   m_TagString: Untagged
@@ -771,7 +772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5944512440850083342}
   m_LocalRotation: {x: -0.7071069, y: -0, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: -0, y: -0.07, z: -0.1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 5.002317, y: 1, z: 3.5006537}
   m_Children: []
   m_Father: {fileID: 7263116202793450478}
@@ -840,6 +841,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4325252940518673072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944512440850083342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b7403f5b960f0248ba3a348ceb5c703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 0}
 --- !u!1 &7263116200993978889
 GameObject:
   m_ObjectHideFlags: 0

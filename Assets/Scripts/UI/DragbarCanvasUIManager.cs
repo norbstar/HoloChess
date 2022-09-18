@@ -14,7 +14,8 @@ namespace UI
         protected DragBarUIManager dragBar;
 
         private HomeCanvasUIManager homeCanvasUIManager;
-        private RaycastNotifier leftHandNotifier;
+        private RaycastNotifier leftHandNotifier, rightHandNotifier;
+        private bool isPointerDown;
 
         protected override void Awake()
         {
@@ -41,9 +42,24 @@ namespace UI
         // Start is called before the first frame update
         protected virtual void Start()
         {
-            if (TryGet.XR.TryGetControllerWithCharacteristics(HandController.LeftHandCharacteristics, out HandController controller))
+            if (TryGet.XR.TryGetControllers(out List<HandController> controllers))
             {
-                leftHandNotifier = controller.Notifier;
+                foreach (HandController controller in controllers)
+                {
+                    if (controller.gameObject.activeSelf)
+                    {
+                        switch (controller.WhichHand)
+                        {
+                            case HandController.Hand.Left:
+                                leftHandNotifier = controller.Notifier;
+                                break;
+
+                            case HandController.Hand.Right:
+                                rightHandNotifier = controller.Notifier;
+                                break;
+                        }
+                    }
+                }
             }
         }
 
@@ -81,40 +97,57 @@ namespace UI
             }
         }
 
-        private void OnDragBarEvent(DragBarUIManager manager, DragBarUIManager.Event @event)
+        private void OnDragBarEvent(DragBarUIManager manager, DragBarUIManager.Event @event, GameObject source)
         {
+            HandController controller = source?.GetComponent<HandController>() as HandController;
+            if (controller == null || !controller.gameObject.activeSelf) return;
+
             switch (@event)
             {
                 case DragBarUIManager.Event.OnPointerDown:
-                    if (leftHandNotifier != null)
+                    switch (controller.WhichHand)
                     {
-                        // Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
-                        leftHandNotifier.EventReceived += OnRaycastEvent;
+                        case HandController.Hand.Left:
+                            leftHandNotifier.EventReceived += OnRaycastEvent;
+                            rightHandNotifier.EventReceived -= OnRaycastEvent;
+                            break;
+
+                        case HandController.Hand.Right:
+                            rightHandNotifier.EventReceived += OnRaycastEvent;
+                            leftHandNotifier.EventReceived -= OnRaycastEvent;
+                            break;
                     }
+
+                    isPointerDown = true;
                     break;
 
                 case DragBarUIManager.Event.OnPointerUp:
-                    if (leftHandNotifier != null)
+                    switch (controller.WhichHand)
                     {
-                        // Debug.Log($"{gameObject.name} OnDragBarEvent : Event : {@event}");
-                        leftHandNotifier.EventReceived -= OnRaycastEvent;
+                        case HandController.Hand.Left:
+                            leftHandNotifier.EventReceived -= OnRaycastEvent;
+                            break;
+
+                        case HandController.Hand.Right:
+                            rightHandNotifier.EventReceived -= OnRaycastEvent;
+                            break;
                     }
+
+                    isPointerDown = false;
                     break;
             }
         }
 
         protected override void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
         {
-            // Debug.Log($"{gameObject.name} OnRaycastEvent [1]");
-            
+            if (!isPointerDown) return;
+
             foreach (RaycastNotifier.HitInfo hitInfo in hits)
             {
                 var target = hitInfo.hit.transform.gameObject;
-                // Debug.Log($"{gameObject.name} OnRaycastEvent [2] Target : {target.name} Layer : {layer.gameObject.name}");
 
                 if (GameObject.ReferenceEquals(target, layer.gameObject))
                 {
-                    // Debug.Log($"{gameObject.name} OnRaycastEvent [3] Target Pertains To Layer : {layer.gameObject.name}");
                     ProcessRaycastEvent(source, hitInfo.origin, hitInfo.direction, target, hitInfo.hit);
                 }
             }
@@ -122,8 +155,6 @@ namespace UI
 
         protected virtual void ProcessRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            // Debug.Log($"{gameObject.name} ProcessRaycastEvent Default Impl");
-
             Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
             var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
             Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;

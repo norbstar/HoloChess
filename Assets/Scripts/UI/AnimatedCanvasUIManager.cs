@@ -11,7 +11,7 @@ namespace UI
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(RootResolver))]
-    public abstract class AnimatedCanvasUIManager : MonoBehaviour
+    public abstract class AnimatedCanvasUIManager : MonoBehaviour, IFocus
     {
         [Header("Audio")]
         [SerializeField] AudioClip onRevealClip;
@@ -49,11 +49,12 @@ namespace UI
         protected virtual void Update()
         {
             if (!isShown) return;
-            
             OnUpdate();
         }
 
         protected abstract void OnUpdate();
+
+        public bool ShouldReceivePointer() => isShown;
 
         public void Toggle()
         {
@@ -75,11 +76,13 @@ namespace UI
             {
                 AudioSource.PlayClipAtPoint(onRevealClip, Vector3.zero, 1.0f);
             }
-#if UNITY_EDITOR
-            raycaster.enabled = true;
-#else
-            trackedRaycaster.enabled = true;
-#endif
+
+            #if UNITY_EDITOR
+                        raycaster.enabled = true;
+            #else
+                        trackedRaycaster.enabled = true;
+            #endif
+
             animator.SetTrigger("Show");
             isShown = true;
         }
@@ -93,11 +96,12 @@ namespace UI
 
             animator.SetTrigger("Hide");
             isShown = false;
-#if UNITY_EDITOR
-            raycaster.enabled = false;
-#else
-            trackedRaycaster.enabled = false;
-#endif
+
+            #if UNITY_EDITOR
+                        raycaster.enabled = false;
+            #else
+                        trackedRaycaster.enabled = false;
+            #endif
         }
 
         protected abstract void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits);

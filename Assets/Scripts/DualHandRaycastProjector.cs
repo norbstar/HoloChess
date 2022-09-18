@@ -14,14 +14,11 @@ public class DualHandRaycastProjector : MultiRaycastProjector
 
         if (TryGet.XR.TryGetControllers(out List<HandController> controllers))
         {
-            // Debug.Log($"Dual Hand Raycast Projector Resolved {controllers.Count} controllers");
-
             foreach (HandController controller in controllers)
             {
                 switch (controller.WhichHand)
                 {
                     case HandController.Hand.Left:
-                        // Debug.Log($"Dual Hand Raycast Projector Resolved Left Hand Controller");
                         projectors.Add(new MultiRaycastProjector.Projector
                         {
                             pointer = leftHandPointer,
@@ -30,7 +27,6 @@ public class DualHandRaycastProjector : MultiRaycastProjector
                         break;
 
                     case HandController.Hand.Right:
-                        // Debug.Log($"Dual Hand Raycast Projector Resolved Right Hand Controller");
                         projectors.Add(new MultiRaycastProjector.Projector
                         {
                             pointer = rightHandPointer,
