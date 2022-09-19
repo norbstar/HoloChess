@@ -52,13 +52,13 @@ namespace UI.Panels
         public override void OnEnable()
         {
             base.OnEnable();
-            Application.logMessageReceived += Log;
+            Application.logMessageReceived += OnLogMessage;
         }
 
         public override void OnDisable()
         {
             base.OnDisable();
-            Application.logMessageReceived -= Log;
+            Application.logMessageReceived -= OnLogMessage;
         }
 
         public void Clear()
@@ -67,7 +67,7 @@ namespace UI.Panels
             refresh = true;
         }
 
-        private void Log(string logString, string stackTrace, LogType type)
+        private void OnLogMessage(string logString, string stackTrace, LogType type)
         {
             refresh = true;
 

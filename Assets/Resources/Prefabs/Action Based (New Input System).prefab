@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 1632859314030338623}
   - component: {fileID: 1632859314030338616}
   - component: {fileID: 1632859314030338617}
+  - component: {fileID: 6705437721481607137}
   - component: {fileID: 1632859314030338618}
   m_Layer: 0
   m_Name: Right Hand Controller
@@ -605,6 +606,27 @@ MonoBehaviour:
   - Floor
   - Inner Menu Layer
   - Outer Menu Layer
+--- !u!114 &6705437721481607137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632859314030338612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe01b7fbfc441f4ea0e5f719de2ccb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config:
+    defaultElement: {fileID: 4048733118396847682, guid: 175dfa1331c661c44be1ba1aa43a469f, type: 3}
+    defaultCompositeMask:
+    - Default
+    - UI
+    customConfigs:
+    - element: {fileID: 7327692610148350929, guid: a6fc4651a12cfb2498b9df8b2dc28da7, type: 3}
+      compositeMask:
+      - Floor
 --- !u!114 &1632859314030338618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,13 +642,7 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointers:
-    defaultPrefab: {fileID: 4048733118396847682, guid: 175dfa1331c661c44be1ba1aa43a469f, type: 3}
-    defaultCompositeMask:
-    - Default
-    - UI
-    - Floor
-    configs: []
+  pointerMap: {fileID: 0}
   pointerOffset: 0.002
   hand: 1
   enablePointer: 1
@@ -886,6 +902,7 @@ GameObject:
   - component: {fileID: 1632859315781924419}
   - component: {fileID: 1632859315781924412}
   - component: {fileID: 1632859315781924413}
+  - component: {fileID: 555385866209633640}
   - component: {fileID: 1632859315781924414}
   m_Layer: 0
   m_Name: Left Hand Controller
@@ -1413,6 +1430,27 @@ MonoBehaviour:
   - Floor
   - Inner Menu Layer
   - Outer Menu Layer
+--- !u!114 &555385866209633640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632859315781924408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe01b7fbfc441f4ea0e5f719de2ccb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config:
+    defaultElement: {fileID: 4048733118396847682, guid: 175dfa1331c661c44be1ba1aa43a469f, type: 3}
+    defaultCompositeMask:
+    - Default
+    - UI
+    customConfigs:
+    - element: {fileID: 3087982662233170939, guid: 65d57ee6ce992724a90dbcec1f9e5fe5, type: 3}
+      compositeMask:
+      - Floor
 --- !u!114 &1632859315781924414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,13 +1466,7 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointers:
-    defaultPrefab: {fileID: 4048733118396847682, guid: 175dfa1331c661c44be1ba1aa43a469f, type: 3}
-    defaultCompositeMask:
-    - Default
-    - UI
-    - Floor
-    configs: []
+  pointerMap: {fileID: 0}
   pointerOffset: 0.002
   hand: 0
   enablePointer: 1

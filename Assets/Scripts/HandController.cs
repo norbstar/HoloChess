@@ -9,25 +9,11 @@ using Enum;
 
 [RequireComponent(typeof(RaycastNotifier))]
 [RequireComponent(typeof(ActionBasedController))]
+[RequireComponent(typeof(PrefabToLayerMap))]
 public class HandController : GizmoManager
 {
-    [Serializable]
-    public class PointerConfig
-    {
-        public GameObject prefab;
-        public List<string> compositeMask;
-    }
-
-    [Serializable]
-    public class Pointers
-    {
-        public GameObject defaultPrefab;
-        public List<string> defaultCompositeMask;
-        public List<PointerConfig> configs;
-    }
-
     [Header("Config")]
-    [SerializeField] Pointers pointers;
+    [SerializeField] PrefabToLayerMap pointerMap;
     [SerializeField] float pointerOffset = 0.2f;
 
     public static InputDeviceCharacteristics RightHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Right);
@@ -47,10 +33,10 @@ public class HandController : GizmoManager
     [SerializeField] bool enablePointer = false;
 
     private ActionBasedController controller;
-    private LayerMask layerMask;
     private RaycastNotifier notifier;
     private InputDeviceCharacteristics characteristics;
-    private GameObject pointer;
+    private LayerMask layerMask;
+    private GameObject pointerPrefab, pointer;
 
     public RaycastNotifier Notifier
     {
@@ -85,15 +71,17 @@ public class HandController : GizmoManager
                 characteristics = RightHandCharacteristics;
                 break;
         }
-
-        layerMask = LayerMaskExtensions.CreateLayerMask(pointers.defaultCompositeMask);
     }
 
     private void ResolveDependencies()
     {
         controller = GetComponent<ActionBasedController>() as ActionBasedController;
+        pointerMap = GetComponent<PrefabToLayerMap>() as PrefabToLayerMap;
         notifier = Notifier;
     }
+
+    // Start is called before the first frame update
+    void Start() => layerMask = pointerMap.LayerMask;
 
     void OnEnable() => notifier.EventReceived += OnRaycastEvent;
 
@@ -114,14 +102,20 @@ public class HandController : GizmoManager
         RaycastHit? closestHit = null;
 
         System.Text.StringBuilder logBuilder = new System.Text.StringBuilder();
-        logBuilder.Append($"{gameObject.name} OnRaycastEvent Hit Count: {hits.Count}");
+        logBuilder.Append($"{gameObject.name} Hit Summary");
+        logBuilder.Append($"\n[Start]");
+        logBuilder.Append($"\nLayer Mask : {LayerMaskExtensions.ToString(layerMask)}");
+        logBuilder.Append($"\nHit Count : {hits.Count}");
 
         foreach (RaycastNotifier.HitInfo hitInfo in hits)
         {
             var target = hitInfo.hit.transform.gameObject;
-            logBuilder.Append($"\n [1] Hit Target : {target.name}");
-            
-            if (!LayerMaskExtensions.HasLayer(layerMask, target.layer)) continue;
+            logBuilder.Append($"\nHit Candidate: {target.name}");    
+
+            bool inLayerMask = LayerMaskExtensions.HasLayer(layerMask, target.layer);
+            logBuilder.Append($"\nHit Candidate: {target.name} Target Layer : {target.layer} In LayerMask: {inLayerMask}");
+
+            if (!inLayerMask) continue;
 
             bool handleHit = true;
 
@@ -132,17 +126,14 @@ public class HandController : GizmoManager
 
             if (target.TryGetComponent<FocusResoiver>(out FocusResoiver focusResolver))
             {
-                logBuilder.Append($"\n [2] Resolved FocusResolver");
                 handleHit = focusResolver.ShouldReceivePointer();
-                logBuilder.Append($"\n [3] FocusResolver Handle Hit : {handleHit}");
             }
 
-            logBuilder.Append($"\n [4] Handle Hit : {handleHit}");
-            
+            logBuilder.Append($"\nHit Candidate: {target.name} Handle Hit: {handleHit}");
+
             if (!handleHit) continue;
 
             var distance = Vector3.Distance(hitInfo.hit.point, transform.position);
-            logBuilder.Append($"\n [5] Hit Distance : {distance}");
 
             if (distance < closestDistance)
             {
@@ -151,26 +142,54 @@ public class HandController : GizmoManager
             }
         }
 
-        logBuilder.Append($"\n [6] Closest Hit : {closestHit?.collider.gameObject.name}");
-        Debug.Log(logBuilder.ToString());
+        logBuilder.Append($"\nHas Clostest Hit : {closestHit.HasValue}");
 
         if (closestHit.HasValue)
         {
+            logBuilder.Append($"\nClosest Hit : {closestHit.Value.transform.gameObject.name}");
+
             this.hit = closestHit.Value;
             var target = hit.transform.gameObject;
             Vector3 point = hit.point;
             hasHit = true;
 
-            if (pointer == null)
+            if (pointerMap.TryGetMapItem(target.layer, out GameObject prefab))
             {
-                pointer = Instantiate(pointers.defaultPrefab, point + (hit.normal * pointerOffset), Quaternion.identity);
-                pointer.transform.parent = transform;
-            }
-            else
-            {
-                pointer.transform.position = point + (hit.normal * pointerOffset);
+                if (pointer != null && !pointer.name.Equals(prefab.name))
+                {
+                    pointer.gameObject.SetActive(false);
+                    bool hasPrefab = false;
+
+                    foreach (Transform child in transform)
+                    {
+                        if (child.name.Equals(prefab.name))
+                        {
+                            pointer = child.gameObject;
+                            pointer.SetActive(true);
+                            hasPrefab = true;
+                        }
+                    }
+
+                    if (!hasPrefab) pointer = null;
+                }
+                
+                pointerPrefab = prefab;
+
+                if (pointer == null)
+                {
+                    pointer = Instantiate(pointerPrefab, point + (hit.normal * pointerOffset), Quaternion.identity);
+                    pointer.transform.parent = transform;
+                    pointer.name = pointerPrefab.name;
+                }
+                else
+                {
+                    pointer.transform.position = point + (hit.normal * pointerOffset);
+                }
             }
         }
+
+        logBuilder.Append($"\n[End]");
+        Debug.Log(logBuilder.ToString());
     }
 
     // LateUpdate is called once per frame

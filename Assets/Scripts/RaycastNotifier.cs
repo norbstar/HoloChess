@@ -58,8 +58,21 @@ public class RaycastNotifier : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"Hit Count : {hits.Count}");
 
+        System.Text.StringBuilder logBuilder = new System.Text.StringBuilder();
+        logBuilder.Append($"Notifier Hit Summary");
+        logBuilder.Append($"\n[Start]");
+        logBuilder.Append($"\nHit Count : {hits.Count}");
+
+        foreach (HitInfo hitInfo in hits)
+        {
+            var target = hitInfo.hit.transform.gameObject;
+            logBuilder.Append($"\nHit Detection : {target.name}");
+        }
+
+        logBuilder.Append($"\n[End]");
+        Debug.Log(logBuilder.ToString());
+        
         if (hits.Count > 0)
         {
             EventReceived?.Invoke(gameObject, hits);
