@@ -88,7 +88,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &9072824807056654244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +215,38 @@ PrefabInstance:
       propertyPath: root
       value: 
       objectReference: {fileID: 9072824807056654242}
+    - target: {fileID: 7263116201077141363, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201077141363, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201077141363, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201077141363, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201163172495, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201163172495, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201163172495, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201163172495, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7263116201575640893, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -268,13 +300,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7263116202473502461, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202473502461, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202473502461, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7263116202750298895, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_Size
-      value: 0.8843538
+      value: 0.88435376
       objectReference: {fileID: 0}
     - target: {fileID: 7263116202750298895, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_Value
-      value: 0.9998564
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7263116202793450478, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_Pivot.x
@@ -363,6 +407,22 @@ PrefabInstance:
     - target: {fileID: 7263116202793450479, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_Name
       value: Terminal Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202944268684, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202944268684, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202944268684, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202944268684, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7263116202969556820, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_SizeDelta.y
