@@ -6,7 +6,7 @@ using UnityEngine;
 public class MenuLayer : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] bool enableGizmos;
+    [SerializeField] bool enableGizmos = true;
 
     private new SphereCollider collider;
     public SphereCollider Collider { get { return collider; } }
