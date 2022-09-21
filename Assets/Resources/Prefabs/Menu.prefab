@@ -431,6 +431,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9072824807056654247, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808138029627, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_Size
+      value: 0.88435376
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072824808138029627, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1384602fd11ff54d991eab5adb5554e, type: 3}
 --- !u!224 &8113318943179402211 stripped
@@ -545,6 +557,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Home Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 352445696529332524, guid: e0af634e1def6de42b34cfe3f8f4097a, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0af634e1def6de42b34cfe3f8f4097a, type: 3}
 --- !u!224 &1191218112647766772 stripped
@@ -578,6 +594,10 @@ PrefabInstance:
       propertyPath: layer
       value: 
       objectReference: {fileID: 2045910507}
+    - target: {fileID: 3594447504395941405, guid: a8287c3ad02801547b9cd363e463c9da, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4101502732528113492, guid: a8287c3ad02801547b9cd363e463c9da, type: 3}
       propertyPath: root
       value: 
@@ -700,6 +720,10 @@ PrefabInstance:
       propertyPath: layer
       value: 
       objectReference: {fileID: 2045910507}
+    - target: {fileID: 4450862279947492402, guid: 70d756cba96342e4d8e670122a174481, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6816468467110267818, guid: 70d756cba96342e4d8e670122a174481, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

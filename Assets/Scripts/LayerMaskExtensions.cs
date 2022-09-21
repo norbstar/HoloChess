@@ -7,7 +7,7 @@ public static class LayerMaskExtensions
 {
     public static LayerMask CreateLayerMask(List<string> layers) => LayerMask.GetMask(layers.ToArray());
 
-    public static string ToString(LayerMask layerMask)
+    public static string AsString(LayerMask layerMask)
     {
         var hasLayers = new bool[32];
  

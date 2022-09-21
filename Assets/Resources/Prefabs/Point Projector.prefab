@@ -47,4 +47,5 @@ MonoBehaviour:
   greenPrefab: {fileID: 2306630705916068336, guid: ebb2f490fdb8e34489da5410b253cb56, type: 3}
   redPrefab: {fileID: 2306630705916068336, guid: adc581bcf731e2f48accecc8763488a0, type: 3}
   yellowPrefab: {fileID: 2306630705916068336, guid: 548f84257fbb2b84883fa9a0ca03331e, type: 3}
+  orangePrefab: {fileID: 2306630705916068336, guid: 09a10db345131804fadbd9fb89f78e72, type: 3}
   whitePrefab: {fileID: 2306630705916068336, guid: 0a6b36da926888e4d846d414dbfdcc38, type: 3}

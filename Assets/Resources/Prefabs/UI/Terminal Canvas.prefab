@@ -133,7 +133,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9072824807056654242}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -197,6 +197,9 @@ MonoBehaviour:
   onConcealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
   panel: {fileID: 9072824808044546783}
   layer: {fileID: 0}
+  lineRendererA: {fileID: 0}
+  lineRendererB: {fileID: 0}
+  lineRendererC: {fileID: 0}
 --- !u!1001 &1811260292550357300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224,6 +227,23 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7263116202101614240, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_text
+      value: Debugger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202136543028, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_text
+      value: "<b><color=\"green\">Terminal\r</color></b>\n\nFunctions to manage log
+        messages and intended as a debugging tool. Is supports two types of messages:\n\nUnstructured
+        messages\nThese are logged in their raw form and preserved until the terminal
+        is cleared.\n\nSplit messages\nThese are submitted in a specific format consisting
+        of a common part and a variable part. This facilitates the ability to update
+        an existing log message with a new variable part, thereby preserving it's
+        place in the log.\n\nThey use the colon symbol (:) as a delimeter:\n[common
+        part : variable part]\n\nIn addition, it supports the ability to lock the
+        canvas in world space, drag the canvas into a new position and includes a
+        scroll up/down/clear and  close button."
+      objectReference: {fileID: 0}
     - target: {fileID: 7263116202136543029, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -249,8 +269,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7263116202750298895, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Size
+      value: 0.8843538
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116202750298895, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_Value
-      value: 0.99999654
+      value: 0.9998564
       objectReference: {fileID: 0}
     - target: {fileID: 7263116202793450478, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_Pivot.x

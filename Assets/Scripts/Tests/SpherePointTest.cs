@@ -52,15 +52,21 @@ namespace Tests
             // targetPoint.transform.position = interimPoint.transform.position;
 
             // float angle = DifferentialAngleDegrees(transform.position, currentPoint.transform.position);
-            Vector3 cross = Vector3.Cross(transform.forward, currentPoint.transform.forward);
-            Debug.Log($"Cross : {cross}");
-            int sign = cross.y < 0 ? -1 : 1;
-            Debug.Log($"Sign : {sign}");
+            // Vector3 cross = Vector3.Cross(transform.forward, currentPoint.transform.forward);
+            // Debug.Log($"Cross : {cross}");
+            // int sign = cross.y < 0 ? -1 : 1;
+            // Debug.Log($"Sign : {sign}");
+
+            // Calculate the angle that reflects the forward vector of the sphere to the current points own forward direction
+            Debug.Log($"p1 {transform.right}");
             float angle = Vector3.SignedAngle(transform.forward, currentPoint.transform.forward, transform.right);
             Debug.Log($"Angle : {angle}");
+            
             // float angle = Vector3.SignedAngle(transform.forward, currentPoint.transform.forward, transform.forward);
             // Debug.Log($"Angle : {sign * angle}");
             // target.transform.Rotate(new Vector3(angle, target.transform.rotation.x, target.transform.rotation.y));
+
+            // Asign the target base with the rotation of the calculated anglle
             Vector3 tmp = target.transform.localEulerAngles;
             tmp.x = angle;
             target.transform.localEulerAngles = tmp;

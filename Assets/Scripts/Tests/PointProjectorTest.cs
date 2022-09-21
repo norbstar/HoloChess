@@ -31,9 +31,20 @@ namespace Tests
         // Update is called once per frame
         void Update()
         {
-            pointA.Point = transform.position;
-            pointB.Point = transform.position + (transform.localScale * 0.5f);
-            pointC.Point = transform.position - (transform.localScale * 0.5f);
+            pointA.Point = new PointProjector.PointProperties
+            {
+                position = transform.position
+            };
+
+            pointB.Point = new PointProjector.PointProperties
+            {
+                position = transform.position + (transform.localScale * 0.5f)
+            };
+
+            pointC.Point = new PointProjector.PointProperties
+            {
+                position = transform.position - (transform.localScale * 0.5f)
+            };
         }
     }
 }

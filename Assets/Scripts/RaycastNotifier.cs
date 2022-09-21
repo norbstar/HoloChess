@@ -41,8 +41,6 @@ public class RaycastNotifier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"{gameObject.name} Listener Count : {EventReceived.GetInvocationList().Length}");
-        
         if (EventReceived.GetInvocationList().Length == 0) return;
 
         List<HitInfo> hits = null;
@@ -58,21 +56,6 @@ public class RaycastNotifier : MonoBehaviour
                 break;
         }
 
-
-        System.Text.StringBuilder logBuilder = new System.Text.StringBuilder();
-        logBuilder.Append($"Notifier Hit Summary");
-        logBuilder.Append($"\n[Start]");
-        logBuilder.Append($"\nHit Count : {hits.Count}");
-
-        foreach (HitInfo hitInfo in hits)
-        {
-            var target = hitInfo.hit.transform.gameObject;
-            logBuilder.Append($"\nHit Detection : {target.name}");
-        }
-
-        logBuilder.Append($"\n[End]");
-        Debug.Log(logBuilder.ToString());
-        
         if (hits.Count > 0)
         {
             EventReceived?.Invoke(gameObject, hits);

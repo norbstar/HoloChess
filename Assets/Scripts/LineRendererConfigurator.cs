@@ -8,15 +8,9 @@ public class LineRendererConfigurator : MonoBehaviour
 
     private XRInteractorLineVisual lineVisual;
 
-    void Awake()
-    {
-        ResolveDependencies();
-    }
+    void Awake() => ResolveDependencies();
 
-    private void ResolveDependencies()
-    {
-        lineVisual = GetComponent<XRInteractorLineVisual>() as XRInteractorLineVisual;
-    }
+    private void ResolveDependencies() => lineVisual = GetComponent<XRInteractorLineVisual>() as XRInteractorLineVisual;
     
     // Start is called before the first frame update
     void Start()

@@ -182,7 +182,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8483246788020402286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +353,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048396875, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048396875, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048396875, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3574988480048396879, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -389,13 +401,36 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048397573, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_text
+      value: Static Debugger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048397574, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_text
+      value: "<b><color=\"green\">Static Terminal\r</color></b>\n\nA simplified variant
+        of the standard terminal canvas. It omits the ability to lock the canvas
+        in world space and a close button.\n\nIt includes a scroll up/down and clear
+        button."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048397574, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_fontSize
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048397574, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 3574988480048397685, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3574988480048397689, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574988480048397689, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}
       propertyPath: m_Value
-      value: 0.99999434
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f35b299853c2db44b8f022fa02a5498, type: 3}

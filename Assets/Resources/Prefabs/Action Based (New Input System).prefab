@@ -624,7 +624,7 @@ MonoBehaviour:
     - Default
     - UI
     customConfigs:
-    - element: {fileID: 7327692610148350929, guid: a6fc4651a12cfb2498b9df8b2dc28da7, type: 3}
+    - element: {fileID: 1772496114765474470, guid: 97be10ef884857141a8a5b32ef0fcba4, type: 3}
       compositeMask:
       - Floor
 --- !u!114 &1632859314030338618
@@ -1448,7 +1448,7 @@ MonoBehaviour:
     - Default
     - UI
     customConfigs:
-    - element: {fileID: 3087982662233170939, guid: 65d57ee6ce992724a90dbcec1f9e5fe5, type: 3}
+    - element: {fileID: 1772496114765474470, guid: 97be10ef884857141a8a5b32ef0fcba4, type: 3}
       compositeMask:
       - Floor
 --- !u!114 &1632859315781924414

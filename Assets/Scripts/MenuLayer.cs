@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class MenuLayer : MonoBehaviour
 {
+    [Header("Config")]
+    [SerializeField] bool enableGizmos;
+
     private new SphereCollider collider;
     public SphereCollider Collider { get { return collider; } }
     private List<GameObject> children;
@@ -33,5 +36,11 @@ public class MenuLayer : MonoBehaviour
         if (!children.Contains(gameObject)) return;
 
         children.Remove(gameObject);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!enableGizmos)  return;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * (transform.localScale.z * 0.5f));
     }
 }

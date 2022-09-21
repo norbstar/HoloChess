@@ -10,14 +10,22 @@ public class PointProjectorDatabase : MonoBehaviour
 
     public static void PlotPoint(string name, string label, PointProjector.Type type, Vector3 position, Vector3? overrideScale = null)
     {
+        PlotPoint(name, label, type, new PointProjector.PointProperties
+        {
+            position = position
+        }, overrideScale);
+    }
+
+    public static void PlotPoint(string name, string label, PointProjector.Type type, PointProjector.PointProperties point, Vector3? overrideScale = null)
+    {
         if (manager.TryGet(name, out PointProjector projector))
         {
-            projector.Point = position;
+            projector.Point = point;
         }
         else
         {
             projector = manager.Add(type, name, label, overrideScale);
-            projector.Point = position;
+            projector.Point = point;
         }
 
         projector.Label = label;

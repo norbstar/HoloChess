@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -101,19 +100,10 @@ public class HandController : GizmoManager
         float closestDistance = float.MaxValue;
         RaycastHit? closestHit = null;
 
-        System.Text.StringBuilder logBuilder = new System.Text.StringBuilder();
-        logBuilder.Append($"{gameObject.name} Hit Summary");
-        logBuilder.Append($"\n[Start]");
-        logBuilder.Append($"\nLayer Mask : {LayerMaskExtensions.ToString(layerMask)}");
-        logBuilder.Append($"\nHit Count : {hits.Count}");
-
         foreach (RaycastNotifier.HitInfo hitInfo in hits)
         {
             var target = hitInfo.hit.transform.gameObject;
-            logBuilder.Append($"\nHit Candidate: {target.name}");    
-
             bool inLayerMask = LayerMaskExtensions.HasLayer(layerMask, target.layer);
-            logBuilder.Append($"\nHit Candidate: {target.name} Target Layer : {target.layer} In LayerMask: {inLayerMask}");
 
             if (!inLayerMask) continue;
 
@@ -129,8 +119,6 @@ public class HandController : GizmoManager
                 handleHit = focusResolver.ShouldReceivePointer();
             }
 
-            logBuilder.Append($"\nHit Candidate: {target.name} Handle Hit: {handleHit}");
-
             if (!handleHit) continue;
 
             var distance = Vector3.Distance(hitInfo.hit.point, transform.position);
@@ -142,12 +130,8 @@ public class HandController : GizmoManager
             }
         }
 
-        logBuilder.Append($"\nHas Clostest Hit : {closestHit.HasValue}");
-
         if (closestHit.HasValue)
         {
-            logBuilder.Append($"\nClosest Hit : {closestHit.Value.transform.gameObject.name}");
-
             this.hit = closestHit.Value;
             var target = hit.transform.gameObject;
             Vector3 point = hit.point;
@@ -187,10 +171,7 @@ public class HandController : GizmoManager
                 }
             }
         }
-
-        logBuilder.Append($"\n[End]");
-        Debug.Log(logBuilder.ToString());
-    }
+   }
 
     // LateUpdate is called once per frame
     void LateUpdate()

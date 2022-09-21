@@ -1,8 +1,5 @@
-using System;
-
 using UnityEngine;
 
-// [DisallowMultipleComponent]
 public class PointProjector : MonoBehaviour
 {
     [Header("Config")]
@@ -10,6 +7,7 @@ public class PointProjector : MonoBehaviour
     [SerializeField] GameObject greenPrefab;
     [SerializeField] GameObject redPrefab;
     [SerializeField] GameObject yellowPrefab;
+    [SerializeField] GameObject orangePrefab;
     [SerializeField] GameObject whitePrefab;
 
     public enum Type
@@ -17,16 +15,53 @@ public class PointProjector : MonoBehaviour
         Blue,
         Green,
         Red,
-        White,
-        Yellow
+        Yellow,
+        Orange,
+        White
     }
 
     private GameObject instance;
     private PointManager manager;
-    private Vector3 point;
     private string label;
 
-    public Vector3 Point { get { return point; } set { point = value; } }
+    public class PointProperties
+    {
+        public Vector3? position;
+        public Quaternion? rotation;
+    }
+
+    private PointProperties point;
+
+    public PointProperties Point
+    {
+        get
+        {
+            return point;
+        }
+        
+        set
+        {
+            if (value.position.HasValue)
+            {
+                point.position = value.position.Value;
+            }
+
+            if (value.rotation.HasValue)
+            {
+                point.rotation = value.rotation.Value;
+            }
+        }
+    }
+
+    void Awake()
+    {
+        point = new PointProperties
+        {
+            position = Vector3.zero,
+            rotation = Quaternion.identity
+        };
+    }
+    
     public string Label
     {
         get
@@ -46,23 +81,27 @@ public class PointProjector : MonoBehaviour
         switch (type)
         {
             case Type.Blue:
-                instance = Instantiate(bluePrefab, point, Quaternion.identity);
+                instance = Instantiate(bluePrefab, point.position.Value, point.rotation.Value);
                 break;
 
             case Type.Green:
-                instance = Instantiate(greenPrefab, point, Quaternion.identity);
+                instance = Instantiate(greenPrefab, point.position.Value, point.rotation.Value);
                 break;
 
             case Type.Red:
-                instance = Instantiate(redPrefab, point, Quaternion.identity);
+                instance = Instantiate(redPrefab, point.position.Value, point.rotation.Value);
                 break;
 
             case Type.Yellow:
-                instance = Instantiate(yellowPrefab, point, Quaternion.identity);
+                instance = Instantiate(yellowPrefab, point.position.Value, point.rotation.Value);
+                break;
+
+            case Type.Orange:
+                instance = Instantiate(orangePrefab, point.position.Value, point.rotation.Value);
                 break;
 
             case Type.White:
-                instance = Instantiate(whitePrefab, point, Quaternion.identity);
+                instance = Instantiate(whitePrefab, point.position.Value, point.rotation.Value);
                 break;
         }
 
@@ -78,5 +117,9 @@ public class PointProjector : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() => instance.transform.position = point;
+    void Update()
+    {
+        instance.transform.position = point.position.Value;
+        instance.transform.rotation = point.rotation.Value;
+    }
 }
