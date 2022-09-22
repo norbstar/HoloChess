@@ -333,16 +333,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8000656015192713106, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000656015192713106, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000656015192713106, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8000656015192713106, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8000656015192713106, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000656015192713106, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.1
+      value: -2.1000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591563169948339854, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591563169948339854, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591563169948339854, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591563169948339854, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 9013016964006443883, guid: ba483d4302ff3ba43a663f01f706bc29, type: 3}
       propertyPath: root

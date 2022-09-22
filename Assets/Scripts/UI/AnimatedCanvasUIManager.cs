@@ -103,7 +103,5 @@ namespace UI
                         trackedRaycaster.enabled = false;
             #endif
         }
-
-        protected abstract void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits);
     }
 }

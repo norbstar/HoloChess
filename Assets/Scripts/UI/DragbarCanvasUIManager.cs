@@ -140,7 +140,7 @@ namespace UI
             }
         }
 
-        protected override void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
+        private void OnRaycastEvent(GameObject source, List<RaycastNotifier.HitInfo> hits)
         {
             if (!isPointerDown) return;
 
