@@ -197,9 +197,6 @@ MonoBehaviour:
   onConcealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
   panel: {fileID: 9072824808044546783}
   layer: {fileID: 0}
-  lineRendererA: {fileID: 0}
-  lineRendererB: {fileID: 0}
-  lineRendererC: {fileID: 0}
 --- !u!1001 &1811260292550357300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -246,6 +243,22 @@ PrefabInstance:
     - target: {fileID: 7263116201163172495, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201471542212, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201471542212, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201471542212, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263116201471542212, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: 7263116201575640893, guid: c0b51c918746c5d42ba22e65ccb16e8f, type: 3}
       propertyPath: m_AnchorMax.x

@@ -39,7 +39,6 @@ namespace UI
 
             // Step 1 - Vertically align the hit point to the height of the canvas
             Vector3 vAlignedPoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-            PointProjectorDatabase.PlotPoint($"V Aligned Point", $"V Aligned Point", PointProjector.Type.Green, vAlignedPoint);
             
             // Step 2 - Calculate the relative height of the aligned point with respect to the layer 
             float height = Mathf.Abs((layer.transform.localPosition.y - layerRadius) - transform.localPosition.y);
@@ -49,7 +48,6 @@ namespace UI
 
             // Step 4 - Create a reference point at the center of the layer, but adjusted with respect to height
             Vector3 heightAdjustedLayerPoint = new Vector3(layer.transform.position.x, vAlignedPoint.y, layer.transform.position.z);
-            PointProjectorDatabase.PlotPoint($"Height Adjusted Layer Point", $"Height Adjusted Layer Point", PointProjector.Type.Blue, heightAdjustedLayerPoint);
 
             // Step 5 - Calculate the relative direction from the height adjusted hit point to the reference point
             Vector3 relativeDirection = (vAlignedPoint - heightAdjustedLayerPoint).normalized;
@@ -58,10 +56,6 @@ namespace UI
             Vector3 point = heightAdjustedLayerPoint + relativeDirection * capRadius;
             
             transform.position = point;
-            
-            PointProjectorDatabase.PlotPoint($"Constrained Target Point", $"Constrained Target Point", PointProjector.Type.Orange, transform.position);
-            float distance = Vector3.Distance(layer.transform.position, transform.position);
-            Debug.Log($"<color=orange>Constrained Target Point</color> : {transform.position} {distance}");
         }
     }
 }

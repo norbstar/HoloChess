@@ -88,7 +88,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3341593548025201710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233376995667767853}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -316,6 +316,22 @@ PrefabInstance:
       propertyPath: root
       value: 
       objectReference: {fileID: 1233376995667767853}
+    - target: {fileID: 8653695036402501585, guid: 308506a56871e0c49bc094d8b469a7e8, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8653695036402501585, guid: 308506a56871e0c49bc094d8b469a7e8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8653695036402501585, guid: 308506a56871e0c49bc094d8b469a7e8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8653695036402501585, guid: 308506a56871e0c49bc094d8b469a7e8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8843377099484502389, guid: 308506a56871e0c49bc094d8b469a7e8, type: 3}
       propertyPath: m_Name
       value: Settings Panel

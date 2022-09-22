@@ -152,7 +152,6 @@ namespace UI.Panels
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;
-            // Debug.Log($"{Time.time} OnSelect {name}");
 
             if (name.Equals(TOP_BUTTON))
             {
