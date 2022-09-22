@@ -1,6 +1,6 @@
 namespace UI.Panels
 {
-    public abstract class ShortcutPanelUIManager : ButtonGroupPanelUIManager
+    public abstract class SelectedButtonGroupPanelUIManager : ButtonGroupPanelUIManager
     {
         protected abstract void OnSelectEvent(ButtonUIManager manager);
 

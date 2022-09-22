@@ -1,11 +1,19 @@
+using System;
+
 using UnityEngine;
+
+using TMPro;
 
 namespace UI.Panels
 {
     [RequireComponent(typeof(RootResolver))]
-    public class StatsPanelUIManager : ShortcutPanelUIManager, IDragbarPanel
+    public class StatsPanelUIManager : SelectedButtonGroupPanelUIManager, IDragbarPanel
     {
         [Header("Components")]
+        [SerializeField] TextMeshProUGUI dateUI;
+        public string Date { get { return dateUI.text; } }
+        [SerializeField] TextMeshProUGUI timeUI;
+        public string Time { get { return timeUI.text; } }
         [SerializeField] DragBarUIManager dragBar;
         public DragBarUIManager DragBar { get { return dragBar; } }
 
@@ -20,6 +28,18 @@ namespace UI.Panels
 
         public void EnableDragBar(bool enable) => dragBar.gameObject.SetActive(enable);
 
+        // Update is called once per frame
+        void Update()
+        {
+            // if (!isShown) return;
+
+            var date = DateTime.Now.ToString("MM/dd/yyyy");
+            dateUI.text = date;
+
+            var time = DateTime.Now.ToString("HH:mm:ss");
+            timeUI.text = time;
+        }
+        
         protected override void OnSelectEvent(ButtonUIManager manager)
         {
             var name = manager.Button.name;

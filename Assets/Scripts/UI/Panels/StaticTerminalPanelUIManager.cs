@@ -10,7 +10,7 @@ using TMPro;
 namespace UI.Panels
 {
     [RequireComponent(typeof(RootResolver))]
-    public class StaticTerminalPanelUIManager : ShortcutPanelUIManager
+    public class StaticTerminalPanelUIManager : SelectedButtonGroupPanelUIManager
     {
         [Header("Components")]
         [SerializeField] ButtonGroupUIManager buttonGroupManager;

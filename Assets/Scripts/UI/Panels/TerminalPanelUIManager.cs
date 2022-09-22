@@ -10,7 +10,7 @@ using TMPro;
 namespace UI.Panels
 {
     [RequireComponent(typeof(RootResolver))]
-    public class TerminalPanelUIManager : ShortcutPanelUIManager, IDragbarPanel
+    public class TerminalPanelUIManager : SelectedButtonGroupPanelUIManager, IDragbarPanel
     {
         [Header("Components")]
         [SerializeField] DragBarUIManager dragBar;

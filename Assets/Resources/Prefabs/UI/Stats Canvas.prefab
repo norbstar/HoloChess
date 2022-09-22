@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRevealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
   onConcealClip: {fileID: 8300000, guid: 963df6c5d781c5448a4e58754b00e575, type: 3}
-  panel: {fileID: 0}
+  panel: {fileID: 2332341561835103817}
   layer: {fileID: 0}
 --- !u!1001 &3915779651998058006
 PrefabInstance:
@@ -292,6 +292,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2303380403190574306, guid: 7b600fac2a82ee54d99feb63c1fe6db4, type: 3}
+      propertyPath: root
+      value: 
+      objectReference: {fileID: 1145766595985664878}
+    - target: {fileID: 2303380403190574708, guid: 7b600fac2a82ee54d99feb63c1fe6db4, type: 3}
+      propertyPath: root
+      value: 
+      objectReference: {fileID: 1145766595985664878}
     - target: {fileID: 3163875665239696507, guid: 7b600fac2a82ee54d99feb63c1fe6db4, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.12
@@ -311,3 +319,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2303380403190573281, guid: 7b600fac2a82ee54d99feb63c1fe6db4, type: 3}
   m_PrefabInstance: {fileID: 3915779651998058006}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2332341561835103817 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1587941716097474655, guid: 7b600fac2a82ee54d99feb63c1fe6db4, type: 3}
+  m_PrefabInstance: {fileID: 3915779651998058006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 243cf9a3a6a9d4b48aadc913b2734942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
