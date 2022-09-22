@@ -7,8 +7,10 @@ public class PointProjector : MonoBehaviour
     [SerializeField] GameObject greenPrefab;
     [SerializeField] GameObject redPrefab;
     [SerializeField] GameObject yellowPrefab;
+    [SerializeField] GameObject purplePrefab;
     [SerializeField] GameObject orangePrefab;
     [SerializeField] GameObject whitePrefab;
+    [SerializeField] GameObject customPrefab;
 
     public enum Type
     {
@@ -16,8 +18,10 @@ public class PointProjector : MonoBehaviour
         Green,
         Red,
         Yellow,
+        Purple,
         Orange,
-        White
+        White,
+        Custom
     }
 
     private GameObject instance;
@@ -96,12 +100,21 @@ public class PointProjector : MonoBehaviour
                 instance = Instantiate(yellowPrefab, point.position.Value, point.rotation.Value);
                 break;
 
+            case Type.Purple:
+                instance = Instantiate(purplePrefab, point.position.Value, point.rotation.Value);
+                break;
+
             case Type.Orange:
                 instance = Instantiate(orangePrefab, point.position.Value, point.rotation.Value);
                 break;
 
             case Type.White:
                 instance = Instantiate(whitePrefab, point.position.Value, point.rotation.Value);
+                break;
+
+            case Type.Custom:
+                if (customPrefab == null) return;
+                instance = Instantiate(customPrefab, point.position.Value, point.rotation.Value);
                 break;
         }
 

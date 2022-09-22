@@ -158,7 +158,11 @@ namespace UI
             Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
             var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
             Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
-            transform.position = point + offset;
+            transform.position = point/* + offset*/;
+            
+            PointProjectorDatabase.PlotPoint($"Target Point", $"Target Point", PointProjector.Type.Purple, transform.position);
+            float distance = Vector3.Distance(layer.transform.position, transform.position);
+            Debug.Log($"<color=purple>Target Point</color> : {point} {offset} {transform.position} {distance}");
         }
     }
 }

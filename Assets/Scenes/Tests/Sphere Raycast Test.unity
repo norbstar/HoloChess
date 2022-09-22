@@ -4028,8 +4028,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftHandPositionFromReference: {fileID: -2024308242397127297, guid: 2e453900db5a6264c9a279758fa8eae5, type: 3}
-  headPositionFromReference: {fileID: 7862207684358717888, guid: 2e453900db5a6264c9a279758fa8eae5, type: 3}
+  rightHandPositionFromReference: {fileID: -3326005586356538449, guid: 2e453900db5a6264c9a279758fa8eae5, type: 3}
   leftHandActivateFromReference: {fileID: -5982496924579745919, guid: 2e453900db5a6264c9a279758fa8eae5, type: 3}
+  rightHandActivateFromReference: {fileID: 83097790271614945, guid: 2e453900db5a6264c9a279758fa8eae5, type: 3}
 --- !u!4 &606053933
 Transform:
   m_ObjectHideFlags: 0

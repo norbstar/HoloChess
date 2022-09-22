@@ -122,10 +122,11 @@ namespace UI
             // Step 4
             Vector3 relativeDirection = (vAlignedPoint - heightAdjustedLayerPoint).normalized;
             Vector3 point = heightAdjustedLayerPoint + relativeDirection * capRadius;
-            PointProjectorDatabase.PlotPoint($"Height Adjusted Point", $"Height Adjusted Point", PointProjector.Type.Yellow, point);
-            PointProjectorDatabase.PlotPoint($"Target Point", $"Target Point", PointProjector.Type.Orange, point);
-
             transform.position = point;
+            
+            PointProjectorDatabase.PlotPoint($"Constrained Target Point", $"Constrained Target Point", PointProjector.Type.Orange, transform.position);
+            float distance = Vector3.Distance(layer.transform.position, transform.position);
+            Debug.Log($"<color=orange>Constrained Target Point</color> : {transform.position} {distance}");
         }
     }
 }
