@@ -6,19 +6,7 @@ namespace UI
 {
     public class TerminalCanvasUIManager : DragbarCanvasUIManager<TerminalPanelUIManager>
     {
-        private new Camera camera;
         private bool isLocked;
-        private float layerRadius;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            ResolveDependencies();
-
-            layerRadius = layer.transform.localScale.z * 0.5f;
-        }
-
-        private void ResolveDependencies() => camera = Camera.main;
 
         // Start is called before the first frame update
         protected override void Start()
@@ -41,64 +29,6 @@ namespace UI
 
         private void OnLockSwapEvent(bool isLocked) => this.isLocked = isLocked;
 
-#if false
-        Transform randomTransform, vAlignedTransform;
-        Vector3 point;
-
-        public void OnRandomize()
-        {
-            PointProjectorDatabase.PlotPoint($"Layer Transform", $"Layer Transform", PointProjector.Type.White, layer.transform.position);
-            PointProjectorDatabase.PlotPoint($"Canvas Transform", $"Canvas Transform", PointProjector.Type.White, transform.position);
-
-            // Step 1
-            if (randomTransform == null)
-            {
-                randomTransform = new GameObject().transform;
-                randomTransform.parent = root.transform;
-                randomTransform.name = "Random Transform";
-            }
-
-            randomTransform.transform.position = layer.transform.position;
-            randomTransform.transform.rotation = Random.rotation;
-            point = randomTransform.position + randomTransform.forward * (layer.transform.localScale.z * 0.5f);
-            PointProjectorDatabase.PlotPoint($"Rnd Transform", $"Rnd Transform", PointProjector.Type.Red, point);
-
-            // Step 2
-            if (vAlignedTransform == null)
-            {
-                vAlignedTransform = new GameObject().transform;
-                vAlignedTransform.parent = root.transform;
-                vAlignedTransform.name = "Vertically Aligned Transform";
-            }
-
-            vAlignedTransform.transform.position = new Vector3(point.x, transform.position.y, point.z);
-            PointProjectorDatabase.PlotPoint($"V Aligned Transform", $"V Aligned Transform", PointProjector.Type.Green, vAlignedTransform.position);
-            
-            // Step 3
-            float height = Mathf.Abs((layer.transform.localPosition.y - layerRadius) - transform.localPosition.y);
-            Debug.Log($"Relative Height : {height}");
-
-            float capRadius = Mathf.Sqrt(Mathf.Pow(layerRadius, 2) - Mathf.Pow(layerRadius - height, 2));
-            Debug.Log($"Cap Radius : {capRadius}");
-
-            Vector3 heightAdjustedLayerPoint = new Vector3(layer.transform.position.x, vAlignedTransform.position.y, layer.transform.position.z);
-            PointProjectorDatabase.PlotPoint($"Height Adjusted Layer Transform", $"Height Adjusted Layer Transform", PointProjector.Type.Blue, heightAdjustedLayerPoint);
-            
-            Vector3 direction = (vAlignedTransform.transform.position - heightAdjustedLayerPoint).normalized;
-            point = heightAdjustedLayerPoint + direction * capRadius;
-            PointProjectorDatabase.PlotPoint($"Height Adjusted Transform", $"Height Adjusted Transform", PointProjector.Type.Yellow, point);
-            PointProjectorDatabase.PlotPoint($"Target Transform", $"Target Transform", PointProjector.Type.Orange, point);
-        }
-
-        public void OnApply()
-        {
-            if (point != null)
-            {
-                base.transform.position = point;
-            }
-        }
-#endif
-
         protected override void ProcessRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
             if (!isLocked)
@@ -107,21 +37,26 @@ namespace UI
                 return;
             }
 
-            // Step 1
+            // Step 1 - Vertically align the hit point to the height of the canvas
             Vector3 vAlignedPoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
             PointProjectorDatabase.PlotPoint($"V Aligned Point", $"V Aligned Point", PointProjector.Type.Green, vAlignedPoint);
             
-            // Step 2
+            // Step 2 - Calculate the relative height of the aligned point with respect to the layer 
             float height = Mathf.Abs((layer.transform.localPosition.y - layerRadius) - transform.localPosition.y);
+
+            // Step 3 - Calculate the cap radius of the layer at the adjusted height
             float capRadius = Mathf.Sqrt(Mathf.Pow(layerRadius, 2) - Mathf.Pow(layerRadius - height, 2));
 
-            // Step 3
+            // Step 4 - Create a reference point at the center of the layer, but adjusted with respect to height
             Vector3 heightAdjustedLayerPoint = new Vector3(layer.transform.position.x, vAlignedPoint.y, layer.transform.position.z);
             PointProjectorDatabase.PlotPoint($"Height Adjusted Layer Point", $"Height Adjusted Layer Point", PointProjector.Type.Blue, heightAdjustedLayerPoint);
-            
-            // Step 4
+
+            // Step 5 - Calculate the relative direction from the height adjusted hit point to the reference point
             Vector3 relativeDirection = (vAlignedPoint - heightAdjustedLayerPoint).normalized;
+            
+            // Step 6 - Re-project the point in the relative direction at a distance of the cap's radius
             Vector3 point = heightAdjustedLayerPoint + relativeDirection * capRadius;
+            
             transform.position = point;
             
             PointProjectorDatabase.PlotPoint($"Constrained Target Point", $"Constrained Target Point", PointProjector.Type.Orange, transform.position);

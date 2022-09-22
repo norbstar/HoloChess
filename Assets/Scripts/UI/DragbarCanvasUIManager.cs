@@ -12,16 +12,18 @@ namespace UI
         [SerializeField] protected MenuLayer layer;
         public MenuLayer Layer { get { return layer; } }
         protected DragBarUIManager dragBar;
+        protected float layerRadius;
+        protected bool isPointerDown;
 
         private HomeCanvasUIManager homeCanvasUIManager;
         private RaycastNotifier leftHandNotifier, rightHandNotifier;
-        private bool isPointerDown;
 
         protected override void Awake()
         {
             base.Awake();
             ResolveDependencies();
             dragBar = panel.GetDragBar();
+            layerRadius = layer.transform.localScale.z * 0.5f;
 
             if (layer != null)
             {
@@ -155,14 +157,19 @@ namespace UI
 
         protected virtual void ProcessRaycastEvent(GameObject source, Vector3 origin, Vector3 direction, GameObject target, RaycastHit hit)
         {
-            Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
-            var point = layer.transform.position + relativeDirection * (layer.transform.localScale.z * 0.5f);
+            // Step 1 - Calculate the offset of the center of the canvas relative to the drag bar position
             Vector3 offset = panel.GetObject().transform.position - dragBar.transform.position;
-            transform.position = point/* + offset*/;
-            
-            PointProjectorDatabase.PlotPoint($"Target Point", $"Target Point", PointProjector.Type.Purple, transform.position);
-            float distance = Vector3.Distance(layer.transform.position, transform.position);
-            Debug.Log($"<color=purple>Target Point</color> : {point} {offset} {transform.position} {distance}");
+
+            // Step 2 - Apply the relative offset to align the hit with the center of the canvas
+            hit.point += offset;
+         
+            // Step 3 - Calculate the relative direction from the center of the layer to the adjusted hit point
+            Vector3 relativeDirection = (hit.point - layer.transform.position).normalized;
+
+            // Step 4 - Re-project the point in the relative direction at a distance of the layer's radius
+            var point = layer.transform.position + relativeDirection * layerRadius;
+
+            transform.position = point;
         }
     }
 }
