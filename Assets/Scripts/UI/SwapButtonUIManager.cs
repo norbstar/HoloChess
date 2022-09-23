@@ -11,7 +11,7 @@ namespace UI
         [SerializeField] Sprite offHightlight;
         [SerializeField] Sprite on;
         [SerializeField] Sprite onHightlight;
-        [SerializeField] bool startLocked = false;
+        [SerializeField] bool startOn = false;
 
         public delegate void OnSwapEvent(SwapButtonUIManager manager, bool isOn);
         public event OnSwapEvent SwapEventReceived;
@@ -64,7 +64,7 @@ namespace UI
             base.Awake();
             ResolveDependencies();
 
-            IsOn = startLocked;
+            IsOn = startOn;
         }
 
         private void ResolveDependencies() => swapButton = GetComponent<Button>() as Button;

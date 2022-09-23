@@ -33,7 +33,7 @@ namespace UI.Panels
             timeUI.text = time;
 
             var batteryStatus = SystemInfo.batteryStatus;
-            Debug.Log($"Battery Status : {batteryStatus.ToString()}");
+            // Debug.Log($"Battery Status : {batteryStatus.ToString()}");
 
             switch (batteryStatus)
             {
@@ -56,9 +56,7 @@ namespace UI.Panels
             }
 
             var batteryLevel = SystemInfo.batteryLevel;
-
-            batteryLevel = .94f;
-            Debug.Log($"Battery Level : {batteryLevel.ToString()}");
+            // Debug.Log($"Battery Level : {batteryLevel.ToString()}");
             
             if (batteryLevel > 0.66f)
             {
