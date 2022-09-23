@@ -32,13 +32,5 @@ namespace UI.Panels
         protected abstract void OnButtonEvent(ButtonUIManager manager, ButtonUIManager.Event @event);
 
         protected ButtonUIManager ResolveButton(string name) => (instances != null) ? instances.FirstOrDefault(b => b.gameObject.name.Equals(name)) : null;
-
-        public void Reset()
-        {
-            foreach (var instance in instances)
-            {
-                instance.Reset();
-            }
-        }
     }
 }

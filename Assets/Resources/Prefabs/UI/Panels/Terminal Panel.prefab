@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7785152015399305240}
   - component: {fileID: 4234990271950088667}
   - component: {fileID: 5237185427872697010}
-  - component: {fileID: 1860490191309198833}
   - component: {fileID: 7881230776089527992}
   - component: {fileID: 7180484245985521377}
   m_Layer: 5
@@ -168,23 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &1860490191309198833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106817702862353204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 6243572586555174798}
-  textUI: {fileID: 0}
-  annotation: {fileID: 7945728392918958711}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7881230776089527992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,8 +227,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   progress: {fileID: 2677582249651803139}
   progressTimeline: 1
 --- !u!1 &318413812068754570
@@ -1079,7 +1059,6 @@ GameObject:
   - component: {fileID: 7263116201077141262}
   - component: {fileID: 7263116201077141263}
   - component: {fileID: 7263116201077141260}
-  - component: {fileID: 7263116201077141261}
   - component: {fileID: 7263116201077141362}
   m_Layer: 5
   m_Name: Top Button
@@ -1230,23 +1209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &7263116201077141261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7263116201077141360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 7263116202707185473}
-  textUI: {fileID: 0}
-  annotation: {fileID: 7263116201663781908}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7263116201077141362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,8 +1228,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
 --- !u!1 &7263116201080582549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1279,6 @@ GameObject:
   - component: {fileID: 7263116201163172490}
   - component: {fileID: 7263116201163172491}
   - component: {fileID: 7263116201163172488}
-  - component: {fileID: 7263116201163172489}
   - component: {fileID: 7263116201163172494}
   m_Layer: 5
   m_Name: Bottom Button
@@ -1470,23 +1429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &7263116201163172489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7263116201163172492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 7263116202970160158}
-  textUI: {fileID: 0}
-  annotation: {fileID: 7263116201937839232}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7263116201163172494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1506,8 +1448,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
 --- !u!1 &7263116201216452492
 GameObject:
   m_ObjectHideFlags: 0
@@ -3236,8 +3176,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7263116201575640892}
   m_HandleRect: {fileID: 7263116201575640893}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.15606242
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3279,7 +3219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1.06, y: 2.31}
+  m_AnchoredPosition: {x: 1.0599976, y: 2.3099976}
   m_SizeDelta: {x: 10.2, y: 3}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &7263116202754155009
@@ -3453,7 +3393,6 @@ GameObject:
   - component: {fileID: 7263116202944268682}
   - component: {fileID: 7263116202944268683}
   - component: {fileID: 7263116202944268680}
-  - component: {fileID: 7263116202944268681}
   - component: {fileID: 7263116202944268686}
   - component: {fileID: 7263116202944268687}
   m_Layer: 5
@@ -3606,23 +3545,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &7263116202944268681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7263116202944268685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 7263116201216452494}
-  textUI: {fileID: 0}
-  annotation: {fileID: 7263116201495158596}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7263116202944268686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3683,8 +3605,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   progress: {fileID: 7263116202410410628}
   progressTimeline: 1
 --- !u!1 &7263116202969556821
@@ -3931,7 +3851,6 @@ GameObject:
   - component: {fileID: 4746195107847308143}
   - component: {fileID: 8743202785855380356}
   - component: {fileID: 1519133908464042251}
-  - component: {fileID: 9014937513072789627}
   - component: {fileID: 8102075743508079775}
   m_Layer: 5
   m_Name: Lock Swap Button
@@ -4082,23 +4001,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &9014937513072789627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7654725228995726438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 8444173461637785274}
-  textUI: {fileID: 0}
-  annotation: {fileID: 9060944473791950169}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &8102075743508079775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4118,8 +4020,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   off: {fileID: 21300000, guid: 301b9f7d500fbb941bc700194d245dfa, type: 3}
   offHightlight: {fileID: 21300000, guid: 5dc65d68a62a7c2499696cd780fb4802, type: 3}
   on: {fileID: 21300000, guid: a6d670ac1c8d88243b0b1404dac02805, type: 3}

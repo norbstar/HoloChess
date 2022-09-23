@@ -59,8 +59,6 @@ namespace UI
                 StopCoroutine(coroutine);
             }
 
-            NotifyReceivers(string.Empty);
-
             if (deselectOnSelect)
             {
                 StartCoroutine(DeselectCoroutine(deselectionDelay));
@@ -95,7 +93,6 @@ namespace UI
                 AudioSource.PlayClipAtPoint(onSelectClip, Vector3.zero, 1.0f);
             }
 
-            NotifyReceivers(string.Empty);
             PostEvent(Event.OnSelect);
 
             if (deselectOnSelect)

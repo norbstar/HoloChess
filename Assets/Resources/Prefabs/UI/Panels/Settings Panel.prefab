@@ -166,7 +166,6 @@ GameObject:
   - component: {fileID: 2444980805614353434}
   - component: {fileID: 5858596608843037220}
   - component: {fileID: 6260182949510221710}
-  - component: {fileID: 7319582329875768136}
   - component: {fileID: 3054179915309663571}
   - component: {fileID: 2288663968059528590}
   m_Layer: 5
@@ -319,23 +318,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &7319582329875768136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212067450237850040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 9143839710350247647}
-  textUI: {fileID: 0}
-  annotation: {fileID: 3728817121362740312}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &3054179915309663571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,8 +378,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   progress: {fileID: 5226549600747209181}
   progressTimeline: 1
 --- !u!1 &1815889158258620086

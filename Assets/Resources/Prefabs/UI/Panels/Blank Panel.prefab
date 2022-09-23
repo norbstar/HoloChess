@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.1}
+  m_AnchoredPosition: {x: 0, y: 2.0999756}
   m_SizeDelta: {x: 9, y: 1.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2370865645914651053
@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 3025486779182696572}
   - component: {fileID: 6439878876007779906}
   - component: {fileID: 6841603476755741672}
-  - component: {fileID: 7892136674541524782}
   - component: {fileID: 2481555237080641845}
   - component: {fileID: 1715896627928326632}
   m_Layer: 5
@@ -244,23 +243,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &7892136674541524782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783638517438768606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 8572479714484056761}
-  textUI: {fileID: 0}
-  annotation: {fileID: 4300245290975326270}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2481555237080641845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,8 +303,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   progress: {fileID: 4655189360887903675}
   progressTimeline: 1
 --- !u!1 &2346552748597615755
@@ -633,7 +613,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -2.1}
+  m_AnchoredPosition: {x: 0, y: -2.0999756}
   m_SizeDelta: {x: 6, y: 1}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &471693429873140113

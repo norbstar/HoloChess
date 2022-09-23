@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 720505866}
   - component: {fileID: 720505865}
   - component: {fileID: 720505861}
-  - component: {fileID: 720505864}
   - component: {fileID: 720505863}
   - component: {fileID: 720505862}
   m_Layer: 5
@@ -168,23 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &720505864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720505859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 1482096058}
-  textUI: {fileID: 0}
-  annotation: {fileID: 1938262828}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &720505863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,8 +227,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   progress: {fileID: 1396039261}
   progressTimeline: 1
 --- !u!1 &798522619
@@ -1013,7 +993,6 @@ GameObject:
   - component: {fileID: 840961966679282481}
   - component: {fileID: 8576125430585008383}
   - component: {fileID: 6474121553523401361}
-  - component: {fileID: 3856465974443086920}
   - component: {fileID: 2239921676870325785}
   m_Layer: 5
   m_Name: Scene Toggle Button
@@ -1165,23 +1144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &3856465974443086920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620324423903928755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 990229303447339899}
-  textUI: {fileID: 0}
-  annotation: {fileID: 8306990090000824786}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2239921676870325785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,11 +1163,9 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   bar: {fileID: 8815345791769323141}
   offColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
-  onColor: {r: 0, g: 1, b: 0.0056221485, a: 1}
+  onColor: {r: 1, g: 1, b: 1, a: 1}
   isOnByDefault: 0
 --- !u!1 &1676279330541692753
 GameObject:
@@ -1626,7 +1586,6 @@ GameObject:
   - component: {fileID: 5693602488407638457}
   - component: {fileID: 8784764955436731274}
   - component: {fileID: 4512715232168321148}
-  - component: {fileID: 1636062167977769880}
   - component: {fileID: 2147154593997658815}
   m_Layer: 5
   m_Name: Terminal Toggle Button
@@ -1778,23 +1737,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &1636062167977769880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2881353981342474806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 4547040162647920987}
-  textUI: {fileID: 0}
-  annotation: {fileID: 5685071585408238681}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2147154593997658815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,11 +1756,9 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   bar: {fileID: 3012919295475069442}
   offColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
-  onColor: {r: 0, g: 1, b: 0.007843138, a: 1}
+  onColor: {r: 1, g: 1, b: 1, a: 1}
   isOnByDefault: 0
 --- !u!1 &3066387468879206924
 GameObject:
@@ -2558,7 +2498,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -12.5}
-  m_SizeDelta: {x: 6, y: 1}
+  m_SizeDelta: {x: 6, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4817307167711702080
 CanvasRenderer:
@@ -3017,7 +2957,6 @@ GameObject:
   - component: {fileID: 7567059047257778255}
   - component: {fileID: 7848747340402427738}
   - component: {fileID: 5858119552425362439}
-  - component: {fileID: 8117462868461821025}
   - component: {fileID: 2905610070151098403}
   m_Layer: 5
   m_Name: Settings Toggle Button
@@ -3169,23 +3108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &8117462868461821025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083857590665573970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 6752231063191937276}
-  textUI: {fileID: 0}
-  annotation: {fileID: 1452792764368600130}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2905610070151098403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3205,11 +3127,9 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   bar: {fileID: 8130764963300347513}
   offColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
-  onColor: {r: 0, g: 1, b: 0.007843138, a: 1}
+  onColor: {r: 1, g: 1, b: 1, a: 1}
   isOnByDefault: 0
 --- !u!1 &6100754457672566994
 GameObject:
@@ -3301,7 +3221,6 @@ GameObject:
   - component: {fileID: 7971667482582376308}
   - component: {fileID: 40758917906138034}
   - component: {fileID: 8148410024743778199}
-  - component: {fileID: 6301568691835016729}
   - component: {fileID: 6517598378961310951}
   m_Layer: 5
   m_Name: Stats Toggle Button
@@ -3453,23 +3372,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &6301568691835016729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6384271142838735127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 1964350370258583015}
-  textUI: {fileID: 0}
-  annotation: {fileID: 1064797960808542424}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6517598378961310951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3489,11 +3391,9 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   bar: {fileID: 549102142317606603}
   offColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
-  onColor: {r: 0, g: 1, b: 0.007843138, a: 1}
+  onColor: {r: 1, g: 1, b: 1, a: 1}
   isOnByDefault: 0
 --- !u!1 &7276058191320363148
 GameObject:
@@ -3530,7 +3430,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -12.5}
-  m_SizeDelta: {x: 6, y: 1}
+  m_SizeDelta: {x: 6, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6782580220662347614
 CanvasRenderer:
@@ -3645,7 +3545,6 @@ GameObject:
   - component: {fileID: 1204404066985166728}
   - component: {fileID: 1263116003406767893}
   - component: {fileID: 3639608584730144486}
-  - component: {fileID: 4939027683432707913}
   - component: {fileID: 6789208786700705138}
   m_Layer: 5
   m_Name: Volume Toggle Button
@@ -3797,23 +3696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &4939027683432707913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7488252455999986451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 8885251695739651512}
-  textUI: {fileID: 0}
-  annotation: {fileID: 3126898556058926931}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6789208786700705138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3833,11 +3715,9 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   bar: {fileID: 802746343405621817}
   offColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
-  onColor: {r: 0, g: 1, b: 0.007843138, a: 1}
+  onColor: {r: 1, g: 1, b: 1, a: 1}
   isOnByDefault: 0
 --- !u!1 &7763922244544991126
 GameObject:
@@ -3874,7 +3754,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -12.5}
-  m_SizeDelta: {x: 6, y: 1}
+  m_SizeDelta: {x: 6, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &470463384543163277
 CanvasRenderer:
@@ -4024,7 +3904,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -12.5}
-  m_SizeDelta: {x: 6, y: 1}
+  m_SizeDelta: {x: 6, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4943151502718578727
 CanvasRenderer:
@@ -4099,7 +3979,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -12.5}
-  m_SizeDelta: {x: 6, y: 1}
+  m_SizeDelta: {x: 6, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3336480020085507673
 CanvasRenderer:

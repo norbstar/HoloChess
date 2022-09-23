@@ -435,7 +435,6 @@ GameObject:
   - component: {fileID: 7112088608314690932}
   - component: {fileID: 7112088608314690933}
   - component: {fileID: 261813549441229064}
-  - component: {fileID: 7112088608314690935}
   - component: {fileID: 1297526219925712926}
   - component: {fileID: 7112088608314690920}
   m_Layer: 5
@@ -587,23 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb472d903074724eb95fda253794b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7112088608314690935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7112088608314690929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 7112088607365277607}
-  textUI: {fileID: 0}
-  annotation: {fileID: 7112088607724654230}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  enableCallbacks: 1
 --- !u!114 &1297526219925712926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,10 +643,10 @@ MonoBehaviour:
   onHoverClip: {fileID: 8300000, guid: 5918e1159f1004249a91f32a9648c402, type: 3}
   onSelectClip: {fileID: 8300000, guid: c84c529e4ccb7144ea9af253580dff35, type: 3}
   enableHaptics: 1
+  hapticsAmplitude: 0.15
+  hapticsDuration: 0.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   progress: {fileID: 7112088607977142703}
   progressTimeline: 1
 --- !u!1 &8213795932123897014

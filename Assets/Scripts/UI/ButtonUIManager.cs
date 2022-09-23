@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,10 +7,13 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 using UnityButton = UnityEngine.UI.Button;
 
+using FX;
+
 namespace UI
 {
     [RequireComponent(typeof(UnityButton))]
     [RequireComponent(typeof(PointerEventHandler))]
+    [RequireComponent(typeof(ScaleFXManager))]
     public class ButtonUIManager : MonoBehaviour
     {
         [Header("Audio")]
@@ -30,12 +32,7 @@ namespace UI
         [SerializeField] protected bool deselectOnSelect = true;
         [SerializeField] protected float deselectionDelay = 0.25f;
         public float DeselectionDelay { get { return deselectionDelay; } }
-        [SerializeField] float postAnnotationDelay = 0.5f;
-        public float PostAnnotationDelay { get { return postAnnotationDelay; } }
-
-        [Header("Notifications")]
-        [SerializeField] List<TextReceiver> textReceivers;
-        
+       
         public enum Event
         {
             OnPointerEnter,
@@ -51,12 +48,16 @@ namespace UI
         public UnityButton Button { get { return button; } }
 
         private UnityButton button;
-        private Coroutine postAnnotationCoroutine;
+        private ScaleFXManager scaleFXManager;
         private Vector3 originalScale;
 
         public virtual void Awake() => ResolveDependencies();
 
-        private void ResolveDependencies() => button = GetComponent<UnityButton>() as UnityButton;
+        private void ResolveDependencies()
+        {
+            button = GetComponent<UnityButton>() as UnityButton;
+            scaleFXManager = GetComponent<ScaleFXManager>() as ScaleFXManager;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -131,27 +132,15 @@ namespace UI
             PostEvent(Event.OnPointerEnter);
         }
 
-        protected virtual void OnPointerEnter(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
-        {
-            StartCoroutine(OnPointerEnterCoroutine(eventData, eventData.pointerEnter, rayInteractor));
-            postAnnotationCoroutine = StartCoroutine(PostAnnotationCoroutine(eventData.pointerEnter));
-        }
+        protected virtual void OnPointerEnter(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor) => StartCoroutine(OnPointerEnterCoroutine(eventData, eventData.pointerEnter, rayInteractor));
 
         private IEnumerator OnPointerEnterCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            var manager = gameObject.GetComponent<ButtonUI>() as ButtonUI;
-
-            if (manager.Header != null)
-            {
-                manager.HeaderColor = manager.HeaderHighlightColor;
-            }
-
             if (enableHaptics)
             {
                 rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
 
-            var scaleFXManager = manager.ScaleFXManager;
             scaleFXManager.ScaleUp(originalScale, originalScale* 1.1f);
             
             if (onHoverClip != null)
@@ -205,66 +194,16 @@ namespace UI
             PostEvent(Event.OnPointerExit);
         }
 
-        protected virtual void OnPointerExit(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
-        {
-            StartCoroutine(OnPointerExitCoroutine(eventData, eventData.pointerEnter, rayInteractor));
-                
-            if (postAnnotationCoroutine != null)
-            {
-                StopCoroutine(postAnnotationCoroutine);
-            }
-
-            NotifyReceivers(string.Empty);
-        }
+        protected virtual void OnPointerExit(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor) => StartCoroutine(OnPointerExitCoroutine(eventData, eventData.pointerEnter, rayInteractor));
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            var manager = gameObject.GetComponent<ButtonUI>() as ButtonUI;
-
-            if (manager.Header != null)
-            {
-                manager.HeaderColor = manager.DefaultHeaderColor;
-            }
-
-            var scaleFXManager = manager.ScaleFXManager;
             scaleFXManager.ScaleDown(originalScale * 1.1f, originalScale);
 
             yield return null;
         }
 
-        private IEnumerator PostAnnotationCoroutine(GameObject gameObject)
-        {
-            yield return new WaitForSeconds(postAnnotationDelay);
-
-            var manager = gameObject.GetComponent<ButtonUI>() as ButtonUI;
-
-            if (manager.Annotation != null)
-            {
-                NotifyReceivers(manager.Annotation.Text);
-            }
-        }
-
-        public void Reset()
-        {
-            transform.localScale = originalScale;
-
-            var buttonUI = transform.gameObject.GetComponent<ButtonUI>() as ButtonUI;
-
-            if (buttonUI.Header != null)
-            {
-                buttonUI.HeaderColor = buttonUI.DefaultHeaderColor;
-            }
-        }
-
         protected void PostEvent(Event @event) => EventReceived?.Invoke(this, @event);
-
-        protected void NotifyReceivers(string text)
-        {
-            foreach (TextReceiver receiver in textReceivers)
-            {
-                receiver?.OnText(text);
-            }
-        }
 
         public virtual void OnClickButton(UnityButton button)
         {
@@ -273,7 +212,6 @@ namespace UI
                 AudioSource.PlayClipAtPoint(onSelectClip, Vector3.zero, 1.0f);
             }
 
-            NotifyReceivers(string.Empty);
             PostEvent(Event.OnSelect);
 
             if (deselectOnSelect)

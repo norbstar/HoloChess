@@ -586,7 +586,6 @@ GameObject:
   - component: {fileID: 2303380403190574349}
   - component: {fileID: 2303380403190574254}
   - component: {fileID: 2303380403190574165}
-  - component: {fileID: 2303380403190574707}
   - component: {fileID: 2303380403190574376}
   - component: {fileID: 2303380403190573646}
   m_Layer: 5
@@ -739,23 +738,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &2303380403190574707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2303380403190571307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 2303380403190574868}
-  textUI: {fileID: 0}
-  annotation: {fileID: 2303380403190574582}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2303380403190574376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,8 +798,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   progress: {fileID: 2303380403190575051}
   progressTimeline: 1
 --- !u!1 &2303380403190571530
@@ -2081,7 +2061,6 @@ GameObject:
   - component: {fileID: 5237202018964152567}
   - component: {fileID: 3526477547884761956}
   - component: {fileID: 8367934911389773980}
-  - component: {fileID: 5493250935165521038}
   - component: {fileID: 1103355737970067351}
   m_Layer: 5
   m_Name: Lock Swap Button
@@ -2232,23 +2211,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCallbacks: 1
---- !u!114 &5493250935165521038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6895840766625801399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d28b4260312e5d46adb18e287095e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: {fileID: 0}
-  icon: {fileID: 3520597393277218369}
-  textUI: {fileID: 0}
-  annotation: {fileID: 8862682348450535303}
-  headerHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1103355737970067351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2268,8 +2230,6 @@ MonoBehaviour:
   hapticsDuration: 0.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
-  postAnnotationDelay: 0.5
-  textReceivers: []
   off: {fileID: 21300000, guid: 301b9f7d500fbb941bc700194d245dfa, type: 3}
   offHightlight: {fileID: 21300000, guid: 5dc65d68a62a7c2499696cd780fb4802, type: 3}
   on: {fileID: 21300000, guid: a6d670ac1c8d88243b0b1404dac02805, type: 3}

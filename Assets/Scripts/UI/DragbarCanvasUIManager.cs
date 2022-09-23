@@ -15,6 +15,9 @@ namespace UI
         protected float layerRadius;
         protected bool isPointerDown;
 
+        [Header("Config")]
+        [SerializeField] bool alwaysShownDragBar = false;
+
         private HomeCanvasUIManager homeCanvasUIManager;
         private RaycastNotifier leftHandNotifier, rightHandNotifier;
 
@@ -78,7 +81,10 @@ namespace UI
                 LookAtRoot();
             }
 
-            panel.EnableDragBar(homeCanvasUIManager.Layer.IsShown);
+            if (!alwaysShownDragBar)
+            {
+                panel.EnableDragBar(homeCanvasUIManager.Layer.IsShown);
+            }
         }
 
         public override void Show()
