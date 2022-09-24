@@ -14,11 +14,20 @@ namespace UI
         [Header("Custom Config")]
         [SerializeField] KeyCode keyCode;
         public KeyCode KeyCode { get { return keyCode; } }
+        [SerializeField] bool overloadLabel = false;
+        [SerializeField] string label;
+        public string Label { get { return label; } }
 
         public override void Awake()
         {
             base.Awake();
-            textUI.text = ((char) keyCode).ToString();
+
+            if (!overloadLabel)
+            {
+                label = ((char) keyCode).ToString();
+            }
+
+            textUI.text = label;
         }
     }
 }

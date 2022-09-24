@@ -26,10 +26,11 @@ namespace UI
             base.Awake();
             ResolveDependencies();
             dragBar = panel.GetDragBar();
-            layerRadius = layer.transform.localScale.z * 0.5f;
 
             if (layer != null)
             {
+                layerRadius = layer.transform.localScale.z * 0.5f;
+                
                 transform.position = new Vector3(
                     layer.transform.position.x,
                     layer.transform.position.y,
@@ -70,6 +71,8 @@ namespace UI
 
         protected void LookAtRoot()
         {
+            if (layer == null) return;
+            
             Vector3 offset = transform.position - layer.transform.position;
             transform.LookAt(transform.position + offset);
         }
@@ -89,14 +92,19 @@ namespace UI
 
         public override void Show()
         {
+            base.Show();
+            if (layer == null) return;
+
             layer.gameObject.SetActive(true);
             layer.Attach(gameObject);
-            base.Show();
         }
 
         public override void Hide()
         {
             base.Hide();
+
+            if (layer == null) return;
+
             layer.Detach(gameObject);
 
             if (!layer.HasChildren)

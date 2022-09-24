@@ -12,7 +12,6 @@ using Enum;
 public class HandController : GizmoManager
 {
     [Header("Config")]
-    [SerializeField] PrefabToLayerMap pointerMap;
     [SerializeField] float pointerOffset = 0.2f;
 
     public static InputDeviceCharacteristics RightHandCharacteristics = (InputDeviceCharacteristics.Controller | InputDeviceCharacteristics.TrackedDevice | InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Right);
@@ -31,8 +30,9 @@ public class HandController : GizmoManager
     [SerializeField] Hand hand;
     [SerializeField] bool enablePointer = false;
 
-    private ActionBasedController controller;
     private RaycastNotifier notifier;
+    private ActionBasedController controller;
+    private PrefabToLayerMap pointerMap;
     private InputDeviceCharacteristics characteristics;
     private LayerMask layerMask;
     private GameObject pointerPrefab, pointer;

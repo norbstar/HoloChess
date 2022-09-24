@@ -642,7 +642,7 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointerMap: {fileID: 0}
+  pointerMap: {fileID: 6705437721481607137}
   pointerOffset: 0.002
   hand: 1
   enablePointer: 1
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointerMap: {fileID: 0}
+  pointerMap: {fileID: 555385866209633640}
   pointerOffset: 0.002
   hand: 0
   enablePointer: 1
