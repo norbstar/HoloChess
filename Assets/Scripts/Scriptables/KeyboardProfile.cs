@@ -17,7 +17,6 @@ namespace Scriptables
             }
             
             binding.character = text;
-            // Debug.Log(binding.character);
         }
     }
 }

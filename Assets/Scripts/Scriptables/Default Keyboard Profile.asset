@@ -20,3 +20,73 @@ MonoBehaviour:
     additionalUnicodes:
     - \u0031
     character: q
+  - id: 2
+    unicode: \u0077
+    label: w
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: w
+  - id: 3
+    unicode: \u0065
+    label: e
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: e
+  - id: 4
+    unicode: \u0072
+    label: r
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: r
+  - id: 5
+    unicode: \u0074
+    label: t
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: t
+  - id: 6
+    unicode: \u0079
+    label: y
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: y
+  - id: 7
+    unicode: \u0075
+    label: u
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: u
+  - id: 8
+    unicode: \u0069
+    label: i
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: i
+  - id: 9
+    unicode: \u006f
+    label: o
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: o
+  - id: 10
+    unicode: \u0070
+    label: p
+    autoGenerateLabel: 1
+    additionalUnicodes:
+    - \u0031
+    character: p
+  - id: 11
+    unicode: \u0008
+    label: BKSP
+    autoGenerateLabel: 0
+    additionalUnicodes:
+    - \u0031
+    character: "\b"

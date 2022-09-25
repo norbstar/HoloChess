@@ -25,7 +25,7 @@ namespace UI
             this.binding = binding;
 
             Debug.Log($"Id : {binding.id} Character : {binding.character}");
-            textUI.text = binding.character;
+            textUI.text = binding.label;
         }
     }
 }
