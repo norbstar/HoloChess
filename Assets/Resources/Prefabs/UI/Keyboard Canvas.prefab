@@ -478,7 +478,7 @@ MonoBehaviour:
   panel: {fileID: 1760802546142920612}
   layer: {fileID: 0}
   alwaysShownDragBar: 1
-  profile: {fileID: 11400000, guid: 4dab6462658a90a46916e8b603d54b26, type: 2}
+  keyboardMap: {fileID: 1087632561}
 --- !u!1 &3839646276227983856
 GameObject:
   m_ObjectHideFlags: 0
@@ -5044,6 +5044,20 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7043618826446280906, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
   m_PrefabInstance: {fileID: 8777610880988096361}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1087632561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357087366334392188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e04584e2616e3d498d12f4c700a16ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons: []
+  profile: {fileID: 11400000, guid: 4dab6462658a90a46916e8b603d54b26, type: 2}
 --- !u!114 &2214204776313551364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5070,15 +5084,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1087632561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4357087366334392188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e04584e2616e3d498d12f4c700a16ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

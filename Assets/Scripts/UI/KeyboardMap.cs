@@ -13,7 +13,7 @@ namespace UI
         [SerializeField] List<KeyBindingButtonUIManager> buttons;
 
         [Header("Config")]
-        [SerializeField] TypedKeyboardProfile<object> profile;
+        [SerializeField] KeyboardProfileScriptable scriptable;
 
         void Awake()
         {
@@ -24,6 +24,7 @@ namespace UI
             foreach (KeyBindingButtonUIManager button in buttons)
             {
                 button.Id = ++id;
+                button.AssignBinding(scriptable);
             }
         }
 

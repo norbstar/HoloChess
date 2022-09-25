@@ -3104,7 +3104,7 @@ MonoBehaviour:
   panel: {fileID: 1845272243}
   layer: {fileID: 0}
   alwaysShownDragBar: 1
-  profile: {fileID: 0}
+  keyboardMap: {fileID: 0}
 --- !u!1 &288387390
 GameObject:
   m_ObjectHideFlags: 0
@@ -17489,10 +17489,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1087632561, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
-      propertyPath: profile
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1477301322, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -17624,10 +17620,6 @@ PrefabInstance:
     - target: {fileID: 1635124348555816203, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
       propertyPath: m_Name
       value: Keyboard Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 4357087366334392188, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
@@ -23725,7 +23717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1956929388
 Transform:
   m_ObjectHideFlags: 0
