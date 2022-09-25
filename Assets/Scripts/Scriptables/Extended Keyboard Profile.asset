@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adfaf04e2f5b421488d6c88199fd2fdb, type: 3}
-  m_Name: Sample Keyboard Profile
+  m_Script: {fileID: 11500000, guid: efc94d7d7f64c5649b125627c4cd02ee, type: 3}
+  m_Name: Extended Keyboard Profile
   m_EditorClassIdentifier: 
   bindings:
-  - unicode: 0x0061
-    label: 0061
-    autoGenerateLabel: 1
-  - unicode: 0x0041
-    label: 0041
-    autoGenerateLabel: 1
-  - unicode: 0x002A
-    label: Space
+  - id: 0
+    unicode: 
+    label: 
     autoGenerateLabel: 0
+    character: 
+    isMacro: 0

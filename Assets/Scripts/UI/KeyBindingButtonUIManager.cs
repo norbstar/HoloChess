@@ -11,23 +11,15 @@ namespace UI
         [Header("Custom Components")]
         [SerializeField] TextMeshProUGUI textUI;
 
-        [Header("Custom Config")]
-        [SerializeField] KeyCode keyCode;
-        public KeyCode KeyCode { get { return keyCode; } }
-        [SerializeField] bool overloadLabel = false;
-        [SerializeField] string label;
-        public string Label { get { return label; } }
+        [Header("Config")]
+        [SerializeField] int id;
+        public int Id { get { return id; } set { id = value; } }
 
         public override void Awake()
         {
             base.Awake();
 
-            if (!overloadLabel)
-            {
-                label = ((char) keyCode).ToString();
-            }
-
-            textUI.text = label;
+            // TODO
         }
     }
 }

@@ -5,33 +5,29 @@ using UnityEngine;
 namespace Scriptables
 {
     [CreateAssetMenu(fileName = "Extended Keyboard Profile", menuName = "Keyboard UI/Extended Profile", order = 2)]
-    public class ExtendedKeyboardProfile : TypedKeyboardProfile<ExtendedKeyboardProfile.ExtendedBinding>
+    public class ExtendedKeyboardProfile : TypedKeyboardProfile<ExtendedKeyboardProfile.ExtendedKeyboardBinding>
     {
         [Serializable]
-        public class ExtendedBinding : BaseKeyboardBinding
+        public class ExtendedKeyboardBinding : KeyboardBinding
         {
             public bool isMacro = false;
         }
-
-        void OnEnable()
+        
+        public override void MapBinding(ExtendedKeyboardBinding binding)
         {
-            foreach (ExtendedBinding binding in GetBindings())
+            var text = System.Text.RegularExpressions.Regex.Unescape(binding.unicode).ToString();
+
+            if (binding.autoGenerateLabel)
             {
-                if (binding == null) continue;
+                binding.label = text;
+            }
 
-                char character = System.Convert.ToChar(System.Convert.ToUInt32($"0x{binding.code}", 16));
-                
-                if (binding.autoGenerateLabel)
-                {
-                    binding.label = character.ToString();
-                }
+            binding.character = text;
+            Debug.Log(binding.character);
 
-                binding.character = character;
-
-                if (binding.isMacro)
-                {
-                    // TODO
-                }
+            if (binding.isMacro)
+            {
+                // TODO
             }
         }
     }   

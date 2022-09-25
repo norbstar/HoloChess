@@ -38,7 +38,7 @@ namespace UI
             if (@event != ButtonUIManager.Event.OnSelect) return;
 
             KeyBindingButtonUIManager keyBindingManager = (KeyBindingButtonUIManager) manager;
-            Debug.Log($"KeyCode : {keyBindingManager.KeyCode}");
+            Debug.Log($"Id : {keyBindingManager.Id}");
         }
     }
 }

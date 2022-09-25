@@ -1,39 +1,23 @@
 using System;
-using System.Text;
 
 using UnityEngine;
 
 namespace Scriptables
 {
     [CreateAssetMenu(fileName = "Keyboard Profile", menuName = "Keyboard UI/Profile", order = 1)]
-    public class KeyboardProfile : TypedKeyboardProfile<KeyboardProfile.Binding>
+    public class KeyboardProfile : TypedKeyboardProfile<KeyboardBinding>
     {
-        [Serializable]
-        public class Binding
+        public override void MapBinding(KeyboardBinding binding)
         {
-            public string unicode;
-            public string label = default(string);
-            public string character;
-            public bool autoGenerateLabel = true;
-        }
+            var text = System.Text.RegularExpressions.Regex.Unescape(binding.unicode).ToString();
 
-        void OnEnable()
-        {
-            foreach (Binding binding in GetBindings())
+            if (binding.autoGenerateLabel)
             {
-                if (binding == null) continue;
-                
-                var character = Convert.ToInt32(binding.unicode , 16);
-                var text = Char.ConvertFromUtf32(character);
-
-                if (binding.autoGenerateLabel)
-                {
-                    binding.label = text;
-                }
-                
-                binding.character = text;
-                Debug.Log(binding.character);
+                binding.label = text;
             }
+            
+            binding.character = text;
+            Debug.Log(binding.character);
         }
     }
 }
