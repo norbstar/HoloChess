@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Scriptables
 {
@@ -9,6 +10,7 @@ namespace Scriptables
         public string unicode;
         public string label = default(string);
         public bool autoGenerateLabel = true;
+        public List<string> additionalUnicodes;
         public string character;
     }
 }

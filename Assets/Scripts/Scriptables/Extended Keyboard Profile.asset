@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Extended Keyboard Profile
   m_EditorClassIdentifier: 
   bindings:
-  - id: 0
-    unicode: 
+  - id: 2
+    unicode: \u00b5
     label: 
-    autoGenerateLabel: 0
+    autoGenerateLabel: 1
+    additionalUnicodes: []
     character: 
-    isMacro: 0
+    isMacro: 1

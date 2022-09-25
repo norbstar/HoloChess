@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Default Keyboard Profile
   m_EditorClassIdentifier: 
   bindings:
-  - id: 0
-    unicode: \u03a0
-    label: 
+  - id: 1
+    unicode: \u0071
+    label: q
     autoGenerateLabel: 1
-    character: "\u03A0"
+    additionalUnicodes:
+    - \u0031
+    character: q

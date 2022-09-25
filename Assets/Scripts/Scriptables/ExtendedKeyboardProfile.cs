@@ -12,7 +12,7 @@ namespace Scriptables
         {
             public bool isMacro = false;
         }
-        
+
         public override void MapBinding(ExtendedKeyboardBinding binding)
         {
             var text = System.Text.RegularExpressions.Regex.Unescape(binding.unicode).ToString();

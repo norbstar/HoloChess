@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 
 using UnityEngine;
@@ -12,9 +13,11 @@ namespace Tests
         [SerializeField] string hexString;
         [SerializeField] string unicodeString;
         [SerializeField] string value;
-        // [SerializeField] BaseScriptable baseScriptable;
-        // [SerializeField] ExtendedScriptable extendedScriptable;
-        // [SerializeField] TypedKeyboardProfile<Binding> profile;
+
+        [SerializeField] BaseScriptable baseScriptable;
+        [SerializeField] ExtendedScriptable extendedScriptable;
+        [SerializeField] ScriptableObject profile;
+        [SerializeField] ScriptableObject profile2;
 
         void Awake()
         {
@@ -41,6 +44,48 @@ namespace Tests
             // The resulting string is different due to the unsupported character for ASCII encoding
             Debug.Log($"Unicode string: {unicodeString}");
             Debug.Log($"ASCII string: {asciiString}");
+
+            System.Type type = profile.GetType();
+
+            if (type == typeof(BaseScriptable))
+            {
+                Debug.Log($"Profile is BaseScriptable");
+            }
+            else if (type == typeof(ExtendedScriptable))
+            {
+                Debug.Log($"Profile is ExtendedScriptable");
+            }
+
+            type = profile2.GetType();
+
+            if (type == typeof(KeyboardProfile))
+            {
+                Debug.Log($"Profile2 is KeyboardProfile");
+
+                KeyboardProfile profile = (KeyboardProfile) profile2;
+                List<KeyboardBinding> bindings = profile.GetBindings();
+
+                foreach (KeyboardBinding binding in bindings)
+                {
+                    Debug.Log($"Id : {binding.id} Character : {binding.character}");
+                }
+            }
+            else if (type == typeof(ExtendedKeyboardProfile))
+            {
+                Debug.Log($"Profile2 is ExtendedKeyboardProfile");
+
+                ExtendedKeyboardProfile profile = (ExtendedKeyboardProfile) profile2;
+                List<ExtendedKeyboardProfile.ExtendedKeyboardBinding> bindings = profile.GetBindings();
+                
+                foreach (ExtendedKeyboardProfile.ExtendedKeyboardBinding binding in bindings)
+                {
+                    Debug.Log($"Id : {binding.id} Character : {binding.character} isMacro {binding.isMacro}");
+                }
+            }
+            else
+            {
+                throw new System.Exception("Profile 2 is of an non TypedKeyboardProfile type!");
+            }
         }
     }
 }

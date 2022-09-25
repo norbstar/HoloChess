@@ -11247,6 +11247,10 @@ MonoBehaviour:
   hexString: 0x03a0
   unicodeString: Maths use \u03a0 (Pi) for calculations \u0041
   value: 03a0
+  baseScriptable: {fileID: 11400000, guid: 914916ac31b56f547a2dfc27e4e47e84, type: 2}
+  extendedScriptable: {fileID: 11400000, guid: 326b9e94f94a5cb42971283d91d80f31, type: 2}
+  profile: {fileID: 11400000, guid: 326b9e94f94a5cb42971283d91d80f31, type: 2}
+  profile2: {fileID: 11400000, guid: 72a1eaad75ac4ec4b94a52c7b2cca881, type: 2}
 --- !u!1 &1008355069
 GameObject:
   m_ObjectHideFlags: 0
@@ -17485,6 +17489,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1087632561, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
+      propertyPath: profile
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1477301322, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -17616,6 +17624,10 @@ PrefabInstance:
     - target: {fileID: 1635124348555816203, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
       propertyPath: m_Name
       value: Keyboard Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4357087366334392188, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2956d2a066ad01b43b15238b6611bda4, type: 3}
@@ -23713,7 +23725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1956929388
 Transform:
   m_ObjectHideFlags: 0

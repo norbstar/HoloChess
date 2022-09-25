@@ -3,11 +3,17 @@ using System.Linq;
 
 using UnityEngine;
 
+using Scriptables;
+
 namespace UI
 {
     public class KeyboardMap : MonoBehaviour
     {
-        private List<KeyBindingButtonUIManager> buttons;
+        [Header("Components")]
+        [SerializeField] List<KeyBindingButtonUIManager> buttons;
+
+        [Header("Config")]
+        [SerializeField] TypedKeyboardProfile<object> profile;
 
         void Awake()
         {
