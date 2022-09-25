@@ -8,7 +8,7 @@ using Scriptables;
 namespace UI
 {
     [RequireComponent(typeof(Button))]
-    public class KeyBindingButtonUIManager : ButtonUIManager
+    public class ExtendedKeyBindingButtonUIManager : ButtonUIManager
     {
         [Header("Custom Components")]
         [SerializeField] TextMeshProUGUI textUI;
@@ -17,14 +17,14 @@ namespace UI
         [SerializeField] int id;
         public int Id { get { return id; } set { id = value; } }
 
-        private KeyboardBinding binding;
-        public KeyboardBinding Binding { get { return binding; } }
+        private ExtendedKeyboardProfile.ExtendedKeyboardBinding binding;
+        public ExtendedKeyboardProfile.ExtendedKeyboardBinding Binding { get { return binding; } }
 
-        public void AssignBinding(KeyboardBinding binding)
+        public void AssignBinding(ExtendedKeyboardProfile.ExtendedKeyboardBinding binding)
         {
             this.binding = binding;
 
-            Debug.Log($"Id : {binding.id} Character : {binding.character}");
+            Debug.Log($"Id : {binding.id} Character : {binding.character} isMacro {binding.isMacro}");
             textUI.text = binding.character;
         }
     }

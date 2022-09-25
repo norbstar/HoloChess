@@ -23,7 +23,7 @@ namespace Scriptables
             }
 
             binding.character = text;
-            Debug.Log(binding.character);
+            // Debug.Log(binding.character);
 
             if (binding.isMacro)
             {

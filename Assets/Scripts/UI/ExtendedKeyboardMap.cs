@@ -7,15 +7,15 @@ using Scriptables;
 
 namespace UI
 {
-    public class KeyboardMap : BaseKeyboardMap
+    public class ExtendedKeyboardMap : BaseKeyboardMap
     {
         [Header("Components")]
-        [SerializeField] List<KeyBindingButtonUIManager> buttons;
+        [SerializeField] List<ExtendedKeyBindingButtonUIManager> buttons;
 
         [Header("Config")]
-        [SerializeField] KeyboardProfile profile;
+        [SerializeField] ExtendedKeyboardProfile profile;
 
-        public delegate void OnMapButtonEvent(KeyBindingButtonUIManager manager);
+        public delegate void OnMapButtonEvent(ExtendedKeyBindingButtonUIManager manager);
         public event OnMapButtonEvent EventReceived;
 
         void Awake()
@@ -24,18 +24,18 @@ namespace UI
             Configure();
         }
 
-        private void ResolveDependencies() => buttons = GetComponentsInChildren<KeyBindingButtonUIManager>().ToList();
+        private void ResolveDependencies() => buttons = GetComponentsInChildren<ExtendedKeyBindingButtonUIManager>().ToList();
 
         public override void Configure()
         {
             int id = 0;
 
-            List<KeyboardBinding> bindings = profile.GetBindings();
+            List<ExtendedKeyboardProfile.ExtendedKeyboardBinding> bindings = profile.GetBindings();
 
-            foreach (KeyBindingButtonUIManager button in buttons)
+            foreach (ExtendedKeyBindingButtonUIManager button in buttons)
             {
                 button.Id = ++id;
-
+                
                 var binding = bindings.FirstOrDefault(b => b.id == button.Id);
                 
                 if (binding != null)
@@ -51,7 +51,7 @@ namespace UI
         {
             if (@event != ButtonUIManager.Event.OnSelect) return;
          
-            EventReceived?.Invoke((KeyBindingButtonUIManager) manager);
+            EventReceived?.Invoke((ExtendedKeyBindingButtonUIManager) manager);
         }
     }
 }
