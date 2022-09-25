@@ -11249,8 +11249,8 @@ MonoBehaviour:
   value: 03a0
   baseScriptable: {fileID: 11400000, guid: 914916ac31b56f547a2dfc27e4e47e84, type: 2}
   extendedScriptable: {fileID: 11400000, guid: 326b9e94f94a5cb42971283d91d80f31, type: 2}
-  profile: {fileID: 11400000, guid: 326b9e94f94a5cb42971283d91d80f31, type: 2}
-  profile2: {fileID: 11400000, guid: 72a1eaad75ac4ec4b94a52c7b2cca881, type: 2}
+  sciprtable: {fileID: 11400000, guid: 326b9e94f94a5cb42971283d91d80f31, type: 2}
+  keyboardProfile: {fileID: 11400000, guid: 72a1eaad75ac4ec4b94a52c7b2cca881, type: 2}
 --- !u!1 &1008355069
 GameObject:
   m_ObjectHideFlags: 0

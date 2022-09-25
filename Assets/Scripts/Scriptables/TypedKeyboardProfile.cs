@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scriptables
 {
-    public abstract class TypedKeyboardProfile<T> : ScriptableObject where T : class
+    public abstract class TypedKeyboardProfile<T> : KeyboardProfileScriptable where T : class
     {
         [Header("Config")]
         [SerializeField] List<T> bindings;

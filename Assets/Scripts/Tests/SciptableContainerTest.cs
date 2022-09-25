@@ -16,8 +16,8 @@ namespace Tests
 
         [SerializeField] BaseScriptable baseScriptable;
         [SerializeField] ExtendedScriptable extendedScriptable;
-        [SerializeField] ScriptableObject profile;
-        [SerializeField] ScriptableObject profile2;
+        [SerializeField] ScriptableObject sciprtable;
+        [SerializeField] KeyboardProfileScriptable keyboardProfile;
 
         void Awake()
         {
@@ -45,7 +45,7 @@ namespace Tests
             Debug.Log($"Unicode string: {unicodeString}");
             Debug.Log($"ASCII string: {asciiString}");
 
-            System.Type type = profile.GetType();
+            System.Type type = sciprtable.GetType();
 
             if (type == typeof(BaseScriptable))
             {
@@ -56,13 +56,13 @@ namespace Tests
                 Debug.Log($"Profile is ExtendedScriptable");
             }
 
-            type = profile2.GetType();
+            type = keyboardProfile.GetType();
 
             if (type == typeof(KeyboardProfile))
             {
                 Debug.Log($"Profile2 is KeyboardProfile");
 
-                KeyboardProfile profile = (KeyboardProfile) profile2;
+                KeyboardProfile profile = (KeyboardProfile) keyboardProfile;
                 List<KeyboardBinding> bindings = profile.GetBindings();
 
                 foreach (KeyboardBinding binding in bindings)
@@ -74,7 +74,7 @@ namespace Tests
             {
                 Debug.Log($"Profile2 is ExtendedKeyboardProfile");
 
-                ExtendedKeyboardProfile profile = (ExtendedKeyboardProfile) profile2;
+                ExtendedKeyboardProfile profile = (ExtendedKeyboardProfile) keyboardProfile;
                 List<ExtendedKeyboardProfile.ExtendedKeyboardBinding> bindings = profile.GetBindings();
                 
                 foreach (ExtendedKeyboardProfile.ExtendedKeyboardBinding binding in bindings)
