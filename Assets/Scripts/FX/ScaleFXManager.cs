@@ -12,7 +12,7 @@ namespace FX
             RelativeToY,
             RelativeToZ
         }
-
+        
         private FX.ScaleFX scaleFX;
 
         void Awake() => ResolveDependencies();
@@ -61,7 +61,7 @@ namespace FX
 
         public void ScaleTween(Vector3 fromScale, Vector3 toScale)
         {
-            Debug.Log($"ScaleTween From : {fromScale} To : {toScale}");
+            // Debug.Log($"ScaleTween From : {fromScale.ToPrecisionString()} To : {toScale.ToPrecisionString()}");
 
             scaleFX.StopAsync();
 
@@ -74,10 +74,35 @@ namespace FX
 
         public void ScaleCustom(Vector3 fromScale, ScaleType scaleType, float scaleFactor)
         {
-            Debug.Log($"ScaleCustom From : {fromScale} Scale Type : {scaleType} Scale Factor : {scaleFactor}");
+            // Debug.Log($"ScaleCustom From : {fromScale.ToPrecisionString()} Scale Type : {scaleType} Scale Factor : {scaleFactor}");
 
             Vector3 toScale = Scale(fromScale, scaleType, scaleFactor);
             ScaleTween(fromScale, toScale);
+        }
+
+        public float CalculateInverseScaleFactor(Vector3 localScale, Vector3 originalScale, ScaleType scaleType)
+        {
+            // Debug.Log($"CalculateInverseScaleFactor Local Scale : {localScale.ToPrecisionString()} Original Scale : {originalScale.ToPrecisionString()} Scale Type : {scaleType}");
+
+            // Default to proportional scaling
+            float scaleFactor = ((localScale.x - originalScale.x) / localScale.x) * 10f;
+
+            switch (scaleType)
+            {
+                case ScaleType.RelativeToX:
+                    scaleFactor = ((localScale.x - originalScale.x) / localScale.x) * 10f;
+                    break;
+                
+                case ScaleType.RelativeToY:
+                    scaleFactor = ((localScale.y - originalScale.y) / localScale.y) * 10f;
+                    break;
+
+                case ScaleType.RelativeToZ:
+                    scaleFactor = ((localScale.z - originalScale.z) / localScale.z) * 10f;
+                    break;
+            }
+
+            return scaleFactor;
         }
     }
 }

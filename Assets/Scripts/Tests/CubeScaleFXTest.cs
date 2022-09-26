@@ -18,19 +18,18 @@ namespace Tests
 
         [Header("Config")]
         [SerializeField] InputAction inputAction;
-        [SerializeReference] ScaleMethod scaleMethod;
-
-        private static float scaleFactor = 1.1f;
+        [SerializeField] ScaleMethod scaleMethod;
+        [SerializeField] ScaleType scaleType;
+        [SerializeField] float scaleFactor = 1.1f;
 
         private ScaleFXManager scaleFXManager;
-        private Vector3 originalScale, modifiedScale;
+        private Vector3 originalScale;
         private bool scaledUp;
 
         void Awake()
         {
             ResolveDependencies();
             originalScale = transform.localScale;
-            modifiedScale = originalScale * scaleFactor;
         }
 
         private void ResolveDependencies() => scaleFXManager = GetComponent<ScaleFXManager>() as ScaleFXManager;
@@ -56,7 +55,7 @@ namespace Tests
                     break;
 
                 case ScaleMethod.Custom:
-                    scaleFXManager.ScaleCustom(originalScale, ScaleType.RelativeToY, scaleFactor);
+                    scaleFXManager.ScaleCustom(originalScale, scaleType, scaleFactor);
                     break;
             }
         }
@@ -66,12 +65,12 @@ namespace Tests
             switch (scaleMethod)
             {
                 case ScaleMethod.Tween:
-                    scaleFXManager.ScaleTween(modifiedScale, originalScale);
+                    scaleFXManager.ScaleTween(transform.localScale, originalScale);
                     break;
 
                 case ScaleMethod.Custom:
-                    float inverseScaleFactor = ((transform.localScale.y - originalScale.y) / transform.localScale.y) * 10f;
-                    scaleFXManager.ScaleCustom(modifiedScale, ScaleType.RelativeToY, inverseScaleFactor);
+                    float inverseScaleFactor = scaleFXManager.CalculateInverseScaleFactor(transform.localScale, originalScale, scaleType);
+                    scaleFXManager.ScaleCustom(transform.localScale, scaleType, inverseScaleFactor);
                     break;
             }
         }

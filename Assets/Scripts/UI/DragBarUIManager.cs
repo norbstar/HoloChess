@@ -140,7 +140,7 @@ namespace UI
                     rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
                 }
 
-                scaleFXManager.ScaleFromTo(originalScale, new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z));
+                scaleFXManager.ScaleTween(originalScale, new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z));
 
                 if (onHoverClip != null)
                 {
@@ -237,7 +237,7 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            scaleFXManager.ScaleFromTo(new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z), originalScale);
+            scaleFXManager.ScaleTween(new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z), originalScale);
             yield return null;
         }
 
