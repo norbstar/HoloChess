@@ -10,6 +10,7 @@ namespace UI
         [SerializeField] TextMeshProUGUI textUI;
 
         private KeyboardCanvasUIManager manager;
+        private string text;
 
         void Awake() => ResolveDependencies();
 
@@ -19,6 +20,10 @@ namespace UI
 
         void OnDisable() => manager.EventReceived -= OnCharacterEvent;
 
-        private void OnCharacterEvent(string character) => textUI.text = $"{textUI.text}{character}";
+        private void OnCharacterEvent(string unicode, string character)
+        {
+            text = string.Concat(textUI.text, character);
+            textUI.text = text;
+        }
     }
 }

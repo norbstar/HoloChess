@@ -13,7 +13,7 @@ namespace UI
 {
     [RequireComponent(typeof(PointerEventHandler))]
     [RequireComponent(typeof(RootResolver))]
-    [RequireComponent(typeof(ScaleFXManager))]
+    [RequireComponent(typeof(ScaleFX2DManager))]
     public class DragBarUIManager : MonoBehaviour
     {
         [Header("Audio")]
@@ -45,7 +45,7 @@ namespace UI
 
         private PointerEventHandler eventHandler;
         private RootResolver rootResolver;
-        private ScaleFXManager scaleFXManager;
+        private ScaleFX2DManager scaleFXManager;
         private GameObject root;
         private bool isPointerEntered, isPointerDown;
         public bool IsPointerDown { get { return isPointerDown; } }
@@ -68,7 +68,7 @@ namespace UI
             image = GetComponent<Image>() as Image;
             eventHandler = GetComponent<PointerEventHandler>() as PointerEventHandler;
             rootResolver = GetComponent<RootResolver>() as RootResolver;
-            scaleFXManager = GetComponent<ScaleFXManager>() as ScaleFXManager;
+            scaleFXManager = GetComponent<ScaleFX2DManager>() as ScaleFX2DManager;
         }
 
         void OnEnable() => eventHandler.EventReceived += OnPointerEvent;
@@ -140,7 +140,7 @@ namespace UI
                     rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
                 }
 
-                scaleFXManager.ScaleUp(originalScale, originalScale* 1.1f);
+                scaleFXManager.ScaleFromTo(originalScale, new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z));
 
                 if (onHoverClip != null)
                 {
@@ -237,7 +237,7 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            scaleFXManager.ScaleDown(originalScale * 1.1f, originalScale);
+            scaleFXManager.ScaleFromTo(new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z), originalScale);
             yield return null;
         }
 

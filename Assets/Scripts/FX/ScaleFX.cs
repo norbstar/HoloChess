@@ -25,7 +25,7 @@ namespace FX
         protected override IEnumerator Co_Routine(object obj)
         {
             config = (Config) obj;
-
+            
             float startTime = Time.time;
             float speed = Vector3.Distance(config.fromScale, config.toScale) / timeline;
             float elapsedTime = 0f;

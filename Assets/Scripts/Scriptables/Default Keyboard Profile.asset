@@ -15,78 +15,109 @@ MonoBehaviour:
   bindings:
   - id: 1
     unicode: \u0071
-    label: q
+    character: q
     autoGenerateLabel: 1
+    label: q
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: q
   - id: 2
     unicode: \u0077
-    label: w
+    character: w
     autoGenerateLabel: 1
+    label: w
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: w
   - id: 3
     unicode: \u0065
-    label: e
+    character: e
     autoGenerateLabel: 1
+    label: e
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: e
   - id: 4
     unicode: \u0072
-    label: r
+    character: r
     autoGenerateLabel: 1
+    label: r
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: r
   - id: 5
     unicode: \u0074
-    label: t
+    character: t
     autoGenerateLabel: 1
+    label: t
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: t
   - id: 6
     unicode: \u0079
-    label: y
+    character: y
     autoGenerateLabel: 1
+    label: y
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: y
   - id: 7
     unicode: \u0075
-    label: u
+    character: u
     autoGenerateLabel: 1
+    label: u
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: u
   - id: 8
     unicode: \u0069
-    label: i
+    character: i
     autoGenerateLabel: 1
+    label: i
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: i
   - id: 9
     unicode: \u006f
-    label: o
+    character: o
     autoGenerateLabel: 1
+    label: o
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: o
   - id: 10
     unicode: \u0070
-    label: p
+    character: p
     autoGenerateLabel: 1
+    label: p
+    displaySpriteInPlaceOfLabel: 0
+    sprite: {fileID: 0}
     additionalUnicodes:
     - \u0031
-    character: p
   - id: 11
     unicode: \u0008
-    label: BKSP
+    character: "\b"
     autoGenerateLabel: 0
+    label: 
+    displaySpriteInPlaceOfLabel: 1
+    sprite: {fileID: 21300000, guid: 59958339c6a4ef24e9427e8ae5373aa4, type: 3}
     additionalUnicodes:
     - \u0031
+  - id: 36
+    unicode: \u0020
     character: "\b"
+    autoGenerateLabel: 0
+    label: 
+    displaySpriteInPlaceOfLabel: 1
+    sprite: {fileID: 21300000, guid: 5566d273e375c4944bfb89d2e42cfcb4, type: 3}
+    additionalUnicodes:
+    - \u0031

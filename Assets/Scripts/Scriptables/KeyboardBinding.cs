@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using UnityEngine;
+
 namespace Scriptables
 {
     [Serializable]
@@ -8,9 +10,17 @@ namespace Scriptables
     {
         public int id;
         public string unicode;
-        public string label = default(string);
-        public bool autoGenerateLabel = true;
-        public List<string> additionalUnicodes;
         public string character;
+
+        [Header("Label")]
+        public bool autoGenerateLabel = true;
+        public string label = default(string);
+
+        [Header("Sprite")]
+        public bool displaySpriteInPlaceOfLabel = false;
+        public Sprite sprite;
+
+        [Header("Additional")]
+        public List<string> additionalUnicodes;
     }
 }

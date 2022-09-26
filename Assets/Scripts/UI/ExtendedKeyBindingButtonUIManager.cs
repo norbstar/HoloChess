@@ -12,6 +12,7 @@ namespace UI
     {
         [Header("Custom Components")]
         [SerializeField] TextMeshProUGUI textUI;
+        [SerializeField] Image image;
 
         [Header("Config")]
         [SerializeField] int id;
@@ -24,8 +25,15 @@ namespace UI
         {
             this.binding = binding;
 
-            Debug.Log($"Id : {binding.id} Character : {binding.character} isMacro {binding.isMacro}");
+            // Debug.Log($"Id : {binding.id} Character : {binding.character} isMacro {binding.isMacro}");
             textUI.text = binding.character;
+
+            if (binding.displaySpriteInPlaceOfLabel && binding.sprite != null)
+            {
+                image.sprite = binding.sprite;
+                textUI.gameObject.SetActive(false);
+                image.gameObject.SetActive(true);
+            }
         }
     }
 }

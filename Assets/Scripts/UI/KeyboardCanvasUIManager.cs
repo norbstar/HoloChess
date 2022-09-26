@@ -12,8 +12,8 @@ namespace UI
         [Header("Components")]
         [SerializeField] List<BaseKeyboardMap> maps;
 
-        public delegate void OnCharacterEvent(string character);
-        public event OnCharacterEvent EventReceived;
+        public delegate void OnKeyEvent(string unicode, string character);
+        public event OnKeyEvent EventReceived;
 
         protected override void Awake()
         {
@@ -64,7 +64,7 @@ namespace UI
             var binding = manager.Binding;
             Debug.Log($"OnMapButtonEvent Id : {binding.id} Character : {binding.character}");
 
-            EventReceived?.Invoke(binding.character);
+            EventReceived?.Invoke(binding.unicode, binding.character);
         }
 
         private void OnMapButtonEvent(ExtendedKeyBindingButtonUIManager manager)
@@ -72,7 +72,7 @@ namespace UI
             var binding = manager.Binding;
             Debug.Log($"Id : {binding.id} Character : {binding.character} isMacro {binding.isMacro}");
 
-            EventReceived?.Invoke(binding.character);
+            EventReceived?.Invoke(binding.unicode, binding.character);
         }
     }
 }

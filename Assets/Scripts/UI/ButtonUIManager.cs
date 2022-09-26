@@ -13,7 +13,7 @@ namespace UI
 {
     [RequireComponent(typeof(UnityButton))]
     [RequireComponent(typeof(PointerEventHandler))]
-    [RequireComponent(typeof(ScaleFXManager))]
+    [RequireComponent(typeof(ScaleFX2DManager))]
     public class ButtonUIManager : MonoBehaviour
     {
         [Header("Audio")]
@@ -48,15 +48,18 @@ namespace UI
         public UnityButton Button { get { return button; } }
 
         private UnityButton button;
-        private ScaleFXManager scaleFXManager;
+        private ScaleFX2DManager scaleFXManager;
         private Vector3 originalScale;
 
-        public virtual void Awake() => ResolveDependencies();
+        public virtual void Awake()
+        {
+            ResolveDependencies();
+        }
 
         private void ResolveDependencies()
         {
             button = GetComponent<UnityButton>() as UnityButton;
-            scaleFXManager = GetComponent<ScaleFXManager>() as ScaleFXManager;
+            scaleFXManager = GetComponent<ScaleFX2DManager>() as ScaleFX2DManager;
         }
 
         // Start is called before the first frame update
@@ -140,8 +143,8 @@ namespace UI
             {
                 rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
-
-            scaleFXManager.ScaleUp(originalScale, originalScale* 1.1f);
+            
+            scaleFXManager.ScaleFromTo(originalScale, new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z));
             
             if (onHoverClip != null)
             {
@@ -198,8 +201,7 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            scaleFXManager.ScaleDown(originalScale * 1.1f, originalScale);
-
+            scaleFXManager.ScaleFromTo(new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z), originalScale);
             yield return null;
         }
 
