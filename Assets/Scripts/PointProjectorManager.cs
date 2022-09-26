@@ -10,7 +10,7 @@ public class PointProjectorManager : MonoBehaviour
 
     private List<PointProjector> projectors;
 
-    public PointProjector Add(PointProjector.Type type, string name, string label, Vector3? overrideScale = null)
+    public PointProjector Add(PointProjector.Type type, string name, string label)
     {
         if (projectors == null)
         {
@@ -23,7 +23,7 @@ public class PointProjectorManager : MonoBehaviour
         instance.name = name;
 
         var projector = instance.GetComponent<PointProjector>();
-        projector.Build(type, label, overrideScale);
+        projector.Build(type, label);
         projectors.Add(projector);
 
         return projector;

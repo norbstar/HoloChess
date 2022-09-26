@@ -1,0 +1,90 @@
+Instantiate a point prefab with configuration parameters
+
+PointProjectorDatabase.PlotPoint($"Point", $"Point", PointProjector.Type.White, transform.position);
+
+
+PointProjectorDatabase
+
+    public class PointProperties
+    {
+        public Vector3? position;
+        public Quaternion? rotation;
+    }
+
+    public static PointProjector PlotPoint(string name, string label, PointProjector.Type type, Vector3 position, Quaternion? rotation = null, Vector3? overrideScale = null)
+    {
+        var properties = new PointProjector.PointProperties
+        {
+            position = position,
+            rotation = (rotation.HasValue) ? rotation.Value : Quaternion.identity
+        };
+
+        return PlotPoint(name, label, type, properties, overrideScale);
+    }
+
+    private static PointProjector PlotPoint(string name, string label, PointProjector.Type type, PointProjector.PointProperties point, Vector3? overrideScale = null)
+    {
+        // Attempt to locate an element matching the supplied name
+        if (manager.TryGet(name, out PointProjector projector))
+        {
+            // If it finds an matching element, update the point data (i.e. position and/or rotation)
+            projector.Point = point;
+        }
+        else
+        {
+            // If it fails to find a match, add a new element and assign the point data to the instance
+            projector = manager.Add(type, name, label, overrideScale);
+            projector.Point = point;
+        }
+
+        // In either case designate the label
+        projector.Label = label;
+
+        // Return the exisiting or new point instance
+        return projector;
+    }
+
+---
+
+PointProjectorManager
+
+    public PointProjector Add(PointProjector.Type type, string name, string label, Vector3? overrideScale = null)
+    {
+        if (projectors == null)
+        {
+            projectors = new List<PointProjector>();
+        }
+
+        // If a match exists on the name, don't add the point and instead return null to signify it wasn't added
+        if (projectors.FirstOrDefault(p => p.name.Equals(name))) return null;
+
+        // Otherwise create an instance of the point projector game object, names it, positions it at world center with default rotation and designated the parent
+        // Note that this is the not the point prefab, but the wrapper class that builds the point
+        var instance = Instantiate(prefab, Vector3.zero, Quaternion.identity, gameObject.transform);
+        instance.name = name;
+
+        var projector = instance.GetComponent<PointProjector>();
+
+        // Build the actual point instance as a child of the point projector instance for this element, defining the type, in scene label and optional scale override
+        projector.Build(type, label, overrideScale);
+
+        // Add the project the list of maintained projectors (used to delete a point instances)
+        projectors.Add(projector);
+
+        return projector;
+    }
+
+    PointProjector
+
+        public void Build(Type type, string label, Vector3? overrideScale = null)
+        {
+            // Build out the point instance as point type, using the supplied position and rotation data to mark it's starting state
+            // It's parent is assigned to the point projector (it's natural parent)
+            // If the override scale was was supplied, the scale is designated here, overriding the default scale as applied by the prefab used to spawn the instance
+        }
+
+        void Update()
+        {
+            // On each update the instance's position and rotation are refreshed from the point data which can be updated from the point project instance and it's exposed
+            // Point getter/setter or by re-submitting a call to PlotPoint, passing the same name
+        }

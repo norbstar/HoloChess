@@ -32,6 +32,7 @@ public class PointProjector : MonoBehaviour
     {
         public Vector3? position;
         public Quaternion? rotation;
+        public Vector3? scale;
     }
 
     private PointProperties point;
@@ -54,6 +55,11 @@ public class PointProjector : MonoBehaviour
             {
                 point.rotation = value.rotation.Value;
             }
+
+            if (value.scale.HasValue)
+            {
+                point.scale = value.scale.Value;
+            }
         }
     }
 
@@ -62,7 +68,8 @@ public class PointProjector : MonoBehaviour
         point = new PointProperties
         {
             position = Vector3.zero,
-            rotation = Quaternion.identity
+            rotation = Quaternion.identity,
+            scale = Vector3.zero
         };
     }
     
@@ -80,7 +87,7 @@ public class PointProjector : MonoBehaviour
         }
     } 
 
-    public void Build(Type type, string label, Vector3? overrideScale = null)
+    public void Build(Type type, string label)
     {
         switch (type)
         {
@@ -120,13 +127,8 @@ public class PointProjector : MonoBehaviour
 
         instance.transform.parent = transform;
         
-        if (overrideScale.HasValue)
-        {
-            instance.transform.localScale = overrideScale.Value;
-        }
-
         manager = instance.GetComponent<PointManager>() as PointManager;
-        Label = label;
+        this.label = manager.Text = label;
     }
 
     // Update is called once per frame
@@ -134,5 +136,6 @@ public class PointProjector : MonoBehaviour
     {
         instance.transform.position = point.position.Value;
         instance.transform.rotation = point.rotation.Value;
+        instance.transform.localScale = point.scale.Value;
     }
 }

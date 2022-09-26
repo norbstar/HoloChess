@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 using UnityButton = UnityEngine.UI.Button;
+using ScaleType = FX.ScaleFX2DManager.ScaleType;
 
 using FX;
 
@@ -27,8 +28,17 @@ namespace UI
         public float HapticsAmplitude { get { return hapticsAmplitude; } }
         [SerializeField] float hapticsDuration = 0.1f;
         public float HapticsDuration { get { return hapticsDuration; } }
-        
+
+        public enum ScaleMethod
+        {
+            Tween,
+            Custom
+        }
+
         [Header("Config")]
+        [SerializeField] ScaleMethod scaleMethod = ScaleMethod.Custom;
+        [SerializeField] ScaleType scaleType = ScaleType.RelativeToY;
+        [SerializeField] float scaleFactor = 1.1f;
         [SerializeField] protected bool deselectOnSelect = true;
         [SerializeField] protected float deselectionDelay = 0.25f;
         public float DeselectionDelay { get { return deselectionDelay; } }
@@ -54,6 +64,7 @@ namespace UI
         public virtual void Awake()
         {
             ResolveDependencies();
+            originalScale = transform.localScale;
         }
 
         private void ResolveDependencies()
@@ -65,8 +76,6 @@ namespace UI
         // Start is called before the first frame update
         void Start()
         {
-            originalScale = transform.localScale;
-
             button.onClick.AddListener(delegate {
                 OnClickButton(button);
             });
@@ -144,8 +153,19 @@ namespace UI
                 rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
             
-            scaleFXManager.ScaleTween(originalScale, new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z));
+            // scaleFXManager.ScaleTween(originalScale, new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z));
             
+            switch (scaleMethod)
+            {
+                case ScaleMethod.Tween:
+                    scaleFXManager.ScaleTween(originalScale, originalScale * scaleFactor);
+                    break;
+
+                case ScaleMethod.Custom:
+                    scaleFXManager.ScaleCustom(originalScale, scaleType, scaleFactor);
+                    break;
+            }
+
             if (onHoverClip != null)
             {
                 AudioSource.PlayClipAtPoint(onHoverClip, Vector3.zero, 1.0f);
@@ -201,7 +221,20 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            scaleFXManager.ScaleTween(new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z), originalScale);
+            // scaleFXManager.ScaleTween(new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z), originalScale);
+
+            switch (scaleMethod)
+            {
+                case ScaleMethod.Tween:
+                    scaleFXManager.ScaleTween(transform.localScale, originalScale);
+                    break;
+
+                case ScaleMethod.Custom:
+                    float inverseScaleFactor = scaleFXManager.CalculateInverseScaleFactor(transform.localScale, originalScale, scaleType);
+                    scaleFXManager.ScaleCustom(transform.localScale, scaleType, inverseScaleFactor);
+                    break;
+            }
+            
             yield return null;
         }
 

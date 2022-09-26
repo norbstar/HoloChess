@@ -1788,7 +1788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &165084043
 Transform:
   m_ObjectHideFlags: 0
@@ -1800,8 +1800,8 @@ Transform:
   m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_Father: {fileID: 1941042912}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &165084044
 MonoBehaviour:
@@ -3961,12 +3961,12 @@ GameObject:
   - component: {fileID: 314357481}
   - component: {fileID: 314357480}
   m_Layer: 5
-  m_Name: Proto Canvas
+  m_Name: Scale Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &314357480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4110,14 +4110,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314357479}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1967781855}
   - {fileID: 701011032}
-  m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_Father: {fileID: 1941042912}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7437,6 +7437,9 @@ MonoBehaviour:
   enableHaptics: 1
   hapticsAmplitude: 0.15
   hapticsDuration: 0.1
+  scaleMethod: 1
+  scaleType: 2
+  scaleFactor: 1.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
   progress: {fileID: 1080535060}
@@ -8709,7 +8712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &695734010
 Transform:
   m_ObjectHideFlags: 0
@@ -8721,8 +8724,8 @@ Transform:
   m_LocalPosition: {x: 2.5, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_Father: {fileID: 1941042912}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &695734011
 SpriteRenderer:
@@ -11933,7 +11936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1000823617
 Transform:
   m_ObjectHideFlags: 0
@@ -15815,7 +15818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1174119038
 Transform:
   m_ObjectHideFlags: 0
@@ -15827,8 +15830,8 @@ Transform:
   m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_Father: {fileID: 1941042912}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1174119039
 BoxCollider:
@@ -16715,7 +16718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1295927387
 Transform:
   m_ObjectHideFlags: 0
@@ -16727,8 +16730,8 @@ Transform:
   m_LocalPosition: {x: -3.5, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_Father: {fileID: 1941042912}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1295927388
 MonoBehaviour:
@@ -24733,6 +24736,9 @@ MonoBehaviour:
   enableHaptics: 1
   hapticsAmplitude: 0.15
   hapticsDuration: 0.1
+  scaleMethod: 1
+  scaleType: 2
+  scaleFactor: 1.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
   progress: {fileID: 1025828235}
@@ -25140,6 +25146,85 @@ Transform:
   m_Father: {fileID: 1148868021}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1941042911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1941042912}
+  - component: {fileID: 1941042915}
+  - component: {fileID: 1941042914}
+  - component: {fileID: 1941042913}
+  m_Layer: 0
+  m_Name: Scale FX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1941042912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941042911}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 314357488}
+  - {fileID: 1174119038}
+  - {fileID: 1295927387}
+  - {fileID: 695734010}
+  - {fileID: 165084043}
+  m_Father: {fileID: 1956929388}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1941042913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941042911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0b4d4810ace364a887b58d6f5e5951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFactor: 15
+  tweenPoint: 0.25
+  enableGizmos: 1
+--- !u!114 &1941042914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941042911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f060c23f9a054a94eaa36561f6c21473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1941042915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941042911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee4762bdca5d9194ca65cfcdbaa535eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeline: 1
+  synchronize: 1
 --- !u!224 &1956343707 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5199533898629587900, guid: 2ee9faf1d83df7945ad3534c104c6c9a, type: 3}
@@ -25160,7 +25245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1956929388
 Transform:
   m_ObjectHideFlags: 0
@@ -25183,6 +25268,7 @@ Transform:
   - {fileID: 217501357}
   - {fileID: 1820905822}
   - {fileID: 1000823617}
+  - {fileID: 1941042912}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31737,6 +31823,9 @@ MonoBehaviour:
   enableHaptics: 1
   hapticsAmplitude: 0.15
   hapticsDuration: 0.1
+  scaleMethod: 1
+  scaleType: 2
+  scaleFactor: 1.1
   deselectOnSelect: 0
   deselectionDelay: 0.25
   progress: {fileID: 7459991332023958285}
