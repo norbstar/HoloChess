@@ -30,9 +30,10 @@ public class PointProjector : MonoBehaviour
 
     public class PointProperties
     {
-        public Vector3? position;
-        public Quaternion? rotation;
-        public Vector3? scale;
+        public Vector3? position = Vector3.zero;
+        public Quaternion? rotation = Quaternion.identity;
+        public Vector3? scale = Vector3.zero;
+        public bool enableDebug = false;
     }
 
     private PointProperties point;
@@ -46,32 +47,54 @@ public class PointProjector : MonoBehaviour
         
         set
         {
+            if (point.enableDebug)
+            {
+                Debug.Log($"{gameObject.name} Set");
+            }
+
             if (value.position.HasValue)
             {
+                if (point.enableDebug)
+                {
+                    Debug.Log($"{gameObject.name} Position : {point.position.Value}");
+                }
+
                 point.position = value.position.Value;
             }
 
             if (value.rotation.HasValue)
             {
+                if (point.enableDebug)
+                {
+                    Debug.Log($"{gameObject.name} Rotation : {point.rotation.Value}");
+                }
+
                 point.rotation = value.rotation.Value;
             }
 
             if (value.scale.HasValue)
             {
+                if (point.enableDebug)
+                {
+                    Debug.Log($"{gameObject.name} Scale : {point.scale.Value}");
+                }
+
                 point.scale = value.scale.Value;
+            }
+
+            if (value.enableDebug)
+            {
+                if (point.enableDebug)
+                {
+                    Debug.Log($"{gameObject.name} Enable Debug : {point.enableDebug}");
+                }
+                
+                point.enableDebug = value.enableDebug;
             }
         }
     }
 
-    void Awake()
-    {
-        point = new PointProperties
-        {
-            position = Vector3.zero,
-            rotation = Quaternion.identity,
-            scale = Vector3.zero
-        };
-    }
+    void Awake() => point = new PointProperties();
     
     public string Label
     {
@@ -134,6 +157,11 @@ public class PointProjector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (point.enableDebug)
+        {
+            Debug.Log($"{gameObject.name} Update Position : {point.position.Value} Scale : {point.scale.Value}");
+        }
+
         instance.transform.position = point.position.Value;
         instance.transform.rotation = point.rotation.Value;
         instance.transform.localScale = point.scale.Value;

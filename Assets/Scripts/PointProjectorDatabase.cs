@@ -28,7 +28,7 @@ public class PointProjectorDatabase : MonoBehaviour
         return PlotPoint(name, label, type, properties);
     }
 
-    private static PointProjector PlotPoint(string name, string label, PointProjector.Type type, PointProjector.PointProperties point)
+    public static PointProjector PlotPoint(string name, string label, PointProjector.Type type, PointProjector.PointProperties point)
     {
         if (manager.TryGet(name, out PointProjector projector))
         {
