@@ -7,7 +7,7 @@ namespace FX
 {
     public class ScaleFX : AsyncTrigger
     {
-        [Header("Config")]
+        [Header("Custom Config")]
         [SerializeField] float timeline = 1f;
         public float Timeline { get { return timeline; } }
         [SerializeField] bool synchronize = true;

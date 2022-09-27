@@ -4,6 +4,15 @@ using UnityEngine;
 
 public abstract class AsyncTrigger : MonoBehaviour
 {
+    public enum Mode
+    {
+        Cancellable,
+        NonCancellable
+    }
+
+    [Header("Config")]
+    [SerializeField] Mode mode = Mode.Cancellable;
+
     protected abstract IEnumerator Co_Routine(object obj = null);
 
     private Coroutine coroutine;
@@ -12,13 +21,23 @@ public abstract class AsyncTrigger : MonoBehaviour
 
     private IEnumerator Co_StartAsync(object obj)
     {
-        if (coroutine == null)
+        switch (mode)
         {
-            coroutine = StartCoroutine(Co_Routine(obj));
-            yield return coroutine;
-            
-            Reset();
+            case Mode.Cancellable:
+                StopCoroutine();
+                coroutine = StartCoroutine(Co_Routine(obj));
+                break;
+
+            case Mode.NonCancellable:
+                if (coroutine == null)
+                {
+                    yield return coroutine = StartCoroutine(Co_Routine(obj));
+                    coroutine = null;
+                }
+                break;
         }
+        
+        yield return coroutine;
     }
 
     public void StopAsync() => StopCoroutine();
@@ -28,9 +47,7 @@ public abstract class AsyncTrigger : MonoBehaviour
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
-            Reset();
+            coroutine = null;
         }
     }
-
-    private void Reset() => coroutine = null;
 }
