@@ -39,6 +39,7 @@ namespace Tests
             
             Vector3 tweenScale = GetTweenScale(fromScale, toScale, tweenPoint);
             projector = PointProjectorDatabase.PlotPoint($"Tween Point", $"Tween Point", PointProjector.Type.Blue, tweenScale, Quaternion.identity, tweenScale);
+            
             // projector = PointProjectorDatabase.PlotPoint($"Tween Point", $"Tween Point", PointProjector.Type.Blue, new PointProjector.PointProperties
             // {
             //     position = tweenScale,
@@ -106,6 +107,7 @@ namespace Tests
                 if (fractionComplete <= 1f)
                 {
                     projector.Point.position = projector.Point.scale = Vector3.Lerp(fromScale, toScale, fractionComplete);
+                    tweenPointScale = projector.Point.scale.Value;
                     // Debug.Log($"Co_Scale Position : {projector.Point.position} Scale : {projector.Point.scale}");
                 }
 
@@ -113,6 +115,7 @@ namespace Tests
             }
 
             projector.Point.position = projector.Point.scale = toScale;
+            tweenPointScale = projector.Point.scale.Value;
             // Debug.Log($"Co_Scale End Position : {projector.Point.position} End Scale : {projector.Point.scale}");
             isLerping = false;
         }
