@@ -18,7 +18,6 @@ namespace Tests
 
         [Header("Config")]
         [SerializeField] InputAction inputAction;
-        [SerializeField] ScaleMethod scaleMethod;
         [SerializeField] ScaleType scaleType;
         [SerializeField] float scaleFactor = 1.1f;
 
@@ -46,34 +45,9 @@ namespace Tests
             inputAction.performed -= OnSpace;
         }
 
-        private void ScaleUp()
-        {
-            switch (scaleMethod)
-            {
-                case ScaleMethod.Tween:
-                    scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * scaleFactor);
-                    break;
+        private void ScaleUp() => scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * scaleFactor);
 
-                // case ScaleMethod.Custom:
-                //     scaleFXManager.ScaleCustom(originalScale, scaleType, scaleFactor);
-                //     break;
-            }
-        }
-
-        private void ScaleDown()
-        {
-            switch (scaleMethod)
-            {
-                case ScaleMethod.Tween:
-                    scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale);
-                    break;
-
-                // case ScaleMethod.Custom:
-                //     float inverseScaleFactor = scaleFXManager.CalculateInverseScaleFactor(transform.localScale, originalScale, scaleType);
-                //     scaleFXManager.ScaleCustom(transform.localScale, scaleType, inverseScaleFactor);
-                //     break;
-            }
-        }
+        private void ScaleDown() => scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale);
 
         private void OnSpace(InputAction.CallbackContext context)
         {

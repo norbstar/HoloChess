@@ -19,90 +19,86 @@ namespace FX
 
         private void ResolveDependencies() => scaleFX = GetComponent<FX.ScaleFX>() as FX.ScaleFX;
 
-        public Vector3 Scale(Vector3 fromScale, ScaleType scaleType, float scaleFactor)
+        private Vector3 ScaleRelativeToX(Vector3 fromScale, Vector3 toScale)
         {
-            Vector3 toScale = fromScale;
+            float scaleFactor = toScale.x / fromScale.x;
+            float scaleX = toScale.x;
+            float yToXRatio = fromScale.y / fromScale.x;
+            float scaleY = fromScale.y + ((toScale.x - fromScale.x) / yToXRatio);
+            float zToXRatio = fromScale.z / fromScale.x;
+            float scaleZ = fromScale.z + ((toScale.x - fromScale.x) / zToXRatio);
+            toScale = new Vector3(scaleX, scaleY, scaleZ);
+            
+            return toScale;
+        }
 
-            if (scaleType == ScaleType.Proportional)
+        private Vector3 ScaleRelativeToY(Vector3 fromScale, Vector3 toScale)
+        {
+            float scaleFactor = toScale.y / fromScale.y;
+            float scaleY = toScale.y;
+            float xToYRatio = fromScale.x / fromScale.y;
+            float scaleX = fromScale.x + ((toScale.y - fromScale.y) / xToYRatio);
+            float zToYRatio = fromScale.z / fromScale.y;
+            float scaleZ = fromScale.z + ((toScale.y - fromScale.y) / zToYRatio);
+            toScale = new Vector3(scaleX, scaleY, scaleZ);
+
+            return toScale;
+        }
+
+        private Vector3 ScaleRelativeToZ(Vector3 fromScale, Vector3 toScale)
+        {
+            float scaleFactor = toScale.z / fromScale.z;
+            float scaleZ = toScale.z;
+            float xToZRatio = fromScale.x / fromScale.z;
+            float scaleX = fromScale.x + ((toScale.z - fromScale.z) / xToZRatio);
+            float yToZRatio = fromScale.y / fromScale.z;
+            float scaleY = fromScale.y + ((toScale.z - fromScale.z) / yToZRatio);
+            toScale = new Vector3(scaleX, scaleY, scaleZ);
+
+            return toScale;
+        }
+
+        public Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType)
+        {
+            switch (scaleType)
             {
-                toScale = fromScale * scaleFactor;
-            }
-            else
-            {
-                float scaleX, scaleY, scaleZ;
+                case ScaleType.RelativeToX:
+                    toScale = ScaleRelativeToX(fromScale, toScale);
+                    break;
 
-                switch (scaleType)
-                {
-                    case ScaleType.RelativeToX:
-                        scaleX = fromScale.x * scaleFactor;
-                        scaleY = fromScale.y + (scaleX - fromScale.x);
-                        scaleZ = fromScale.z + (scaleX - fromScale.x);
-                        toScale = new Vector3(scaleX, scaleY, scaleZ);
-                        break;
+                case ScaleType.RelativeToY:
+                    toScale = ScaleRelativeToY(fromScale, toScale);
+                    break;
 
-                    case ScaleType.RelativeToY:
-                        scaleY = fromScale.y * scaleFactor;
-                        scaleX = fromScale.x + (scaleY - fromScale.y);
-                        scaleZ = fromScale.z + (scaleY - fromScale.y);
-                        toScale = new Vector3(scaleX, scaleY, scaleZ);
-                        break;
-
-                    case ScaleType.RelativeToZ:
-                        scaleZ = fromScale.z * scaleFactor;
-                        scaleX = fromScale.x + (scaleZ - fromScale.z);
-                        scaleY = fromScale.y + (scaleZ - fromScale.z);
-                        toScale = new Vector3(scaleX, scaleY, scaleZ);
-                        break;
-                }
+                case ScaleType.RelativeToZ:
+                    toScale = ScaleRelativeToZ(fromScale, toScale);
+                    break;
             }
 
             return toScale;
         }
 
-        public void ScaleTween(Vector3 fromScale, Vector3 toScale)
+        public void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale, ScaleType scaleType = ScaleType.Proportional)
         {
-            // Debug.Log($"ScaleTween From : {fromScale.ToPrecisionString()} To : {toScale.ToPrecisionString()}");
+            if (scaleType != ScaleType.Proportional)
+            {
+                toScale = Scale(fromScale, toScale, scaleType);
+            }
 
+            ScaleTween(fromScale, tweenScale, toScale);
+        }
+
+        private void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale)
+        {
             scaleFX.StopAsync();
 
             scaleFX.StartAsync(new FX.ScaleFX.Config
             {
                 fromScale = fromScale,
-                toScale = toScale
+                startScale = tweenScale,
+                toScale = toScale,
+                endScale = toScale
             });
-        }
-
-        public void ScaleCustom(Vector3 fromScale, ScaleType scaleType, float scaleFactor)
-        {
-            // Debug.Log($"ScaleCustom From : {fromScale.ToPrecisionString()} Scale Type : {scaleType} Scale Factor : {scaleFactor}");
-
-            Vector3 toScale = Scale(fromScale, scaleType, scaleFactor);
-            ScaleTween(fromScale, toScale);
-        }
-
-        public float CalculateInverseScaleFactor(Vector3 localScale, Vector3 originalScale, ScaleType scaleType)
-        {
-            // Debug.Log($"CalculateInverseScaleFactor Local Scale : {localScale.ToPrecisionString()} Original Scale : {originalScale.ToPrecisionString()} Scale Type : {scaleType}");
-
-            // Default to proportional scaling
-            float scaleFactor = ((localScale.x - originalScale.x) / localScale.x) * 10f;
-
-            switch (scaleType)
-            {
-                case ScaleType.RelativeToX:
-                    scaleFactor = ((localScale.x - originalScale.x) / localScale.x) * 10f;
-                    break;
-                
-                case ScaleType.RelativeToY:
-                    scaleFactor = ((localScale.y - originalScale.y) / localScale.y) * 10f;
-                    break;
-
-                case ScaleType.RelativeToZ:
-                    scaleFactor = ((localScale.z - originalScale.z) / localScale.z) * 10f;
-                    break;
-            }
-
-            return scaleFactor;
         }
     }
 }

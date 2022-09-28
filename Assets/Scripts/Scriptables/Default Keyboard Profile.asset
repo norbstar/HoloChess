@@ -125,7 +125,7 @@ MonoBehaviour:
     unicode: \u0020
     character: ' '
     autoGenerateLabel: 0
-    label: ENTER
+    label: RTN
     displaySpriteInPlaceOfLabel: 0
     sprite: {fileID: 21300000, guid: 5566d273e375c4944bfb89d2e42cfcb4, type: 3}
     additionalUnicodes:
