@@ -51,7 +51,7 @@ namespace Tests
             switch (scaleMethod)
             {
                 case ScaleMethod.Tween:
-                    scaleFXManager.ScaleTween(originalScale, originalScale * scaleFactor);
+                    scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * scaleFactor);
                     break;
 
                 // case ScaleMethod.Custom:
@@ -65,7 +65,7 @@ namespace Tests
             switch (scaleMethod)
             {
                 case ScaleMethod.Tween:
-                    scaleFXManager.ScaleTween(transform.localScale, originalScale);
+                    scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale);
                     break;
 
                 // case ScaleMethod.Custom:

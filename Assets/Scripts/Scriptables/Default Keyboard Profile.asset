@@ -114,10 +114,19 @@ MonoBehaviour:
     - \u0031
   - id: 36
     unicode: \u0020
-    character: "\b"
+    character: ' '
     autoGenerateLabel: 0
     label: 
     displaySpriteInPlaceOfLabel: 1
+    sprite: {fileID: 21300000, guid: 5566d273e375c4944bfb89d2e42cfcb4, type: 3}
+    additionalUnicodes:
+    - \u0031
+  - id: 21
+    unicode: \u0020
+    character: ' '
+    autoGenerateLabel: 0
+    label: ENTER
+    displaySpriteInPlaceOfLabel: 0
     sprite: {fileID: 21300000, guid: 5566d273e375c4944bfb89d2e42cfcb4, type: 3}
     additionalUnicodes:
     - \u0031

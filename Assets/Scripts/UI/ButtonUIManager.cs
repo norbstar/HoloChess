@@ -152,7 +152,7 @@ namespace UI
                 rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
 
-            scaleFXManager.ScaleTween(originalScale, originalScale * scaleFactor, scaleType);
+            scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * scaleFactor, scaleType);
 
             if (onHoverClip != null)
             {
@@ -209,7 +209,7 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            scaleFXManager.ScaleTween(transform.localScale, originalScale, scaleType);
+            scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale, scaleType);
             yield return null;
         }
 

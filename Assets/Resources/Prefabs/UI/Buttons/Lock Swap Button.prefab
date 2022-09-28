@@ -258,7 +258,6 @@ MonoBehaviour:
   enableHaptics: 1
   hapticsAmplitude: 0.15
   hapticsDuration: 0.1
-  scaleMethod: 0
   scaleType: 0
   scaleFactor: 1.1
   deselectOnSelect: 1
