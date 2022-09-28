@@ -25,10 +25,8 @@ namespace FX
 
         private Vector3 ScaleRelativeToX(Vector3 fromScale, Vector3 toScale, bool hasRectTransform)
         {
-            float scaleFactor, scaleX, scaleY;
-
-            scaleFactor = toScale.x / fromScale.x;
-            scaleX = toScale.x;
+            float scaleFactor = toScale.x / fromScale.x;
+            float scaleX = toScale.x;
             float yToXRatio;
 
             if (hasRectTransform)
@@ -40,7 +38,7 @@ namespace FX
                 yToXRatio = fromScale.y / fromScale.x;
             }
 
-            scaleY = fromScale.y + ((toScale.x - fromScale.x) / yToXRatio);
+            float scaleY = fromScale.y + ((toScale.x - fromScale.x) / yToXRatio);
             toScale = new Vector3(scaleX, scaleY, fromScale.z);
             
             return toScale;
@@ -48,10 +46,8 @@ namespace FX
 
         private Vector3 ScaleRelativeToY(Vector3 fromScale, Vector3 toScale, bool hasRectTransform)
         {
-            float scaleFactor, scaleX, scaleY;
-
-            scaleFactor = toScale.y / fromScale.y;
-            scaleY = toScale.y;
+            float scaleFactor = toScale.y / fromScale.y;
+            float scaleY = toScale.y;
             float xToYRatio;
 
             if (hasRectTransform)
@@ -63,7 +59,7 @@ namespace FX
                 xToYRatio = fromScale.x / fromScale.y;
             }
                 
-            scaleX = fromScale.x + ((toScale.y - fromScale.y) / xToYRatio);
+            float scaleX = fromScale.x + ((toScale.y - fromScale.y) / xToYRatio);
             toScale = new Vector3(scaleX, scaleY, fromScale.z);
 
             return toScale;
@@ -76,11 +72,11 @@ namespace FX
             switch (scaleType)
             {
                 case ScaleType.RelativeToX:
-                toScale = ScaleRelativeToX(fromScale, toScale, hasRectTransform);
+                    toScale = ScaleRelativeToX(fromScale, toScale, hasRectTransform);
                     break;
 
                 case ScaleType.RelativeToY:
-                toScale = ScaleRelativeToY(fromScale, toScale, hasRectTransform);
+                    toScale = ScaleRelativeToY(fromScale, toScale, hasRectTransform);
                     break;
             }
 
