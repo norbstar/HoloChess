@@ -17,7 +17,9 @@ namespace FX
         public class Config
         {
             public Vector3 fromScale;
+            public Vector3 startScale;
             public Vector3 toScale;
+            public Vector3 endScale;
         }
 
         private Config config;
@@ -26,25 +28,26 @@ namespace FX
         {
             config = (Config) obj;
             
-            float startTime = Time.time;
-            float speed = Vector3.Distance(config.fromScale, config.toScale) / timeline;
-            float elapsedTime = 0f;
-            float fractionComplete = 0f;
+            float scaleDelta = Vector3.Distance(config.startScale, config.endScale);
 
-            while (fractionComplete < 1f)
+            if (scaleDelta == 0)
             {
-                elapsedTime += Time.deltaTime * speed;
-                fractionComplete = elapsedTime / Vector3.Distance(config.fromScale, config.toScale);
-
-                if (fractionComplete <= 1f)
-                {
-                    transform.localScale = Vector3.Lerp(config.fromScale, config.toScale, fractionComplete);
-                }
-
-                yield return null;
+                yield break;
             }
 
-            transform.localScale = config.toScale;
+            float startTime = Time.time;
+            float range = Vector3.Distance(config.fromScale, config.toScale);
+            float interRange = scaleDelta;
+            float fractionalTimeline = timeline * (interRange / range);
+            float fractionComplete = 0f;
+
+            while (fractionComplete != 1f)
+            {
+                float elapsedTime = Time.time - startTime;
+                fractionComplete = Mathf.Clamp01(elapsedTime / fractionalTimeline);
+                transform.localScale = Vector3.Lerp(config.startScale, config.endScale, fractionComplete);
+                yield return null;
+            }
         }
     }
 }

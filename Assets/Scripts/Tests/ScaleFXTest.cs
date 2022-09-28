@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 using FX;
+using Utilities.Points;
 
 namespace Tests
 {
@@ -19,7 +20,7 @@ namespace Tests
         private ScaleFXManager scaleFXManager;
         private PointProjector projector;
         private Vector3 heading, direction, fromScale, toScale, tweenScale;
-        private float range, speed;
+        private float range;
         private Coroutine coroutine;
 
         void Awake()
@@ -30,7 +31,6 @@ namespace Tests
             range = Vector3.Distance(fromScale, toScale);
             heading = toScale - fromScale;
             direction = heading.normalized;
-            speed = range / timeline * 0.1f;
         }
 
         private void ResolveDependencies() => scaleFXManager = GetComponent<ScaleFXManager>() as ScaleFXManager;

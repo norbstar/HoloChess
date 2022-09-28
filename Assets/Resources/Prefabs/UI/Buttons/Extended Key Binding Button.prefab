@@ -518,6 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4762bdca5d9194ca65cfcdbaa535eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   timeline: 0.1
   synchronize: 1
 --- !u!114 &6075070168438232060
@@ -562,6 +563,9 @@ MonoBehaviour:
   enableHaptics: 1
   hapticsAmplitude: 0.02
   hapticsDuration: 0.02
+  scaleMethod: 0
+  scaleType: 0
+  scaleFactor: 1.1
   deselectOnSelect: 1
   deselectionDelay: 0.25
   textUI: {fileID: 5161075138104501272}

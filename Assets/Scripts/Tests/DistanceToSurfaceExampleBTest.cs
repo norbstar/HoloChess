@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using Utilities.Points;
+
 namespace Tests
 {
     public class DistanceToSurfaceExampleBTest : MonoBehaviour

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using Utilities.Points;
+
 namespace Tests
 {
     // See https://www.redcrab-software.com/en/Calculator/Spherical-Cap

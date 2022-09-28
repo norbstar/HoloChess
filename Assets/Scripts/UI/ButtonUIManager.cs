@@ -36,7 +36,6 @@ namespace UI
         }
 
         [Header("Config")]
-        [SerializeField] ScaleMethod scaleMethod = ScaleMethod.Custom;
         [SerializeField] ScaleType scaleType = ScaleType.RelativeToY;
         [SerializeField] float scaleFactor = 1.1f;
         [SerializeField] protected bool deselectOnSelect = true;
@@ -152,19 +151,8 @@ namespace UI
             {
                 rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
-            
-            // scaleFXManager.ScaleTween(originalScale, new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z));
-            
-            switch (scaleMethod)
-            {
-                case ScaleMethod.Tween:
-                    scaleFXManager.ScaleTween(originalScale, originalScale * scaleFactor);
-                    break;
 
-                case ScaleMethod.Custom:
-                    scaleFXManager.ScaleCustom(originalScale, scaleType, scaleFactor);
-                    break;
-            }
+            scaleFXManager.ScaleTween(originalScale, originalScale * scaleFactor, scaleType);
 
             if (onHoverClip != null)
             {
@@ -221,20 +209,7 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            // scaleFXManager.ScaleTween(new Vector3(originalScale.x * 1.1f, originalScale.y * 1.1f, originalScale.z), originalScale);
-
-            switch (scaleMethod)
-            {
-                case ScaleMethod.Tween:
-                    scaleFXManager.ScaleTween(transform.localScale, originalScale);
-                    break;
-
-                case ScaleMethod.Custom:
-                    float inverseScaleFactor = scaleFXManager.CalculateInverseScaleFactor(transform.localScale, originalScale, scaleType);
-                    scaleFXManager.ScaleCustom(transform.localScale, scaleType, inverseScaleFactor);
-                    break;
-            }
-            
+            scaleFXManager.ScaleTween(transform.localScale, originalScale, scaleType);
             yield return null;
         }
 

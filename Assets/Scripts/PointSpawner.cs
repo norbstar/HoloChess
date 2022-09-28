@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using Utilities.Points;
+
 public class PointSpawner : MonoBehaviour
 {
     [Header("Config")]

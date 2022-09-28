@@ -24,8 +24,6 @@ namespace UI
         public void AssignBinding(KeyboardBinding binding)
         {
             this.binding = binding;
-
-            // Debug.Log($"Id : {binding.id} Character : {binding.character}");
             textUI.text = binding.label;
 
             if (binding.displaySpriteInPlaceOfLabel && binding.sprite != null)

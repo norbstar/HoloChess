@@ -54,9 +54,9 @@ namespace Tests
                     scaleFXManager.ScaleTween(originalScale, originalScale * scaleFactor);
                     break;
 
-                case ScaleMethod.Custom:
-                    scaleFXManager.ScaleCustom(originalScale, scaleType, scaleFactor);
-                    break;
+                // case ScaleMethod.Custom:
+                //     scaleFXManager.ScaleCustom(originalScale, scaleType, scaleFactor);
+                //     break;
             }
         }
 
@@ -68,10 +68,10 @@ namespace Tests
                     scaleFXManager.ScaleTween(transform.localScale, originalScale);
                     break;
 
-                case ScaleMethod.Custom:
-                    float inverseScaleFactor = scaleFXManager.CalculateInverseScaleFactor(transform.localScale, originalScale, scaleType);
-                    scaleFXManager.ScaleCustom(transform.localScale, scaleType, inverseScaleFactor);
-                    break;
+                // case ScaleMethod.Custom:
+                //     float inverseScaleFactor = scaleFXManager.CalculateInverseScaleFactor(transform.localScale, originalScale, scaleType);
+                //     scaleFXManager.ScaleCustom(transform.localScale, scaleType, inverseScaleFactor);
+                //     break;
             }
         }
 
