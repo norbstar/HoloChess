@@ -3,22 +3,8 @@ using UnityEngine;
 namespace FX
 {
     [RequireComponent(typeof(ScaleFX))]
-    public class ScaleFXManager : MonoBehaviour
+    public class ScaleFXManager : ScaleFXBaseManager
     {
-        public enum ScaleType
-        {
-            Proportional,
-            RelativeToX,
-            RelativeToY,
-            RelativeToZ
-        }
-        
-        private FX.ScaleFX scaleFX;
-
-        void Awake() => ResolveDependencies();
-
-        private void ResolveDependencies() => scaleFX = GetComponent<FX.ScaleFX>() as FX.ScaleFX;
-
         private Vector3 ScaleRelativeToX(Vector3 fromScale, Vector3 toScale)
         {
             float scaleFactor = toScale.x / fromScale.x;
@@ -58,7 +44,7 @@ namespace FX
             return toScale;
         }
 
-        public Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType)
+        public override Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType)
         {
             switch (scaleType)
             {
@@ -76,29 +62,6 @@ namespace FX
             }
 
             return toScale;
-        }
-
-        public void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale, ScaleType scaleType = ScaleType.Proportional)
-        {
-            if (scaleType != ScaleType.Proportional)
-            {
-                toScale = Scale(fromScale, toScale, scaleType);
-            }
-
-            ScaleTween(fromScale, tweenScale, toScale);
-        }
-
-        private void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale)
-        {
-            scaleFX.StopAsync();
-
-            scaleFX.StartAsync(new FX.ScaleFX.Config
-            {
-                fromScale = fromScale,
-                startScale = tweenScale,
-                toScale = toScale,
-                endScale = toScale
-            });
         }
     }
 }

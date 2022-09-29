@@ -95,7 +95,7 @@ namespace UI.Panels
                 rayInteractor?.SendHapticImpulse(0.25f, 0.1f);
             }
 
-            scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * 1.1f, ScaleFX2DManager.ScaleType.RelativeToY);
+            scaleFXManager.ScaleTween(/*originalScale, */transform.localScale, originalScale * 1.1f, ScaleFX2DManager.ScaleType.RelativeToY);
 
             if (onHoverClip != null)
             {
@@ -110,7 +110,7 @@ namespace UI.Panels
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData)
         {
             var scaleFXManager = slider.handleRect.gameObject.GetComponent<ScaleFX2DManager>() as ScaleFX2DManager;
-            scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale, ScaleFX2DManager.ScaleType.RelativeToY);
+            scaleFXManager.ScaleTween(/*transform.localScale, */transform.localScale, originalScale, ScaleFX2DManager.ScaleType.RelativeToY);
 
             yield return null;
         }

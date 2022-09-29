@@ -29,12 +29,6 @@ namespace UI
         [SerializeField] float hapticsDuration = 0.1f;
         public float HapticsDuration { get { return hapticsDuration; } }
 
-        public enum ScaleMethod
-        {
-            Tween,
-            Custom
-        }
-
         [Header("Config")]
         [SerializeField] ScaleType scaleType = ScaleType.RelativeToY;
         [SerializeField] float scaleFactor = 1.1f;
@@ -56,7 +50,8 @@ namespace UI
 
         public UnityButton Button { get { return button; } }
 
-        private UnityButton button;
+        protected UnityButton button;
+        
         private ScaleFX2DManager scaleFXManager;
         private Vector3 originalScale;
 
@@ -152,7 +147,8 @@ namespace UI
                 rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
 
-            scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * scaleFactor, scaleType);
+            Vector3 toScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
+            scaleFXManager.ScaleTween(/*originalScale*//*transform.localScale, */transform.localScale, toScale, scaleType);
 
             if (onHoverClip != null)
             {
@@ -209,7 +205,8 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale, scaleType);
+            Vector3 fromScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
+            scaleFXManager.ScaleTween(/*transform.localScale*//*fromScale, */transform.localScale, originalScale, scaleType);
             yield return null;
         }
 

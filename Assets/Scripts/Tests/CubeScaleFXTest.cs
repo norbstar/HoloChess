@@ -39,9 +39,9 @@ namespace Tests
             inputAction.performed -= OnSpace;
         }
 
-        private void ScaleUp() => scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * scaleFactor, scaleType);
+        private void ScaleUp() => scaleFXManager.ScaleTween(/*originalScale, */transform.localScale, originalScale * scaleFactor, scaleType);
 
-        private void ScaleDown() => scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale, scaleType);
+        private void ScaleDown() => scaleFXManager.ScaleTween(/*originalScale * scaleFactor, */transform.localScale, originalScale, scaleType);
 
         private void OnSpace(InputAction.CallbackContext context)
         {

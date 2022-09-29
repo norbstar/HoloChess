@@ -12,7 +12,6 @@ namespace UI
     {
         [Header("Custom Components")]
         [SerializeField] TextMeshProUGUI textUI;
-        [SerializeField] Image image;
 
         [Header("Config")]
         [SerializeField] int id;
@@ -28,9 +27,9 @@ namespace UI
 
             if (binding.displaySpriteInPlaceOfLabel && binding.sprite != null)
             {
-                image.sprite = binding.sprite;
+                button.image.sprite = binding.sprite;
                 textUI.gameObject.SetActive(false);
-                image.gameObject.SetActive(true);
+                button.image.gameObject.SetActive(true);
             }
         }
     }

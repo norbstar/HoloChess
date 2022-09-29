@@ -589,6 +589,10 @@ PrefabInstance:
       propertyPath: scaleType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7418795844104711419, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7418795844138559877, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
       propertyPath: scaleType
       value: 2
@@ -704,6 +708,18 @@ PrefabInstance:
     - target: {fileID: 7418795845817673996, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
       propertyPath: scaleType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418795845817674102, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418795845817674102, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418795845817674102, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
+      propertyPath: m_Color.g
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7418795845883587213, guid: 2454ae32189fbf14e93d6d0228100b0d, type: 3}
       propertyPath: scaleType

@@ -45,9 +45,17 @@ namespace Tests
             inputAction.performed -= OnSpace;
         }
 
-        private void ScaleUp() => scaleFXManager.ScaleTween(originalScale, transform.localScale, originalScale * scaleFactor);
+        private void ScaleUp()
+        {
+            Debug.Log($"{gameObject.name} ScaleUp FromScale : {originalScale} TweenScale : {transform.localScale} ToScale : {originalScale * scaleFactor} ScaleType : {scaleType}");
+            scaleFXManager.ScaleTween(/*originalScale, */transform.localScale, originalScale * scaleFactor, scaleType);
+        }
 
-        private void ScaleDown() => scaleFXManager.ScaleTween(transform.localScale, transform.localScale, originalScale);
+        private void ScaleDown()
+        {
+            Debug.Log($"{gameObject.name} ScaleDown FromScale : {originalScale * scaleFactor} TweenScale : {transform.localScale} ToScale : {originalScale} ScaleType : {scaleType}");
+            scaleFXManager.ScaleTween(/*originalScale * scaleFactor, */transform.localScale, originalScale, scaleType);
+        }
 
         private void OnSpace(InputAction.CallbackContext context)
         {

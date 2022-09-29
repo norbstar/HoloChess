@@ -3,29 +3,25 @@ using UnityEngine;
 namespace FX
 {
     [RequireComponent(typeof(ScaleFX))]
-    public class ScaleFX2DManager : MonoBehaviour
+    public class ScaleFX2DManager : ScaleFXBaseManager
     {
-        public enum ScaleType
-        {
-            Proportional,
-            RelativeToX,
-            RelativeToY
-        }
-
         private RectTransform rectTransform;
-        private ScaleFX scaleFX;
 
-        void Awake() => ResolveDependencies();
-
-        private void ResolveDependencies()
+        public override void Awake()
         {
-            rectTransform = GetComponent<RectTransform>() as RectTransform;
-            scaleFX = GetComponent<ScaleFX>() as ScaleFX;
+            base.Awake();
+            ResolveDependencies();
         }
+
+        private void ResolveDependencies() => rectTransform = GetComponent<RectTransform>() as RectTransform;
 
         private Vector3 ScaleRelativeToX(Vector3 fromScale, Vector3 toScale, bool hasRectTransform)
         {
+            Debug.Log($"{gameObject.name} ScaleRelativeToX FromScale : {fromScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} HasRectTransform : {hasRectTransform}");
+
             float scaleFactor = toScale.x / fromScale.x;
+            Debug.Log($"{gameObject.name} ScaleRelativeToX ScaleFactor : {scaleFactor}");
+
             float scaleX = toScale.x;
             float yToXRatio;
 
@@ -38,15 +34,23 @@ namespace FX
                 yToXRatio = fromScale.y / fromScale.x;
             }
 
+            Debug.Log($"{gameObject.name} ScaleRelativeToX YToXRatio : {yToXRatio}");
+
             float scaleY = fromScale.y + ((toScale.x - fromScale.x) / yToXRatio);
             toScale = new Vector3(scaleX, scaleY, fromScale.z);
+
+            Debug.Log($"{gameObject.name} ScaleRelativeToX ToScale : {toScale.ToPrecisionString()}");
             
             return toScale;
         }
 
         private Vector3 ScaleRelativeToY(Vector3 fromScale, Vector3 toScale, bool hasRectTransform)
         {
+            Debug.Log($"{gameObject.name} ScaleRelativeToY FromScale : {fromScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} HasRectTransform : {hasRectTransform}");
+
             float scaleFactor = toScale.y / fromScale.y;
+            Debug.Log($"{gameObject.name} ScaleRelativeToY ScaleFactor : {scaleFactor}");
+
             float scaleY = toScale.y;
             float xToYRatio;
 
@@ -58,15 +62,21 @@ namespace FX
             {
                 xToYRatio = fromScale.x / fromScale.y;
             }
+
+            Debug.Log($"{gameObject.name} ScaleRelativeToY XToYRatio : {xToYRatio}");
                 
             float scaleX = fromScale.x + ((toScale.y - fromScale.y) / xToYRatio);
             toScale = new Vector3(scaleX, scaleY, fromScale.z);
 
+            Debug.Log($"{gameObject.name} ScaleRelativeToY ToScale : {toScale.ToPrecisionString()}");
+
             return toScale;
         }
 
-        public Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType)
+        public override Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType)
         {
+            Debug.Log($"{gameObject.name} Scale FromScale : {fromScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
+
             bool hasRectTransform = (rectTransform != null);
 
             switch (scaleType)
@@ -81,29 +91,6 @@ namespace FX
             }
 
             return toScale;
-        }
-
-        public void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale, ScaleType scaleType = ScaleType.Proportional)
-        {
-            if (scaleType != ScaleType.Proportional)
-            {
-                toScale = Scale(fromScale, toScale, scaleType);
-            }
-
-            ScaleTween(fromScale, tweenScale, toScale);
-        }
-
-        private void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale)
-        {
-            scaleFX.StopAsync();
-
-            scaleFX.StartAsync(new ScaleFX.Config
-            {
-                fromScale = fromScale,
-                startScale = tweenScale,
-                toScale = toScale,
-                endScale = toScale
-            });
         }
     }
 }
