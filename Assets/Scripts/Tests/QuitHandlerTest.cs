@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace Tests
 {
-    public class QuitHandler : MonoBehaviour
+    [AddComponentMenu("Tests/Quit Handler Test")]
+    public class QuitHandlerTest : MonoBehaviour
     {
         public void Quit() => Application.Quit();
     }

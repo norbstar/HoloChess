@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Linq Test")]
     public class LinqTest : MonoBehaviour
     {
         private List<string> labels;

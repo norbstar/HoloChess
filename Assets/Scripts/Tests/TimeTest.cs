@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Time Test")]
     public class TimeTest : MonoBehaviour
     {
         [Header("Config")]

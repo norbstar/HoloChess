@@ -7,6 +7,7 @@ using ScaleType = FX.UI.RectTransformFXManager.ScaleType;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Rect Transform FX Test")]
     [RequireComponent(typeof(RectTransformFXManager))]
     public class RectTransformFXTest : MonoBehaviour
     {

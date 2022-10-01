@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Scale Test")]
     public class ScaleTest : MonoBehaviour
     {
         [SerializeField] GameObject target;

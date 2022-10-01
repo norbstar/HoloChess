@@ -2,19 +2,23 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class LayerMaskTest : MonoBehaviour
+namespace Tests
 {
-    [Header("Config")]
-    [SerializeField] List<string> compositeMask;
-
-    private int layerMask;
-
-    void Awake() => layerMask = LayerMaskExtensions.CreateLayerMask(compositeMask);
-
-    // Start is called before the first frame update
-    void Start()
+    [AddComponentMenu("Tests/Layer Mask Test")]
+    public class LayerMaskTest : MonoBehaviour
     {
-        bool inLayerMask = LayerMaskExtensions.HasLayer(layerMask, LayerMask.NameToLayer("Floor"));
-        Debug.Log($"In Layer Mask : {inLayerMask}");
+        [Header("Config")]
+        [SerializeField] List<string> compositeMask;
+
+        private int layerMask;
+
+        void Awake() => layerMask = LayerMaskExtensions.CreateLayerMask(compositeMask);
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            bool inLayerMask = LayerMaskExtensions.HasLayer(layerMask, LayerMask.NameToLayer("Floor"));
+            Debug.Log($"In Layer Mask : {inLayerMask}");
+        }
     }
 }

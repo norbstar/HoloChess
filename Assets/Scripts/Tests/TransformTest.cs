@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Transform Test")]
     public class TransformTest : MonoBehaviour
     {
         [SerializeField] Transform origin;

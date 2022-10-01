@@ -10,6 +10,7 @@ using UI;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Pointer Event Handler Test")]
     [RequireComponent(typeof(PointerEventHandler))]
     public class PointerEventHandlerTest : MonoBehaviour
     {

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Direction Point Test")]
     public class DirectionPointTest : MonoBehaviour
     {
         [Header("Components")]

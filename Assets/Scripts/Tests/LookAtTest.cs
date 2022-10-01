@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Look At Test")]
     public class LookAtTest : MonoBehaviour
     {
         [Header("Config")]

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Stupidity Test")]
     public class StupidityTest : MonoBehaviour
     {
         // Start is called before the first frame update

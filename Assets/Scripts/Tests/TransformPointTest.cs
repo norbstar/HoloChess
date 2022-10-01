@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Transform Point Test")]
     public class TransformPointTest : MonoBehaviour
     {
         // Start is called before the first frame update

@@ -4,7 +4,8 @@ using UnityEngine.Events;
 
 namespace Tests
 {
-    public class ControllerInputHandler : MonoBehaviour
+    [AddComponentMenu("Tests/Controller Input Handler Test")]
+    public class ControllerInputHandlerTest : MonoBehaviour
     {
         [Header("Events")]
         [SerializeField] UnityEvent @event;

@@ -21,6 +21,7 @@ namespace Tests
     #if ENABLE_INPUT_SYSTEM
         using UnityEngine.InputSystem;
 
+        [AddComponentMenu("Tests/Input System Test")]
         public class InputSystemTest : MonoBehaviour
         {
             // Update is called once per frame

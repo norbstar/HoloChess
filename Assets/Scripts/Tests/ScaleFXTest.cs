@@ -7,6 +7,7 @@ using Utilities.Points;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Scale FX Test")]
     [RequireComponent(typeof(ScaleFXManager))]
     public class ScaleFXTest : MonoBehaviour
     {

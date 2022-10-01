@@ -8,7 +8,7 @@ namespace FX.UI
     [RequireComponent(typeof(RectTransform))]
     public class RectTransformFX : AsyncTrigger
     {
-        [Header("Custom Config")]
+        [Header("Config")]
         [SerializeField] float timeline = 1f;
         public float Timeline { get { return timeline; } }
         [SerializeField] bool synchronize = true;

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Differential Angle Test")]
     public class DifferentialAngleTest : MonoBehaviour
     {
         [SerializeField] GameObject player;

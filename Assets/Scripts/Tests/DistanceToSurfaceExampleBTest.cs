@@ -4,6 +4,7 @@ using Utilities.Points;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Distance To Surface Example B Test")]
     public class DistanceToSurfaceExampleBTest : MonoBehaviour
     {
         [Header("Config")]

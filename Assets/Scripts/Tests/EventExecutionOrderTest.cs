@@ -1,9 +1,8 @@
 using UnityEngine;
 
-// https://docs.unity3d.com/Manual/ExecutionOrder.html
-
 namespace Tests
 {
+    [AddComponentMenu("Tests/Event Execution Order Test")]
     public class EventExecutionOrderTest : MonoBehaviour
     {
         void Awake() => Debug.Log($"{gameObject} : Awake");

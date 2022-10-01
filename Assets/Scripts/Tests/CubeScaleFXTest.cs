@@ -7,6 +7,7 @@ using ScaleType = FX.ScaleFXManager.ScaleType;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Cube Scale FX Test")]
     [RequireComponent(typeof(ScaleFXManager))]
     public class CubeScaleFXTest : MonoBehaviour
     {

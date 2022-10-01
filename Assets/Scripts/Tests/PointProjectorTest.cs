@@ -4,6 +4,7 @@ using Utilities.Points;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Point Projector Test")]
     public class PointProjectorTest : MonoBehaviour
     {
         [Header("Config")]

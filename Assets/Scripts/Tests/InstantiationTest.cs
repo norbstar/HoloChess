@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Instantiation Test")]
     public class InstantiationTest : MonoBehaviour
     {
         [Header("Config")]

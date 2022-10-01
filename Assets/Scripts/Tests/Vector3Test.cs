@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Vector3 Test")]
     public class Vector3Test : MonoBehaviour
     {
         [Header("Config")]

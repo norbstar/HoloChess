@@ -7,6 +7,7 @@ using ScaleType = FX.ScaleFX2DManager.ScaleType;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Sprite Scale FX Test")]
     [RequireComponent(typeof(ScaleFX2DManager))]
     public class SpriteScaleFXTest : MonoBehaviour
     {

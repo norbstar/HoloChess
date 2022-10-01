@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Sphere Point Test")]
     public class SpherePointTest : MonoBehaviour
     {
         [Header("Components")]

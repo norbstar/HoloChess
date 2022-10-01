@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Player Controller")]
     [RequireComponent(typeof(MeshRenderer))]
     public class PlayerController : MonoBehaviour
     {

@@ -5,6 +5,7 @@ using Utilities.Points;
 namespace Tests
 {
     // See https://www.redcrab-software.com/en/Calculator/Spherical-Cap
+    [AddComponentMenu("Tests/Distance To Surface Example C Test")]
     public class DistanceToSurfaceExampleCTest : MonoBehaviour
     {
         [Header("Config")]

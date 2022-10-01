@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Toggle Canvas Test")]
     [RequireComponent(typeof(CanvasGroup))]
     public class ToggleCanvasTest : MonoBehaviour
     {

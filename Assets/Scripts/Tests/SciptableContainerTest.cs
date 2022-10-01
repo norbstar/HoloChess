@@ -7,6 +7,7 @@ using Scriptables;
 
 namespace Tests
 {
+    [AddComponentMenu("Tests/Sciptable Container Test")]
     public class SciptableContainerTest : MonoBehaviour
     {
         [Header("Config")]
