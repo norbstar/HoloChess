@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace FX
 {
+    [AddComponentMenu("FX/Scale FX")]
     public class ScaleFX : AsyncTrigger
     {
         [Header("Config")]

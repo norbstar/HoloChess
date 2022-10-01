@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Key Code Monitor")]
     public class KeyCodeMonitor : MonoBehaviour
     {
         private List<KeyBindingButtonUIManager> managers;

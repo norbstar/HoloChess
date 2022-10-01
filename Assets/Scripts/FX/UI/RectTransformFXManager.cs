@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace FX.UI
 {
+    [AddComponentMenu("FX/Rect Transform FX Manager")]
     [RequireComponent(typeof(RectTransformFX))]
     public class RectTransformFXManager : MonoBehaviour
     {

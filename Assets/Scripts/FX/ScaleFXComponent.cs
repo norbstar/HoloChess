@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace FX
 {
+    [AddComponentMenu("FX/Scale FX Component")]
     [RequireComponent(typeof(ScaleFX))]
     public class ScaleFXComponent : MonoBehaviour
     {

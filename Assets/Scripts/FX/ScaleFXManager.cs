@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace FX
 {
+    [AddComponentMenu("FX/Scale FX Manager>")]
     [RequireComponent(typeof(ScaleFX))]
     public class ScaleFXManager : ScaleFXBaseManager
     {

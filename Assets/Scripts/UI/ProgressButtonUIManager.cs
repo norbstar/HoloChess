@@ -10,6 +10,7 @@ using UnityButton = UnityEngine.UI.Button;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Progress Button UI Manager")]
     [RequireComponent(typeof(ColorGradient))]
     public class ProgressButtonUIManager : ButtonUIManager
     {

@@ -11,6 +11,7 @@ using FX;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Drag Bar UI Manager")]
     [RequireComponent(typeof(PointerEventHandler))]
     [RequireComponent(typeof(RootResolver))]
     [RequireComponent(typeof(ScaleFX2DManager))]

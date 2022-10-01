@@ -12,6 +12,7 @@ using FX;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Button UI Manager")]
     [RequireComponent(typeof(UnityButton))]
     [RequireComponent(typeof(PointerEventHandler))]
     [RequireComponent(typeof(ScaleFX2DManager))]

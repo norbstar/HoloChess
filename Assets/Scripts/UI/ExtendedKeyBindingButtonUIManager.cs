@@ -7,6 +7,7 @@ using Scriptables;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Extended Key Binding Button UI Manager")]
     [RequireComponent(typeof(Button))]
     public class ExtendedKeyBindingButtonUIManager : ButtonUIManager
     {

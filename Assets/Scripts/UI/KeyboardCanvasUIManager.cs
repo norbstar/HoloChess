@@ -7,6 +7,7 @@ using UI.Panels;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Keyboard Canvas UI Manager")]
     public class KeyboardCanvasUIManager : LockableCanvasUIManager<KeyboardPanelUIManager>
     {
         [Header("Components")]

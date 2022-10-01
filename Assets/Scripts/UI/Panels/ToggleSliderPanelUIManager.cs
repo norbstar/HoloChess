@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Toggle Slider Panel UI Manager")]
     public class ToggleSliderPanelUIManager : SliderPanelUIManager
     {
         [Header("Toggle Components")]

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Settings Panel UI Manager")]
     [RequireComponent(typeof(RootResolver))]
     public class SettingsPanelUIManager : SelectedButtonGroupPanelUIManager, IDragbarPanel
     {

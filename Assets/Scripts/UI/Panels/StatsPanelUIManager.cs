@@ -6,6 +6,7 @@ using TMPro;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Selected Button Group Panel UI Manager")]
     [RequireComponent(typeof(RootResolver))]
     public class StatsPanelUIManager : SelectedButtonGroupPanelUIManager, IDragbarPanel
     {

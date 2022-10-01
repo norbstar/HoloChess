@@ -9,6 +9,7 @@ using TMPro;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Terminal Panel UI Manager")]
     [RequireComponent(typeof(RootResolver))]
     public class TerminalPanelUIManager : SelectedButtonGroupPanelUIManager, IDragbarPanel
     {

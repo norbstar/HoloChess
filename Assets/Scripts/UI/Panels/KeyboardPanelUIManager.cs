@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Keyboard Panel UI Manager")]
     [RequireComponent(typeof(RootResolver))]
     public class KeyboardPanelUIManager : SelectedButtonGroupPanelUIManager, IDragbarPanel
     {

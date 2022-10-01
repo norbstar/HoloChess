@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Button Group UI Manager")]
     public class ButtonGroupUIManager : MonoBehaviour
     {
         public void Enable()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Canvas Group Fader")]
     [RequireComponent(typeof(CanvasGroup))]
     public class CanvasGroupFader : MonoBehaviour
     {

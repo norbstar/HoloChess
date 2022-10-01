@@ -7,6 +7,7 @@ using TMPro;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Side Panel UI Manager")]
     public class SidePanelUIManager : MonoBehaviour
     {
         [Header("Config")]

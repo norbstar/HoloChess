@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Swap Button UI Manager")]
     [RequireComponent(typeof(Button))]
     public class SwapButtonUIManager : ButtonUIManager
     {

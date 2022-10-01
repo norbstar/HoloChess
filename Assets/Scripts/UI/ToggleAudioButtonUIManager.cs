@@ -7,6 +7,7 @@ using UnityButton = UnityEngine.UI.Button;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Toggle Audio Button UI Manager")]
     public class ToggleAudioButtonUIManager : ToggleButtonUIManager, IAudioComponent
     {
         public delegate void OnToggleEvent(ToggleAudioButtonUIManager manager, bool isOn);

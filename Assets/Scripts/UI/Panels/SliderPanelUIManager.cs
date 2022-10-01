@@ -10,6 +10,7 @@ using FX;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Slider Panel UI Manager")]
     public class SliderPanelUIManager : MonoBehaviour, IAudioComponent
     {
         [Header("Components")]

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Lockable Canvas UI Manager")]
     public abstract class LockableCanvasUIManager<T> : DragbarCanvasUIManager<T> where  T : IDragbarPanel
     {
         protected bool isLocked;

@@ -4,6 +4,7 @@ using TMPro;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Dialog Panel UI Manager")]
     [RequireComponent(typeof(TextReceiver))]
     [RequireComponent(typeof(CanvasGroup))]
     public class DialogPanelUIManager : MonoBehaviour

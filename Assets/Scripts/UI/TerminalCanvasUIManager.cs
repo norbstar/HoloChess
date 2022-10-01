@@ -4,6 +4,7 @@ using UI.Panels;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Termial Canvas UI Manager")]
     public class TerminalCanvasUIManager : DragbarCanvasUIManager<TerminalPanelUIManager>
     {
         private bool isLocked;

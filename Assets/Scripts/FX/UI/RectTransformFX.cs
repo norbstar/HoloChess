@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace FX.UI
 {
+    [AddComponentMenu("FX/Rect Transform FX")]
     [RequireComponent(typeof(RectTransform))]
     public class RectTransformFX : AsyncTrigger
     {

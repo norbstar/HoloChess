@@ -4,6 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Basic Canvas UI Manager")]
     [RequireComponent(typeof(GraphicRaycaster))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]
     public class BasicCanvasUIManager : MonoBehaviour

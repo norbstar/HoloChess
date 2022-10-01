@@ -7,6 +7,7 @@ using TMPro;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Annotation UI Manager")]
     public class AnnotationUIManager : MonoBehaviour
     {
         [Header("Components")]

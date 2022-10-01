@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Base Button Group Panel UI Manager")]
     public abstract class BaseButtonGroupPanelUIManager : MonoBehaviour
     {
         protected List<ButtonUIManager> instances;

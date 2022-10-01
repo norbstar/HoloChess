@@ -7,6 +7,7 @@ using Scriptables;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Extended Keyboard Map")]
     public class ExtendedKeyboardMap : BaseKeyboardMap
     {
         [Header("Components")]

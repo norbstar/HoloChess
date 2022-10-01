@@ -1,7 +1,8 @@
 using UnityEngine;
 
-namespace UI
+namespace UI.Panels
 {
+    [AddComponentMenu("UI/Exit Panel UI Manager")]
     public class ExitPanelUIManager : MonoBehaviour
     {
         [SerializeField] ProgressButtonUIManager manager;

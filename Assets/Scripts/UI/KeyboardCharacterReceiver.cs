@@ -4,6 +4,7 @@ using TMPro;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Keyboard Character Receiver")]
     public class KeyboardCharacterReceiver : MonoBehaviour
     {
         [Header("Components")]

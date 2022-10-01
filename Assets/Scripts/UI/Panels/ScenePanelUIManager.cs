@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Scene Panel UI Manager")]
     [RequireComponent(typeof(RootResolver))]
     public class ScenePanelUIManager : SelectedButtonGroupPanelUIManager, IDragbarPanel
     {

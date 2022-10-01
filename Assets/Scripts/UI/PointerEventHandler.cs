@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Pointer Event Handler")]
     public class PointerEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
         [Header("Config")]

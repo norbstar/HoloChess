@@ -4,6 +4,7 @@ using UI.Panels;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Home Canvas UI Manager")]
     public class HomeCanvasUIManager : DragbarCanvasUIManager<HomePanelUIManager>
     {
         public enum TrackingMode

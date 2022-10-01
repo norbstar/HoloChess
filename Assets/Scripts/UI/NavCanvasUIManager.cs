@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Nav Canvas UI Manager")]
     [RequireComponent(typeof(Animator))]
     public class NavCanvasUIManager : MonoBehaviour
     {

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace UI.Panels
 {
+    [AddComponentMenu("UI/Panels/Volume Panel UI Manager")]
     [RequireComponent(typeof(CanvasGroup))]
     public class VolumePanelUIManager : ToggleSliderPanelUIManager
     {

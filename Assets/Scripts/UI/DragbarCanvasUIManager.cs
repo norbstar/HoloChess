@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Drag Canvas UI Manager")]
     public abstract class DragbarCanvasUIManager<T> : AnimatedCanvasUIManager where  T : IDragbarPanel
     {
         [Header("Components")]

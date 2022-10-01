@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Utilities.Points
 {
+    [AddComponentMenu("Utilities/Points/Point Projector")]
     public class PointProjector : MonoBehaviour
     {
         [Header("Config")]

@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Animated Canvas UI Manager")]
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(GraphicRaycaster))]
     [RequireComponent(typeof(TrackedDeviceGraphicRaycaster))]

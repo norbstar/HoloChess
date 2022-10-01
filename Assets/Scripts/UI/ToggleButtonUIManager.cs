@@ -5,6 +5,7 @@ using UnityButton = UnityEngine.UI.Button;
 
 namespace UI
 {
+    [AddComponentMenu("UI/Toggle Button UI Manager")]
     public class ToggleButtonUIManager : ButtonUIManager
     {
         [Header("Custom Components")]
