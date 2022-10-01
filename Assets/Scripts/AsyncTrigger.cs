@@ -10,7 +10,7 @@ public abstract class AsyncTrigger : MonoBehaviour
         NonCancellable
     }
 
-    [Header("Config")]
+    [Header("Mode")]
     [SerializeField] Mode mode = Mode.Cancellable;
 
     protected abstract IEnumerator Co_Routine(object obj = null);

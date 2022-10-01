@@ -19,34 +19,32 @@ namespace FX
 
         private void ResolveDependencies() => scaleFX = GetComponent<ScaleFX>() as ScaleFX;
 
-        public abstract Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType);
+        public abstract Vector3 Scale(Vector3 startScale, Vector3 endScale, ScaleType scaleType);
 
-        public void ScaleTween(/*Vector3 fromScale, */Vector3 tweenScale, Vector3 toScale, ScaleType scaleType = ScaleType.Proportional)
+        public void Tween(Vector3 fromScale, Vector3 toScale, Vector3 tweenScale, Vector3 endScale, ScaleType scaleType = ScaleType.Proportional)
         {
-            // Debug.Log($"{gameObject.name} ScaleTween [1] FromScale : {fromScale.ToPrecisionString()} TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
-            Debug.Log($"{gameObject.name} ScaleTween [1] TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
+            // Debug.Log($"{gameObject.name} Tween FromScale {fromScale.ToPrecisionString()} ToScale {toScale.ToPrecisionString()} TweenScale : {tweenScale.ToPrecisionString()} ToScale : {endScale.ToPrecisionString()} ScaleType : {scaleType}");
 
             if (scaleType != ScaleType.Proportional)
             {
-                toScale = Scale(/*fromScale*/tweenScale, toScale, scaleType);
+                endScale = Scale(tweenScale, endScale, scaleType);
             }
 
-            ScaleTween(/*fromScale, */tweenScale, toScale);
+            DoTween(fromScale, toScale, tweenScale, endScale);
         }
 
-        private void ScaleTween(/*Vector3 fromScale, */Vector3 tweenScale, Vector3 toScale)
+        private void DoTween(Vector3 fromScale, Vector3 toScale, Vector3 tweenScale, Vector3 endScale)
         {
-            // Debug.Log($"{gameObject.name} ScaleTween [2] FromScale : {fromScale.ToPrecisionString()} TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()}");
-            Debug.Log($"{gameObject.name} ScaleTween [2] TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()}");
+            // Debug.Log($"{gameObject.name} DoTween FromScale {fromScale.ToPrecisionString()} ToScale {toScale.ToPrecisionString()} TweenScale : {tweenScale.ToPrecisionString()} ToScale : {endScale.ToPrecisionString()}");
 
             scaleFX.StopAsync();
 
             scaleFX.StartAsync(new ScaleFX.Config
             {
-                // fromScale = fromScale,
-                startScale = tweenScale,
+                fromScale = fromScale,
                 toScale = toScale,
-                // endScale = toScale
+                startScale = tweenScale,
+                endScale = endScale
             });
         }
     }

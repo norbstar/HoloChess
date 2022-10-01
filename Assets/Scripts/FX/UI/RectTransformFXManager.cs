@@ -15,70 +15,78 @@ namespace FX.UI
 
         private RectTransformFX rectTransformFX;
         public RectTransformFX RectTransformFX { get { return rectTransformFX; } }
-        public Vector2 OriginalScale { get { return rectTransformFX.OriginalScale; } }
+        public Vector2 OriginalSize { get { return rectTransformFX.OriginalSize; } }
 
         void Awake() => ResolveDependencies();
 
         private void ResolveDependencies() => rectTransformFX = GetComponent<RectTransformFX>() as RectTransformFX;
 
-        private Vector3 ScaleRelativeToX(Vector3 fromScale, Vector3 toScale)
+        private Vector2 ScaleRelativeToX(Vector2 startSize, Vector2 endSize)
         {
-            float scaleFactor = toScale.x / fromScale.x;
-            float scaleX = toScale.x;
-            float yToXRatio = fromScale.y / fromScale.x;
-            float scaleY = fromScale.y + ((toScale.x - fromScale.x) / yToXRatio);
-            toScale = new Vector3(scaleX, scaleY, fromScale.z);
+            // Debug.Log($"{gameObject.name} ScaleRelativeToX StartSize : {startSize.ToPrecisionString()} EndSize : {endSize.ToPrecisionString()}");
+
+            float sizeX = endSize.x;
+            float sizeY = startSize.y + (endSize.x - startSize.x);
+            endSize = new Vector2(sizeX, sizeY);
+            // Debug.Log($"{gameObject.name} ScaleRelativeToX EndSize : {endSize.ToPrecisionString()}");
             
-            return toScale;
+            return endSize;
         }
 
-        private Vector3 ScaleRelativeToY(Vector3 fromScale, Vector3 toScale)
+        private Vector2 ScaleRelativeToY(Vector2 startSize, Vector2 endSize)
         {
-            float scaleFactor = toScale.y / fromScale.y;
-            float scaleY = toScale.y;
-            float xToYRatio = fromScale.x / fromScale.y;
-            float scaleX = fromScale.x + ((toScale.y - fromScale.y) / xToYRatio);
-            toScale = new Vector3(scaleX, scaleY, fromScale.z);
+            // Debug.Log($"{gameObject.name} ScaleRelativeToY StartSize : {startSize.ToPrecisionString()} EndSize : {endSize.ToPrecisionString()}");
 
-            return toScale;
+            float sizeY = endSize.y;
+            float sizeX = startSize.x + (endSize.y - startSize.y);
+            endSize = new Vector2(sizeX, sizeY);
+            // Debug.Log($"{gameObject.name} ScaleRelativeToY EndSize : {endSize.ToPrecisionString()}");
+
+            return endSize;
         }
 
-        public Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType)
+        public Vector3 Scale(Vector2 startSize, Vector2 endSize, ScaleType scaleType)
         {
+            // Debug.Log($"{gameObject.name} Scale StartSize : {startSize.ToPrecisionString()} EndSize : {endSize.ToPrecisionString()} ScaleType : {scaleType}");
+
             switch (scaleType)
             {
                 case ScaleType.RelativeToX:
-                    toScale = ScaleRelativeToX(fromScale, toScale);
+                    endSize = ScaleRelativeToX(startSize, endSize);
                     break;
 
                 case ScaleType.RelativeToY:
-                    toScale = ScaleRelativeToY(fromScale, toScale);
+                    endSize = ScaleRelativeToY(startSize, endSize);
                     break;
             }
 
-            return toScale;
+            return endSize;
         }
 
-        public void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale, ScaleType scaleType = ScaleType.Proportional)
+        public void Tween(Vector2 fromSize, Vector2 toSize, Vector2 tweenSize, Vector2 endSize, ScaleType scaleType = ScaleType.Proportional)
         {
+            // Debug.Log($"{gameObject.name} Tween FromSize {fromSize.ToPrecisionString()} ToSize {toSize.ToPrecisionString()} TweenSize : {tweenSize.ToPrecisionString()} ToSize : {endSize.ToPrecisionString()} ScaleType : {scaleType}");
+
             if (scaleType != ScaleType.Proportional)
             {
-                toScale = Scale(fromScale, toScale, scaleType);
+                endSize = Scale(tweenSize, endSize, scaleType);
             }
 
-            ScaleTween(fromScale, tweenScale, toScale);
+            DoTween(fromSize, toSize, tweenSize, endSize);
         }
 
-        private void ScaleTween(Vector3 fromScale, Vector3 tweenScale, Vector3 toScale)
+        private void DoTween(Vector2 fromSize, Vector2 toSize, Vector2 tweenSize, Vector2 endSize)
         {
+            // Debug.Log($"{gameObject.name} DoTween FromSize {fromSize.ToPrecisionString()} ToSize {toSize.ToPrecisionString()} TweenSize : {tweenSize.ToPrecisionString()} ToSize : {endSize.ToPrecisionString()}");
+
             rectTransformFX.StopAsync();
 
             rectTransformFX.StartAsync(new RectTransformFX.Config
             {
-                fromScale = fromScale,
-                startScale = tweenScale,
-                toScale = toScale,
-                endScale = toScale
+                fromSize = fromSize,
+                toSize = toSize,
+                startSize = tweenSize,
+                endSize = endSize
             });
         }
     }

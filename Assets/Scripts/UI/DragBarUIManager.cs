@@ -32,6 +32,9 @@ namespace UI
         [SerializeField] Color hoverColor = Color.white;
         [SerializeField] Color selectColor = Color.white;
 
+        [Header("Scaling")]
+        [SerializeField] float scaleFactor = 1.1f;
+
         public enum Event
         {
             OnPointerEnter,
@@ -140,7 +143,9 @@ namespace UI
                     rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
                 }
 
-                scaleFXManager.ScaleTween(/*originalScale, */transform.localScale, originalScale * 1.1f, ScaleFX2DManager.ScaleType.RelativeToY);
+                Vector3 fromScale = originalScale;
+                Vector3 toScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
+                scaleFXManager.Tween(fromScale, toScale, transform.localScale, toScale, ScaleFX2DManager.ScaleType.RelativeToY);
 
                 if (onHoverClip != null)
                 {
@@ -237,7 +242,9 @@ namespace UI
 
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
-            scaleFXManager.ScaleTween(/*transform.localScale, */transform.localScale, originalScale, ScaleFX2DManager.ScaleType.RelativeToY);
+            Vector3 fromScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
+            Vector3 toScale = originalScale;
+            scaleFXManager.Tween(fromScale, toScale, transform.localScale, toScale, ScaleFX2DManager.ScaleType.Proportional);
             yield return null;
         }
 

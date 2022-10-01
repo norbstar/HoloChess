@@ -17,7 +17,7 @@ namespace Tests
 
         private RectTransformFXManager rectTransformFXManager;
         private RectTransformFX rectTransformFX;
-        private Vector2 originalScale;
+        private Vector2 originalSize;
         private bool scaledUp;
 
         void Awake()
@@ -30,7 +30,7 @@ namespace Tests
         void Start()
         {
             rectTransformFX = rectTransformFXManager.RectTransformFX;
-            originalScale = rectTransformFXManager.OriginalScale;
+            originalSize = rectTransformFXManager.OriginalSize;
         }
 
         private void ResolveDependencies() => rectTransformFXManager = GetComponent<RectTransformFXManager>() as RectTransformFXManager;
@@ -47,9 +47,25 @@ namespace Tests
             inputAction.performed -= OnSpace;
         }
         
-        private void ScaleUp() => rectTransformFXManager.ScaleTween(originalScale, rectTransformFX.TweenScale, originalScale * scaleFactor, scaleType);
+        private void ScaleUp()
+        {
+            Vector2 fromSize = originalSize;
+            Vector2 toSize = originalSize * scaleFactor;
+            Vector2 tweenSize = rectTransformFX.TweenSize;
+            Vector2 endSize = toSize;
+            // Debug.Log($"{gameObject.name} ScaleUp TweenSize : {tweenSize.ToPrecisionString()} ToSize : {toSize.ToPrecisionString()} ScaleType : {scaleType}");
+            rectTransformFXManager.Tween(fromSize, toSize, tweenSize, endSize, scaleType);
+        }
 
-        private void ScaleDown() => rectTransformFXManager.ScaleTween(originalScale * scaleFactor, rectTransformFX.TweenScale, originalScale, scaleType);
+        private void ScaleDown()
+        {
+            Vector2 fromSize = originalSize * scaleFactor;
+            Vector2 toSize = originalSize;
+            Vector2 tweenSize = rectTransformFX.TweenSize;
+            Vector2 endSize = toSize;
+            // Debug.Log($"{gameObject.name} ScaleDown TweenScale : {tweenSize.ToPrecisionString()} ToScale : {toSize.ToPrecisionString()} ScaleType : {scaleType}");
+            rectTransformFXManager.Tween(fromSize, toSize, tweenSize, toSize, RectTransformFXManager.ScaleType.Proportional);
+        }
 
         private void OnSpace(InputAction.CallbackContext context)
         {

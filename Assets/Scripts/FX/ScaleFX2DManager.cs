@@ -15,82 +15,86 @@ namespace FX
 
         private void ResolveDependencies() => rectTransform = GetComponent<RectTransform>() as RectTransform;
 
-        private Vector3 ScaleRelativeToX(Vector3 fromScale, Vector3 toScale, bool hasRectTransform)
+        private Vector3 ScaleRelativeToX(Vector3 startScale, Vector3 endScale, bool hasRectTransform)
         {
-            Debug.Log($"{gameObject.name} ScaleRelativeToX FromScale : {fromScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} HasRectTransform : {hasRectTransform}");
+            // Debug.Log($"{gameObject.name} ScaleRelativeToX StartScale : {startScale.ToPrecisionString()} EndScale : {endScale.ToPrecisionString()} HasRectTransform : {hasRectTransform}");
 
-            float scaleFactor = toScale.x / fromScale.x;
-            Debug.Log($"{gameObject.name} ScaleRelativeToX ScaleFactor : {scaleFactor}");
+            float scaleFactor = endScale.x / startScale.x;
+            // Debug.Log($"{gameObject.name} ScaleRelativeToX ScaleFactor : {scaleFactor}");
 
-            float scaleX = toScale.x;
+            float scaleX = endScale.x;
+            float scaleY;
             float yToXRatio;
 
             if (hasRectTransform)
             {
-                yToXRatio = (rectTransform.rect.height * fromScale.y) / (rectTransform.rect.width * fromScale.x);
+                yToXRatio = (rectTransform.rect.height * startScale.y) / (rectTransform.rect.width * startScale.x);
+                scaleY = startScale.y + (((endScale.x - startScale.x) / yToXRatio) / yToXRatio);
             }
             else
             {
-                yToXRatio = fromScale.y / fromScale.x;
+                yToXRatio = startScale.y / startScale.x;
+                scaleY = startScale.y + ((endScale.x - startScale.x) / yToXRatio);
             }
 
-            Debug.Log($"{gameObject.name} ScaleRelativeToX YToXRatio : {yToXRatio}");
+            // Debug.Log($"{gameObject.name} ScaleRelativeToX YToXRatio : {yToXRatio}");
 
-            float scaleY = fromScale.y + ((toScale.x - fromScale.x) / yToXRatio);
-            toScale = new Vector3(scaleX, scaleY, fromScale.z);
+            endScale = new Vector3(scaleX, scaleY, startScale.z);
 
-            Debug.Log($"{gameObject.name} ScaleRelativeToX ToScale : {toScale.ToPrecisionString()}");
+            // Debug.Log($"{gameObject.name} ScaleRelativeToX EndScale : {endScale.ToPrecisionString()}");
             
-            return toScale;
+            return endScale;
         }
 
-        private Vector3 ScaleRelativeToY(Vector3 fromScale, Vector3 toScale, bool hasRectTransform)
+        private Vector3 ScaleRelativeToY(Vector3 startScale, Vector3 endScale, bool hasRectTransform)
         {
-            Debug.Log($"{gameObject.name} ScaleRelativeToY FromScale : {fromScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} HasRectTransform : {hasRectTransform}");
+            // Debug.Log($"{gameObject.name} ScaleRelativeToY StartScale : {startScale.ToPrecisionString()} EndScale : {endScale.ToPrecisionString()} HasRectTransform : {hasRectTransform}");
 
-            float scaleFactor = toScale.y / fromScale.y;
-            Debug.Log($"{gameObject.name} ScaleRelativeToY ScaleFactor : {scaleFactor}");
+            float scaleFactor = endScale.y / startScale.y;
+            // Debug.Log($"{gameObject.name} ScaleRelativeToY ScaleFactor : {scaleFactor}");
 
-            float scaleY = toScale.y;
+            float scaleX;
+            float scaleY = endScale.y;
             float xToYRatio;
 
             if (hasRectTransform)
             {
-                xToYRatio = (rectTransform.rect.width * fromScale.x) / (rectTransform.rect.height * fromScale.y);
+                xToYRatio = (rectTransform.rect.width * startScale.x) / (rectTransform.rect.height * startScale.y);
+                scaleX = startScale.x + (((endScale.y - startScale.y) / xToYRatio) / xToYRatio);
             }
             else
             {
-                xToYRatio = fromScale.x / fromScale.y;
+                xToYRatio = startScale.x / startScale.y;
+                scaleX = startScale.x + ((endScale.y - startScale.y) / xToYRatio);
             }
 
-            Debug.Log($"{gameObject.name} ScaleRelativeToY XToYRatio : {xToYRatio}");
+            // Debug.Log($"{gameObject.name} ScaleRelativeToY XToYRatio : {xToYRatio}");
                 
-            float scaleX = fromScale.x + ((toScale.y - fromScale.y) / xToYRatio);
-            toScale = new Vector3(scaleX, scaleY, fromScale.z);
+            endScale = new Vector3(scaleX, scaleY, startScale.z);
 
-            Debug.Log($"{gameObject.name} ScaleRelativeToY ToScale : {toScale.ToPrecisionString()}");
+            // Debug.Log($"{gameObject.name} ScaleRelativeToY EndScale : {endScale.ToPrecisionString()}");
 
-            return toScale;
+            return endScale;
         }
 
-        public override Vector3 Scale(Vector3 fromScale, Vector3 toScale, ScaleType scaleType)
+        public override Vector3 Scale(Vector3 startScale, Vector3 endScale, ScaleType scaleType)
         {
-            Debug.Log($"{gameObject.name} Scale FromScale : {fromScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
+            // Debug.Log($"{gameObject.name} Scale StartScale : {startScale.ToPrecisionString()} EndScale : {endScale.ToPrecisionString()} ScaleType : {scaleType}");
 
             bool hasRectTransform = (rectTransform != null);
 
             switch (scaleType)
             {
                 case ScaleType.RelativeToX:
-                    toScale = ScaleRelativeToX(fromScale, toScale, hasRectTransform);
+                    endScale = ScaleRelativeToX(startScale, endScale, hasRectTransform);
                     break;
 
                 case ScaleType.RelativeToY:
-                    toScale = ScaleRelativeToY(fromScale, toScale, hasRectTransform);
+                    endScale = ScaleRelativeToY(startScale, endScale, hasRectTransform);
                     break;
             }
 
-            return toScale;
+            return endScale;
         }
     }
 }

@@ -16,8 +16,10 @@ namespace Tests
             Custom
         }
 
-        [Header("Config")]
+        [Header("Inputs")]
         [SerializeField] InputAction inputAction;
+
+        [Header("Scaling")]
         [SerializeField] ScaleType scaleType;
         [SerializeField] float scaleFactor = 1.1f;
 
@@ -47,14 +49,22 @@ namespace Tests
 
         private void ScaleUp()
         {
-            Debug.Log($"{gameObject.name} ScaleUp FromScale : {originalScale} TweenScale : {transform.localScale} ToScale : {originalScale * scaleFactor} ScaleType : {scaleType}");
-            scaleFXManager.ScaleTween(/*originalScale, */transform.localScale, originalScale * scaleFactor, scaleType);
+            Vector3 fromScale = originalScale;
+            Vector3 toScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
+            Vector3 tweenScale = transform.localScale;
+            Vector3 endScale = toScale;
+            Debug.Log($"{gameObject.name} ScaleUp TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
+            scaleFXManager.Tween(fromScale, toScale, tweenScale, endScale, scaleType);
         }
 
         private void ScaleDown()
         {
-            Debug.Log($"{gameObject.name} ScaleDown FromScale : {originalScale * scaleFactor} TweenScale : {transform.localScale} ToScale : {originalScale} ScaleType : {scaleType}");
-            scaleFXManager.ScaleTween(/*originalScale * scaleFactor, */transform.localScale, originalScale, scaleType);
+            Vector3 fromScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
+            Vector3 toScale = originalScale;
+            Vector3 tweenScale = transform.localScale;
+            Vector3 endScale = toScale;
+            Debug.Log($"{gameObject.name} ScaleDown TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
+            scaleFXManager.Tween(fromScale, toScale, tweenScale, toScale, ScaleFX2DManager.ScaleType.Proportional);
         }
 
         private void OnSpace(InputAction.CallbackContext context)

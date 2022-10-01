@@ -48,19 +48,21 @@ namespace Tests
         private void ScaleUp()
         {
             Vector3 fromScale = originalScale;
-            Vector3 tweenScale = transform.localScale;
             Vector3 toScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
-            Debug.Log($"{gameObject.name} ScaleUp FromScale : {fromScale.ToPrecisionString()} TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
-            scaleFXManager.ScaleTween(/*fromScale, */tweenScale, toScale, scaleType);
+            Vector3 tweenScale = transform.localScale;
+            Vector3 endScale = toScale;
+            Debug.Log($"{gameObject.name} ScaleUp TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
+            scaleFXManager.Tween(fromScale, toScale, tweenScale, endScale, scaleType);
         }
 
         private void ScaleDown()
         {
             Vector3 fromScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
-            Vector3 tweenScale = transform.localScale;
             Vector3 toScale = originalScale;
-            Debug.Log($"{gameObject.name} ScaleDown FromScale : {fromScale.ToPrecisionString()} TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
-            scaleFXManager.ScaleTween(/*fromScale, */tweenScale, toScale, scaleType);
+            Vector3 tweenScale = transform.localScale;
+            Vector3 endScale = toScale;
+            Debug.Log($"{gameObject.name} ScaleDown TweenScale : {tweenScale.ToPrecisionString()} ToScale : {toScale.ToPrecisionString()} ScaleType : {scaleType}");
+            scaleFXManager.Tween(fromScale, toScale, tweenScale, endScale, ScaleFX2DManager.ScaleType.Proportional);
         }
 
         private void OnSpace(InputAction.CallbackContext context)

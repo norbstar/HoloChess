@@ -29,9 +29,11 @@ namespace UI
         [SerializeField] float hapticsDuration = 0.1f;
         public float HapticsDuration { get { return hapticsDuration; } }
 
-        [Header("Config")]
+        [Header("Scaling")]
         [SerializeField] ScaleType scaleType = ScaleType.RelativeToY;
         [SerializeField] float scaleFactor = 1.1f;
+
+        [Header("Selection")]
         [SerializeField] protected bool deselectOnSelect = true;
         [SerializeField] protected float deselectionDelay = 0.25f;
         public float DeselectionDelay { get { return deselectionDelay; } }
@@ -147,8 +149,9 @@ namespace UI
                 rayInteractor?.SendHapticImpulse(hapticsAmplitude, hapticsDuration);
             }
 
+            Vector3 fromScale = originalScale;
             Vector3 toScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
-            scaleFXManager.ScaleTween(/*originalScale*//*transform.localScale, */transform.localScale, toScale, scaleType);
+            scaleFXManager.Tween(fromScale, toScale, transform.localScale, toScale, scaleType);
 
             if (onHoverClip != null)
             {
@@ -206,7 +209,8 @@ namespace UI
         private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject, XRRayInteractor rayInteractor)
         {
             Vector3 fromScale = new Vector3(originalScale.x * scaleFactor, originalScale.y * scaleFactor, originalScale.z);
-            scaleFXManager.ScaleTween(/*transform.localScale*//*fromScale, */transform.localScale, originalScale, scaleType);
+            Vector3 toScale = originalScale;
+            scaleFXManager.Tween(fromScale, toScale, transform.localScale, toScale, ScaleFX2DManager.ScaleType.Proportional);
             yield return null;
         }
 

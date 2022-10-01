@@ -17,22 +17,22 @@ namespace FX.UI
         [Serializable]
         public class Config
         {
-            public Vector3 fromScale;
-            public Vector3 startScale;
-            public Vector3 toScale;
-            public Vector3 endScale;
+            public Vector2 fromSize;
+            public Vector2 toSize;
+            public Vector2 startSize;
+            public Vector2 endSize;
         }
 
         private RectTransform rectTransform;
-        private Vector2 originalScale;
-        public Vector2 OriginalScale { get { return originalScale; } }
-        public Vector2 TweenScale { get { return rectTransform.sizeDelta; } }
+        private Vector2 originalSize;
+        public Vector2 OriginalSize { get { return originalSize; } }
+        public Vector2 TweenSize { get { return rectTransform.sizeDelta; } }
         private Config config;
 
         void Awake()
         {
             ResolveDependencies();
-            originalScale = rectTransform.sizeDelta;
+            originalSize = rectTransform.sizeDelta;
         }
 
         private void ResolveDependencies() => rectTransform = GetComponent<RectTransform>() as RectTransform;
@@ -41,7 +41,9 @@ namespace FX.UI
         {
             config = (Config) obj;
             
-            float scaleDelta = Vector3.Distance(config.startScale, config.endScale);
+            // Debug.Log($"{gameObject.name} Co_Routine FromSize : {config.fromSize.ToPrecisionString()} ToSize : {config.toSize.ToPrecisionString()} StartSize : {config.startSize.ToPrecisionString()} EndSize : {config.endSize.ToPrecisionString()}");
+
+            float scaleDelta = Vector2.Distance(config.startSize, config.endSize);
 
             if (scaleDelta == 0)
             {
@@ -49,7 +51,7 @@ namespace FX.UI
             }
 
             float startTime = Time.time;
-            float range = Vector3.Distance(config.fromScale, config.toScale);
+            float range = Vector2.Distance(config.fromSize, config.toSize);
             float interRange = scaleDelta;
             float fractionalTimeline = timeline * (interRange / range);
             float fractionComplete = 0f;
@@ -58,7 +60,7 @@ namespace FX.UI
             {
                 float elapsedTime = Time.time - startTime;
                 fractionComplete = Mathf.Clamp01(elapsedTime / fractionalTimeline);
-                rectTransform.sizeDelta = Vector3.Lerp(config.startScale, config.endScale, fractionComplete);
+                rectTransform.sizeDelta = Vector2.Lerp(config.startSize, config.endSize, fractionComplete);
                 yield return null;
             }
         }
