@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 1632859314030338618}
   m_Layer: 0
   m_Name: Right Hand Controller
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,7 +642,6 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointerMap: {fileID: 6705437721481607137}
   pointerOffset: 0.002
   hand: 1
   enablePointer: 1
@@ -906,7 +905,7 @@ GameObject:
   - component: {fileID: 1632859315781924414}
   m_Layer: 0
   m_Name: Left Hand Controller
-  m_TagString: Untagged
+  m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1466,7 +1465,6 @@ MonoBehaviour:
   enableLogging: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   size: {x: 0.035, y: 0.035, z: 0.035}
-  pointerMap: {fileID: 555385866209633640}
   pointerOffset: 0.002
   hand: 0
   enablePointer: 1

@@ -4,12 +4,18 @@ using UnityEngine;
 
 using FX.UI;
 
+using ScaleType = FX.UI.ScaleUIFX.ScaleType;
+using Flow = FX.UI.ScaleUIFXComponent.Flow;
+using Flags = FX.UI.ScaleUIFXComponent.Flags;
+
 namespace Tests
 {
     [AddComponentMenu("Tests/Scale UI FX Test")]
     [RequireComponent(typeof(ScaleUIFXManager))]
     public class ScaleUIFXTest : MonoBehaviour
     {
+        [SerializeField] float timeline = 0.25f;
+
         private ScaleUIFXManager scaleUIFXManager;
         private List<ScaleUIFXComponent> components;
 
@@ -21,10 +27,19 @@ namespace Tests
 
         private void ResolveDependencies() => scaleUIFXManager = GetComponent<ScaleUIFXManager>() as ScaleUIFXManager;
 
-        // Update is called once per frame
-        void Update()
+        // Start is called before the first frame update
+        void Start()
         {
-            
+            foreach (ScaleUIFXComponent component in components)
+            {
+                component.Scale(new ScaleUIFXComponent.Config
+                {
+                    // type = ScaleType.Proportional,
+                    timeline = timeline,
+                    flow = Flow.ToEnd,
+                    flags = Flags.ScaleContent
+                });
+            }
         }
     }
 }
