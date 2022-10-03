@@ -14,8 +14,6 @@ namespace Tests
     [RequireComponent(typeof(ScaleUIFXManager))]
     public class ScaleUIFXTest : MonoBehaviour
     {
-        [SerializeField] float timeline = 0.25f;
-
         private ScaleUIFXManager scaleUIFXManager;
         private List<ScaleUIFXComponent> components;
 
@@ -35,7 +33,6 @@ namespace Tests
                 component.Scale(new ScaleUIFXComponent.Config
                 {
                     // type = ScaleType.Proportional,
-                    timeline = timeline,
                     flow = Flow.ToEnd,
                     flags = Flags.ScaleContent
                 });

@@ -24,16 +24,14 @@ namespace FX.UI
 
         public class Config
         {
-            public ScaleType? type;
-            public float? timeline;
             public Flow flow;
             public Flags flags;
         }
 
-        [field : SerializeField] public ScaleType Type { get; private set; } = ScaleType.Proportional;
-        [field : SerializeField] public float Timeline { get; private set; } = 1f;
-        [field : SerializeField] public float ScaleFactor { get; private set; } = 1.1f;       
-        [field : SerializeField] public Vector2 CustomScaling { get; private set; } = Vector2.one * 1.1f;
+        [SerializeField] ScaleType type = ScaleType.Unified;
+        [SerializeField] float speed = 1f;
+        [SerializeField] float scaleFactor = 1.1f;       
+        [SerializeField] Vector2 scaler = Vector2.one * 1.1f;
 
         private ScaleUIFX scaleUIFX;
         public ScaleUIFX ScaleUIFX { get { return scaleUIFX; } }
@@ -42,87 +40,91 @@ namespace FX.UI
 
         private void ResolveDependencies() => scaleUIFX = GetComponent<ScaleUIFX>() as ScaleUIFX;
 
-        public bool Scale(Config config)
+        public void Scale(Config config)
         {
-            if (config == null) return false;
+            if (config == null) return;
 
-            Debug.Log($"{gameObject.name} DoScale Type : {config.type} Timeline : {config.timeline} Flow {config.flow} Flags : {config.flags}");
+            Debug.Log($"{gameObject.name} Scale Type : {type} Speed : {speed} Flow {config.flow} Flags : {config.flags}");
+            
+            Vector2 size = CalculateSize(config);
+            Vector2 scale = CalculateScale(config);
+            DoScale(type, speed, size, scale, config.flags);
+        }
 
-            var type = (config.type.HasValue) ? config.type.Value : Type;
-            var timeline = (config.timeline.HasValue) ? config.timeline.Value : Timeline;
-            Vector2 size = scaleUIFX.TweenSize;
+        public Vector2 CalculateSize(Config config)
+        {
+            Vector2 originalSize = scaleUIFX.OriginalSize;
             float xDelta, xSize, yDelta, ySize;
-            Vector2? endSize = null;
+            Vector2 size = originalSize;
 
             if (config.flow == Flow.ToEnd)
             {
                 switch (type)
                 {
-                    case ScaleType.Proportional:
-                        endSize = size * ScaleFactor;
+                    case ScaleType.Unified:
+                        size = originalSize * scaleFactor;
                         break;
 
                     case ScaleType.XConstrained:
-                        xDelta = (size.x * ScaleFactor) - size.x;
-                        ySize = Mathf.Clamp(size.y * ScaleFactor, size.y, size.y + xDelta);
-                        endSize = new Vector2(size.x * ScaleFactor, ySize);
+                        yDelta = (originalSize.y * scaleFactor) - originalSize.y;
+                        xSize = Mathf.Clamp(originalSize.x * scaleFactor, originalSize.x, originalSize.x + yDelta);
+                        size = new Vector2(xSize, originalSize.y * scaleFactor);
                         break;
 
                     case ScaleType.XEqual:
-                        xDelta = (size.x * ScaleFactor) - size.x;
-                        ySize = size.y + xDelta;
-                        endSize = new Vector2(size.x * ScaleFactor, ySize);
+                        yDelta = (originalSize.y * scaleFactor) - originalSize.y;
+                        xSize = originalSize.x + yDelta;
+                        size = new Vector2(xSize, originalSize.y * scaleFactor);
                         break;
 
                     case ScaleType.YConstrained:
-                        yDelta = (size.y * ScaleFactor) - size.y;
-                        xSize = Mathf.Clamp(size.x * ScaleFactor, size.x, size.x + yDelta);
-                        endSize = new Vector2(xSize, size.y * ScaleFactor);
+                        xDelta = (originalSize.x * scaleFactor) - originalSize.x;
+                        ySize = Mathf.Clamp(originalSize.y * scaleFactor, originalSize.y, originalSize.y + xDelta);
+                        size = new Vector2(originalSize.x * scaleFactor, ySize);
                         break;
 
                     case ScaleType.YEqual:
-                        yDelta = (size.y * ScaleFactor) - size.y;
-                        xSize = size.x + yDelta;
-                        endSize = new Vector2(xSize, size.y * ScaleFactor);
+                        xDelta = (originalSize.x * scaleFactor) - originalSize.x;
+                        ySize = originalSize.y + xDelta;
+                        size = new Vector2(originalSize.x * scaleFactor, ySize);
                         break;
 
                     case ScaleType.Custom:
-                        endSize = new Vector2(size.x * CustomScaling.x, size.y * CustomScaling.y);
+                        size = new Vector2(originalSize.x * scaler.x, originalSize.y * scaler.y);
                         break;
                 }
             }
-            else
-            {
-                endSize = size;
-            }
 
-            bool success = false;
-            
-            if (endSize.HasValue)
-            {
-                DoScale(type, timeline, size, size * ScaleFactor, scaleUIFX.TweenSize, endSize.Value, config.flags);
-                success = true;
-            }
-
-            return success;
+            return size;
         }
 
-        private void DoScale(ScaleType type, float timeline, Vector2 fromSize, Vector2 toSize, Vector2 tweenSize, Vector2 endSize, Flags flags)
+        public Vector2 CalculateScale(Config config)
         {
-            Debug.Log($"{gameObject.name} DoScale Type : {type} Timeline : {timeline} FromSize {fromSize.ToPrecisionString()} ToSize {toSize.ToPrecisionString()} TweenSize : {tweenSize.ToPrecisionString()} ToSize : {endSize.ToPrecisionString()} Flags : {flags}");
+            Vector2 originalScale = scaleUIFX.OriginalScale;
+            Vector2 scale = originalScale;
+
+            bool scaleContent = (config.flags.HasFlag(Flags.ScaleContent));
+
+            if (scaleContent)
+            {
+                // TODO
+            }
+
+            return scale;
+        }
+
+        private void DoScale(ScaleType type, float speed, Vector2 size, Vector2 scale, Flags flags)
+        {
+            Debug.Log($"{gameObject.name} DoScale Type : {type} Speed : {speed} Size : {size.ToPrecisionString()} Scale : {scale.ToPrecisionString()} Flags : {flags}");
 
             scaleUIFX.StopAsync();
 
-            bool scaleContent = (flags.HasFlag(Flags.ScaleContent));
-
             scaleUIFX.StartAsync(new ScaleUIFX.Config
             {
-                timeline = timeline,
-                fromSize = fromSize,
-                toSize = toSize,
-                startSize = tweenSize,
-                endSize = endSize,
-                scaleContent = scaleContent
+                size = size,
+                scale = scale,
+                speed = speed,
+                flags = flags
             });
         }
     }
