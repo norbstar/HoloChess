@@ -26,6 +26,7 @@ namespace FX.UI
         {
             public Flow flow;
             public Flags flags;
+            public float? speed = 1f;
         }
 
         [SerializeField] ScaleType type = ScaleType.Unified;
@@ -103,29 +104,24 @@ namespace FX.UI
         {
             if (config == null) return;
 
-            // Debug.Log($"Scale Type : {type} Speed : {speed} Flow {config.flow} Flags : {config.flags}");
             scaleUIFX.StopAsync();
 
             Vector2 size = CalculateSize(config);
             Vector2 scale = scaleUIFX.OriginalScale;
 
             bool scaleContent = (config.flags.HasFlag(Flags.ScaleContent));
-            // Debug.Log($"[Pre] Size : {size.ToPrecisionString()} Scale : {scale.ToPrecisionString()} ScaleContent : {scaleContent}");
             
             if (scaleContent)
             {
                 scale = CalculateScale(size, config);
-                // size = scaleUIFX.OriginalSize;
                 size /= scale;
             }
-
-            // Debug.Log($"[Post] Size : {size.ToPrecisionString()} Scale : {scale.ToPrecisionString()}");
 
             scaleUIFX.StartAsync(new ScaleUIFX.Config
             {
                 size = size,
                 scale = scale,
-                speed = speed,
+                speed = (config.speed.HasValue) ? config.speed.Value : speed,
                 flags = config.flags
             });
         }

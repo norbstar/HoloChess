@@ -16,17 +16,9 @@ public abstract class AsyncTrigger : MonoBehaviour
     private ContextData contextData;
     private int id, count;
 
-    private void IncrementCount()
-    {
-        ++count;
-        // Debug.Log($"IncrementCount {count}");
-    }
+    private void IncrementCount() => ++count;
 
-    protected void DecrementCount()
-    {
-        --count;
-        // Debug.Log($"DecrementCount {count}");
-    }
+    protected void DecrementCount() => --count;
 
     public void StartAsync(object obj = null) => StartCoroutine(Co_StartAsync(obj));
 
@@ -40,7 +32,6 @@ public abstract class AsyncTrigger : MonoBehaviour
         }
         
         ++id;
-        // Debug.Log($"Co_StartAsync Id : {id}");
 
         var coroutine = StartCoroutine(Co_Routine(id, obj));
 
@@ -50,8 +41,6 @@ public abstract class AsyncTrigger : MonoBehaviour
             id = id
         };
         
-        // Debug.Log($"Co_StartAsync Setting ContextData Has Coroutine : {coroutine != null}");
-
         IncrementCount();
         yield return coroutine;
     }
@@ -60,9 +49,7 @@ public abstract class AsyncTrigger : MonoBehaviour
     
     private void StopCoroutine()
     {
-        // Debug.Log($"StopCoroutine Has ContextData : {contextData != null}");
         if (contextData == null) return;
-        // Debug.Log($"StopCoroutine");
 
         StopCoroutine(contextData.coroutine);
         MarkEndCoroutine();
@@ -70,9 +57,7 @@ public abstract class AsyncTrigger : MonoBehaviour
 
     protected void MarkEndCoroutine()
     {
-        // Debug.Log($"[Pre] MarkEndCoroutine Has ContextData : {contextData != null}");
         DecrementCount();
         contextData = null;
-        // Debug.Log($"[Post] MarkEndCoroutine Has ContextData : {contextData != null}");
     }
 }

@@ -34,7 +34,7 @@ namespace Tests
 
         private void OnPointerEvent(GameObject gameObject, PointerEventHandler.Event @event, PointerEventData eventData)
         {
-            // Debug.Log($"OnPointerEvent : {@event} GameObject : {gameObject.name}");
+            Debug.Log($"OnPointerEvent : {@event} GameObject : {gameObject.name}");
 
             switch (@event)
             {
@@ -50,50 +50,26 @@ namespace Tests
 
         private void OnPointerEnter(GameObject gameObject, PointerEventData eventData)
         {
-            // Debug.Log($"OnPointerEnter : {gameObject.name}");
-
             isPointerEnter = true;
-            // StartCoroutine(OnPointerEnterCoroutine(eventData, eventData.pointerEnter));
 
             component.Scale(new ScaleUIFXComponent.Config
             {
                 flow = ScaleUIFXComponent.Flow.ToEnd,
-                flags = (scaleContent) ? ScaleUIFXComponent.Flags.ScaleContent : 0
+                flags = (scaleContent) ? ScaleUIFXComponent.Flags.ScaleContent : 0,
+                speed = 0.1f
             });
         }
 
-        // private IEnumerator OnPointerEnterCoroutine(PointerEventData eventData, GameObject gameObject)
-        // {
-        //     component.Scale(new ScaleUIFXComponent.Config
-        //     {
-        //         flow = ScaleUIFXComponent.Flow.ToEnd
-        //     });
-
-        //     yield return null;
-        // }
-
         private void OnPointerExit(GameObject gameObject, PointerEventData eventData)
         {
-            // Debug.Log($"OnPointerExit : {gameObject.name}");
-
             isPointerEnter = false;
-            // StartCoroutine(OnPointerExitCoroutine(eventData, eventData.pointerEnter));
 
             component.Scale(new ScaleUIFXComponent.Config
             {
                 flow = ScaleUIFXComponent.Flow.ToStart,
-                flags = (scaleContent) ? ScaleUIFXComponent.Flags.ScaleContent : 0
+                flags = (scaleContent) ? ScaleUIFXComponent.Flags.ScaleContent : 0,
+                speed = 0.15f
             });
         }
-
-        // private IEnumerator OnPointerExitCoroutine(PointerEventData eventData, GameObject gameObject)
-        // {
-        //     component.Scale(new ScaleUIFXComponent.Config
-        //     {
-        //         flow = ScaleUIFXComponent.Flow.ToStart
-        //     });
-
-        //     yield return null;
-        // }
     }
 }
