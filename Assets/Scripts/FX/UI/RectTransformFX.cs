@@ -38,11 +38,11 @@ namespace FX.UI
 
         private void ResolveDependencies() => rectTransform = GetComponent<RectTransform>() as RectTransform;
 
-        protected override IEnumerator Co_Routine(object obj)
+        protected override IEnumerator Co_Routine(int id, object obj)
         {
             config = (Config) obj;
             
-            // Debug.Log($"{gameObject.name} Co_Routine FromSize : {config.fromSize.ToPrecisionString()} ToSize : {config.toSize.ToPrecisionString()} StartSize : {config.startSize.ToPrecisionString()} EndSize : {config.endSize.ToPrecisionString()}");
+            // Debug.Log($"{gameObject.name} Co_Routine Id : {id} FromSize : {config.fromSize.ToPrecisionString()} ToSize : {config.toSize.ToPrecisionString()} StartSize : {config.startSize.ToPrecisionString()} EndSize : {config.endSize.ToPrecisionString()}");
 
             float scaleDelta = Vector2.Distance(config.startSize, config.endSize);
 
@@ -64,6 +64,9 @@ namespace FX.UI
                 rectTransform.sizeDelta = Vector2.Lerp(config.startSize, config.endSize, fractionComplete);
                 yield return null;
             }
+
+            // Debug.Log($"{gameObject.name} Co_Routine End Id : {id}"); 
+            DecrementCount();
         }
     }
 }

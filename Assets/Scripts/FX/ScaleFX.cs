@@ -25,11 +25,11 @@ namespace FX
 
         private Config config;
 
-        protected override IEnumerator Co_Routine(object obj)
+        protected override IEnumerator Co_Routine(int id, object obj)
         {
             config = (Config) obj;
             
-            // Debug.Log($"{gameObject.name} Co_Routine FromScale : {config.fromScale.ToPrecisionString()} ToScale : {config.toScale.ToPrecisionString()} StartScale : {config.startScale.ToPrecisionString()} EndScale : {config.endScale.ToPrecisionString()}");
+            // Debug.Log($"{gameObject.name} Co_Routine Id : {id} FromScale : {config.fromScale.ToPrecisionString()} ToScale : {config.toScale.ToPrecisionString()} StartScale : {config.startScale.ToPrecisionString()} EndScale : {config.endScale.ToPrecisionString()}");
 
             float scaleDelta = Vector3.Distance(config.startScale, config.endScale);
 
@@ -51,6 +51,9 @@ namespace FX
                 transform.localScale = Vector3.Lerp(config.startScale, config.endScale, fractionComplete);
                 yield return null;
             }
+
+            // Debug.Log($"{gameObject.name} Co_Routine End Id : {id}"); 
+            DecrementCount();
         }
     }
 }

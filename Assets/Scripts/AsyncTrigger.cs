@@ -1,42 +1,58 @@
+using System;
 using System.Collections;
 
 using UnityEngine;
 
 public abstract class AsyncTrigger : MonoBehaviour
 {
-    public enum Mode
+    protected abstract IEnumerator Co_Routine(int id, object obj = null);
+
+    public class ContextData
     {
-        Cancellable,
-        NonCancellable
+        public Coroutine coroutine;
+        public int id;
     }
 
-    [Header("Mode")]
-    [SerializeField] Mode mode = Mode.Cancellable;
+    private ContextData contextData;
+    private int id, count;
 
-    protected abstract IEnumerator Co_Routine(object obj = null);
+    private void IncrementCount()
+    {
+        ++count;
+        // Debug.Log($"IncrementCount {count}");
+    }
 
-    private Coroutine coroutine;
+    protected void DecrementCount()
+    {
+        --count;
+        // Debug.Log($"DecrementCount {count}");
+    }
 
-    public void StartAsync(object obj = null) => StartCoroutine(Co_StartAsync(obj));  
+    public void StartAsync(object obj = null) => StartCoroutine(Co_StartAsync(obj));
 
     private IEnumerator Co_StartAsync(object obj)
     {
-        switch (mode)
+        StopCoroutine();
+        
+        if (id == Int32.MaxValue)
         {
-            case Mode.Cancellable:
-                StopCoroutine();
-                coroutine = StartCoroutine(Co_Routine(obj));
-                break;
-
-            case Mode.NonCancellable:
-                if (coroutine == null)
-                {
-                    yield return coroutine = StartCoroutine(Co_Routine(obj));
-                    coroutine = null;
-                }
-                break;
+            id = 0;
         }
         
+        ++id;
+        // Debug.Log($"Co_StartAsync Id : {id}");
+
+        var coroutine = StartCoroutine(Co_Routine(id, obj));
+
+        contextData = new ContextData
+        {
+            coroutine = coroutine,
+            id = id
+        };
+        
+        // Debug.Log($"Co_StartAsync Setting ContextData Has Coroutine : {coroutine != null}");
+
+        IncrementCount();
         yield return coroutine;
     }
 
@@ -44,10 +60,19 @@ public abstract class AsyncTrigger : MonoBehaviour
     
     private void StopCoroutine()
     {
-        if (coroutine != null)
-        {
-            StopCoroutine(coroutine);
-            coroutine = null;
-        }
+        // Debug.Log($"StopCoroutine Has ContextData : {contextData != null}");
+        if (contextData == null) return;
+        // Debug.Log($"StopCoroutine");
+
+        StopCoroutine(contextData.coroutine);
+        MarkEndCoroutine();
+    }
+
+    protected void MarkEndCoroutine()
+    {
+        // Debug.Log($"[Pre] MarkEndCoroutine Has ContextData : {contextData != null}");
+        DecrementCount();
+        contextData = null;
+        // Debug.Log($"[Post] MarkEndCoroutine Has ContextData : {contextData != null}");
     }
 }

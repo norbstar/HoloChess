@@ -40,17 +40,6 @@ namespace FX.UI
 
         private void ResolveDependencies() => scaleUIFX = GetComponent<ScaleUIFX>() as ScaleUIFX;
 
-        public void Scale(Config config)
-        {
-            if (config == null) return;
-
-            Debug.Log($"{gameObject.name} Scale Type : {type} Speed : {speed} Flow {config.flow} Flags : {config.flags}");
-            
-            Vector2 size = CalculateSize(config);
-            Vector2 scale = CalculateScale(config);
-            DoScale(type, speed, size, scale, config.flags);
-        }
-
         public Vector2 CalculateSize(Config config)
         {
             Vector2 originalSize = scaleUIFX.OriginalSize;
@@ -98,33 +87,46 @@ namespace FX.UI
             return size;
         }
 
-        public Vector2 CalculateScale(Config config)
+        public Vector2 CalculateScale(Vector2 size, Config config)
         {
-            Vector2 originalScale = scaleUIFX.OriginalScale;
-            Vector2 scale = originalScale;
+            Vector2 originalSize = scaleUIFX.OriginalSize;
+            
+            if ((size.x == originalSize.x) || (size.y == originalSize.y)) return scaleUIFX.OriginalScale;
 
-            bool scaleContent = (config.flags.HasFlag(Flags.ScaleContent));
-
-            if (scaleContent)
-            {
-                // TODO
-            }
-
-            return scale;
+            float xDelta = Mathf.Abs(size.x - originalSize.x);
+            float yDelta = Mathf.Abs(size.y - originalSize.y);
+            float scaleFactor = (xDelta < yDelta) ? size.x / originalSize.x : size.y / originalSize.y;
+            return Vector2.one * scaleFactor;
         }
 
-        private void DoScale(ScaleType type, float speed, Vector2 size, Vector2 scale, Flags flags)
+        public void Scale(Config config)
         {
-            Debug.Log($"{gameObject.name} DoScale Type : {type} Speed : {speed} Size : {size.ToPrecisionString()} Scale : {scale.ToPrecisionString()} Flags : {flags}");
+            if (config == null) return;
 
+            // Debug.Log($"Scale Type : {type} Speed : {speed} Flow {config.flow} Flags : {config.flags}");
             scaleUIFX.StopAsync();
+
+            Vector2 size = CalculateSize(config);
+            Vector2 scale = scaleUIFX.OriginalScale;
+
+            bool scaleContent = (config.flags.HasFlag(Flags.ScaleContent));
+            // Debug.Log($"[Pre] Size : {size.ToPrecisionString()} Scale : {scale.ToPrecisionString()} ScaleContent : {scaleContent}");
+            
+            if (scaleContent)
+            {
+                scale = CalculateScale(size, config);
+                // size = scaleUIFX.OriginalSize;
+                size /= scale;
+            }
+
+            // Debug.Log($"[Post] Size : {size.ToPrecisionString()} Scale : {scale.ToPrecisionString()}");
 
             scaleUIFX.StartAsync(new ScaleUIFX.Config
             {
                 size = size,
                 scale = scale,
                 speed = speed,
-                flags = flags
+                flags = config.flags
             });
         }
     }

@@ -23,7 +23,7 @@ namespace Tests
 #endif
 
 #if false
-            string workings = component.ScaleUIFX.DebugWorkings(new ScaleUIFX.Config
+            string workings = component.ScaleUIFX.ShowWorkings(new ScaleUIFX.Config
             {
                 size = Vector2.one * 1.1f,
                 speed = 0.25f
@@ -31,7 +31,7 @@ namespace Tests
 
             Debug.Log($"Workings [x1.1] [0.25s]: {workings}");
 
-            workings = component.ScaleUIFX.DebugWorkings(new ScaleUIFX.Config
+            workings = component.ScaleUIFX.ShowWorkings(new ScaleUIFX.Config
             {
                 size = Vector2.one * 1.1f,
                 speed = 0.5f
@@ -39,7 +39,7 @@ namespace Tests
 
             Debug.Log($"Workings [x1.1] [0.5s]: {workings}");
 
-            workings = component.ScaleUIFX.DebugWorkings(new ScaleUIFX.Config
+            workings = component.ScaleUIFX.ShowWorkings(new ScaleUIFX.Config
             {
                 size = Vector2.one * 1.5f,
                 speed = 0.25f
@@ -47,7 +47,7 @@ namespace Tests
 
             Debug.Log($"Workings [x1.5] [0.25s]: {workings}");
 
-            workings = component.ScaleUIFX.DebugWorkings(new ScaleUIFX.Config
+            workings = component.ScaleUIFX.ShowWorkings(new ScaleUIFX.Config
             {
                 size = Vector2.one * 1.5f,
                 speed = 0.5f
